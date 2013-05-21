@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <link name="structure">
+    <visual>
+      <geometry>
+        <box size="0.36 0.32 0.505" />
+      </geometry>
+      <material name="grey" >
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
+        <box size="0.36 0.32 0.505" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="-0.005401183 0.0 0.141356018" />
+      <inertia ixx="0.022277280" ixy="-0.000000004" ixz="-0.001009999"
+        iyy="0.017783837" iyz="0.0"
+        izz="0.025523417" />
+    </inertial>
+  </link>
+
+  <joint name="top_to_structure" type="fixed">
+    <parent link="base_link" />
+    <child link="structure" />
+    <origin xyz="${0.095 - 0.02} 0 ${0.2525 + 0.0775}" rpy="0 0 0" />
+  </joint>
+
+  <link name="pole">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 1.4" />
+      </geometry>
+      <material name="grey" >
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
+        <box size="0.02 0.02 1.4" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5" />
+      <origin xyz="-0.005401183 0.0 0.141356018" />
+      <inertia ixx="0.022277280" ixy="-0.000000004" ixz="-0.001009999"
+        iyy="0.017783837" iyz="0.0"
+        izz="0.025523417" />
+    </inertial>
+  </link>
+
+  <joint name="structure_to_pole" type="fixed">
+    <parent link="structure" />
+    <child link="pole" />
+    <origin xyz="${-0.18 - 0.01} 0 ${0.4475 + 0.12}" rpy="0 0 0" />
+  </joint>
+</robot>

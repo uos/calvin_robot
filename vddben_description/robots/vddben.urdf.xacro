@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  name="vddben">
+
+  <include filename="$(find vddben_description)/bases/vddben_base.urdf.xacro" />
+  <include filename="$(find vddben_description)/tops/muffin_top.urdf.xacro" />
+</robot>
