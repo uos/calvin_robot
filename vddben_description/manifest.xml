@@ -10,13 +10,13 @@
   <author>Michael Stypa</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/vddben_description</url>
+  <url>http://ros.org/wiki/calvin_description</url>
   <depend package="urdf"/>
   <depend package="xacro"/>
 
   <depend package="gazebo_plugins"/>
   <depend package="pr2_gazebo_plugins"/>
-  <depend package="vddben_gazebo_plugins"/>
+  <depend package="calvin_gazebo_plugins"/>
 </package>
 
 

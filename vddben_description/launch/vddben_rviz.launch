@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find vddben_description)/launch/upload_vddben.launch" />
+  <include file="$(find calvin_description)/launch/upload_calvin.launch" />
 
   <!--<param name="use_gui" value="True"/>-->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />

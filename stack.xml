@@ -1,8 +1,8 @@
 <stack>
-  <description brief="vddben_driver">vddben_driver</description>
+  <description brief="calvin_driver">calvin_driver</description>
   <author>Maintained by Martin Günther</author>
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/vddben_driver</url>
+  <url>http://ros.org/wiki/calvin_driver</url>
   <depend stack="ros" />
 </stack>

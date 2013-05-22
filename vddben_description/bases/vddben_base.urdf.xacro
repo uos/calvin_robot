@@ -2,7 +2,7 @@
 <robot xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
   xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
   xmlns:xacro="http://ros.org/wiki/xacro"
-  name="vddben_base">
+  name="calvin_base">
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
@@ -63,7 +63,7 @@
   <!-- inertial measurement unit for gazebo -->
   <xacro:imu_gazebo link="base_link" imu_topic="imu" update_rate="100.0" stdev="${imu_stdev}" />
 
-  <xacro:macro name="vddben_wheel" params="name xyz rotate_visual">
+  <xacro:macro name="calvin_wheel" params="name xyz rotate_visual">
     <!-- rotate_visual: 0 for right side, 1 for left side -->
     <link name="${name}_wheel_link">
       <visual>
@@ -121,12 +121,12 @@
     </joint>
   </xacro:macro>
 
-  <xacro:vddben_wheel name="left_front" xyz="${wheel_x_offset} ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" />
-  <xacro:vddben_wheel name="left_middle" xyz="0 ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" />
-  <xacro:vddben_wheel name="left_rear" xyz="${-wheel_x_offset} ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" />
-  <xacro:vddben_wheel name="right_front" xyz="${wheel_x_offset} ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" />
-  <xacro:vddben_wheel name="right_middle" xyz="0 ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" />
-  <xacro:vddben_wheel name="right_rear" xyz="${-wheel_x_offset} ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" />
+  <xacro:calvin_wheel name="left_front" xyz="${wheel_x_offset} ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" />
+  <xacro:calvin_wheel name="left_middle" xyz="0 ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" />
+  <xacro:calvin_wheel name="left_rear" xyz="${-wheel_x_offset} ${axis_length/2} ${wheel_z_offset}" rotate_visual="1" />
+  <xacro:calvin_wheel name="right_front" xyz="${wheel_x_offset} ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" />
+  <xacro:calvin_wheel name="right_middle" xyz="0 ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" />
+  <xacro:calvin_wheel name="right_rear" xyz="${-wheel_x_offset} ${-axis_length/2} ${wheel_z_offset}" rotate_visual="0" />
 
   <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
        navigation stack dedpends on this frame -->
