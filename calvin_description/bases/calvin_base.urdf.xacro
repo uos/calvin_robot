@@ -29,7 +29,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <box size="1 1 1" />
+        <box size="0.55 0.32 0.155" />
       </geometry>
     </collision>
     <inertial>
@@ -45,6 +45,27 @@
 
   <gazebo reference="base_link">
     <material value="Gazebo/Grey" />
+  </gazebo>
+
+  <gazebo>
+    <controller:gazebo_ros_kurt name="kurt_controller" plugin="libgazebo_ros_kurt.so">
+      <alwaysOn>true</alwaysOn>
+      <cmd_vel_topic_name>cmd_vel</cmd_vel_topic_name>
+      <odom_topic_name>odom</odom_topic_name>
+      <joint_states_topic_name>joint_states</joint_states_topic_name>
+      <left_front_wheel_joint>left_front_wheel_joint</left_front_wheel_joint>
+      <left_middle_wheel_joint>left_middle_wheel_joint</left_middle_wheel_joint>
+      <left_rear_wheel_joint>left_rear_wheel_joint</left_rear_wheel_joint>
+      <right_front_wheel_joint>right_front_wheel_joint</right_front_wheel_joint>
+      <right_middle_wheel_joint>right_middle_wheel_joint</right_middle_wheel_joint>
+      <right_rear_wheel_joint>right_rear_wheel_joint</right_rear_wheel_joint>
+      <wheel_separation>${axis_length}</wheel_separation>
+      <wheel_diameter>${2*wheel_radius}</wheel_diameter>
+      <turning_adaptation>${turning_adaptation}</turning_adaptation>
+      <torque>4.0</torque>
+      <max_velocity>0.9</max_velocity>
+      <updateRate>40.0</updateRate>
+    </controller:gazebo_ros_kurt>
   </gazebo>
 
   <!-- publish ground truth for pose of base_footprint -->
