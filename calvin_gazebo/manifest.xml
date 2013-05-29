@@ -1,0 +1,18 @@
+<package>
+  <description brief="launch files for starting up Calvin in Gazebo">
+
+     This package contains launch files for starting up Calvin in the Gazebo simulator.
+
+  </description>
+  <author>Michael Stypa</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/calvin_gazebo</url>
+
+  <depend package="gazebo_worlds" />
+  <depend package="uos_gazebo_worlds" />
+  <depend package="calvin_description" />
+
+</package>
+
+

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find calvin_gazebo)/launch/spawn_calvin.launch" />
+
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen">
+    <param name="publish_frequency" type="double" value="1000.0" />
+  </node>
+
+  <!-- The odometry estimator -->
+  <!--<include file="$(find kurt_base)/launch/ekf.launch" />-->
+
+  <!-- fake localization (needed for ground truth pose publisher) -->
+  <!--<node pkg="tf" type="static_transform_publisher" name="map_to_odom_combined" args="0.0 0.0 0.0 0.0 0.0 0.0 /map /odom_combined 40" />-->
+</launch>

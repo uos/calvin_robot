@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- send calvin urdf to param server -->
+  <include file="$(find calvin_description)/launch/upload_calvin.launch" />
+</launch>
