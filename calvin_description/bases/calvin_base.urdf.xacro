@@ -89,9 +89,9 @@
     <link name="${name}_wheel_link">
       <visual>
         <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${rotate_visual * M_PI}" />
-        <!--<origin xyz="0 0 0" rpy="0 0 ${rotate_visual * M_PI}" />-->
         <geometry>
-          <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+          <!--<cylinder length="${wheel_width}" radius="${wheel_radius}"/>-->
+          <mesh filename="package://calvin_description/meshes/wheel01.stl" />
         </geometry>
 
         <material name="blackish">
@@ -103,7 +103,8 @@
         <!--<origin xyz="0 0 0" rpy="0 0 0" />-->
         <geometry>
           <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
-          <cylinder length="${wheel_width}" radius="${wheel_radius}"/>
+          <!--<cylinder length="${wheel_width}" radius="${wheel_radius}"/>-->
+          <mesh filename="package://calvin_description/meshes/wheel01.stl" />
         </geometry>
       </collision>
       <inertial>
