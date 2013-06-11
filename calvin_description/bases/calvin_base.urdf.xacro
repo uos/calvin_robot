@@ -19,7 +19,8 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <box size="0.55 0.32 0.155" />
+        <!--<box size="0.55 0.32 0.155" />-->
+        <mesh filename="package://calvin_description/meshes/item-base.stl"/>
       </geometry>
 
       <material name="grey" >
@@ -29,7 +30,8 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <box size="0.55 0.32 0.155" />
+        <!--<box size="0.55 0.32 0.155" />-->
+        <mesh filename="package://calvin_description/meshes/item-base.stl"/>
       </geometry>
     </collision>
     <inertial>
@@ -43,9 +45,9 @@
     </inertial>
   </link>
 
-  <gazebo reference="base_link">
-    <material value="Gazebo/Grey" />
-  </gazebo>
+  <!--<gazebo reference="base_link">-->
+    <!--<material value="Gazebo/Grey" />-->
+  <!--</gazebo>-->
 
   <gazebo>
     <controller:gazebo_ros_kurt name="kurt_controller" plugin="libgazebo_ros_kurt.so">
@@ -133,6 +135,7 @@
       <kp value="100000000.0"/>
       <kd value="10000.0"/>
       <fdir1 value="1 0 0"/>  <!-- see http://answers.ros.org/question/607/rotation-error-in-gazebo-simulation -->
+      <material value="Gazebo/FlatBlack" />
     </gazebo>
 
     <joint name="${name}_wheel_joint" type="continuous">

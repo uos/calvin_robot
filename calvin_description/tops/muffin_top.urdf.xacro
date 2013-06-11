@@ -4,7 +4,8 @@
   <link name="structure">
     <visual>
       <geometry>
-        <box size="0.36 0.32 0.505" />
+        <!--<box size="0.36 0.32 0.505" />-->
+        <mesh filename="package://calvin_description/meshes/item-structure.stl"/>
       </geometry>
       <material name="grey" >
         <color rgba="0.5 0.5 0.5 1" />
@@ -13,7 +14,8 @@
     <collision>
       <geometry>
         <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
-        <box size="0.36 0.32 0.505" />
+        <!--<box size="0.36 0.32 0.505" />-->
+        <mesh filename="package://calvin_description/meshes/item-structure.stl"/>
       </geometry>
     </collision>
     <inertial>
@@ -34,7 +36,8 @@
   <link name="pole">
     <visual>
       <geometry>
-        <box size="0.02 0.02 1.4" />
+        <!--<box size="0.02 0.02 1.4" />-->
+        <mesh filename="package://calvin_description/meshes/item-pole.stl"/>
       </geometry>
       <material name="grey" >
         <color rgba="0.5 0.5 0.5 1" />
@@ -43,7 +46,8 @@
     <collision>
       <geometry>
         <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
-        <box size="0.02 0.02 1.4" />
+        <!--<box size="0.02 0.02 1.4" />-->
+        <mesh filename="package://calvin_description/meshes/item-pole.stl"/>
       </geometry>
     </collision>
     <inertial>
