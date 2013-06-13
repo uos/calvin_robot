@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
+  <property name="sensor_mount_length" value="0.02" />
+  <property name="sensor_mount_width" value="0.139" />
+  <property name="sensor_mount_height" value="0.189" />
+  <property name="sensor_mount_mass" value="0.100" />
+  <property name="sensor_mount_x_offset" value="-0.16" />
+  <property name="kinect_fixture_length" value="0.02" />
+  <property name="kinect_fixture_width" value="0.02" />
+  <property name="kinect_fixture_height" value="0.265" />
+  <property name="kinect_fixture_mass" value="0.050" />
+  <property name="kinect_fixture_x_offset" value="0.00" />
+  <property name="kinect_fixture_joint_z_offset" value="-0.015" /> <!-- how much the joint center is displaced from the link center-->
+  <property name="laser_z_offset" value="-0.0407" />
+  <property name="kinect_x_offset" value="0.0" />
+  <property name="kinect_y_offset" value="0.05" />
+  <property name="kinect_z_offset" value="0.16" />
+  <property name="kinect_r" value="0.0" />
+  <property name="kinect_p" value="0.0" />
+  <property name="kinect_y" value="-0.07" />
+
   <link name="structure">
     <visual>
       <geometry>
@@ -62,6 +81,95 @@
   <joint name="structure_to_pole" type="fixed">
     <parent link="structure" />
     <child link="pole" />
-    <origin xyz="${-0.18 - 0.01} 0 ${0.4475 + 0.12}" rpy="0 0 0" />
+    <origin xyz="${-0.18 - 0.01} 0 0.2525" rpy="0 0 0" />
   </joint>
+
+  <!-- **************************** -->
+  <!-- *** Neuronics Katana Arm *** -->
+  <!-- **************************** -->
+
+  <include filename="$(find katana_description)/urdf/katana_450_6m90a_with_controlbox.urdf.xacro" />
+
+  <link name="katana_pattern"></link>
+  <joint name="katana_pattern_joint" type="fixed">
+    <parent link="katana_motor4_lift_link"/>
+    <child  link="katana_pattern" />
+    <origin xyz=".075 -.035 0.00" rpy="1.571 -1.571 0.151"/>
+  </joint>
+
+  <property name="baseplate_height" value="0.006" />
+  <joint name="kurtana_baseplate_controlbox_joint" type="fixed">
+    <parent link="structure" />
+    <child link="katana_internal_controlbox_link" />
+    <origin xyz="0 0 ${baseplate_height*1.5 + 0.2525}" rpy="0 0 0" />
+  </joint>
+
+  <!-- ********************************** -->
+  <!-- *** Kinect / Xtion RGBD Camera *** -->
+  <!-- ********************************** -->
+
+  <joint name="kinect_stretch_joint" type="prismatic">
+    <parent link="pole" />
+    <child link="kurtana_stretch_link" />
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+  </joint>
+
+  <joint name="kinect_pitch_joint" type="revolute">
+    <parent link="kurtana_stretch_link" />
+    <child link="kurtana_pitch_link" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+  </joint>
+
+  <joint name="kinect_yaw_joint" type="revolute">
+    <parent link="kurtana_pitch_link" />
+    <child link="kurtana_yaw_link" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+  </joint>
+
+  <include filename="$(find kurt_description)/parts/kinect.urdf.xacro" />
+  <xacro:kinect camera="kinect" />
+
+  <joint name="calvin_kinect_joint" type="fixed">
+    <parent link="kurtana_pitchpole_link" />
+    <child  link="kinect_link" />
+    <origin xyz="0.1 0 0.5" rpy="0 0.5 0"/>
+  </joint>
+
+  <link name="kurtana_pitchpole_link">
+    <visual>
+      <origin rpy="${-M_PI/2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder radius="${pitchpole_radius}" length="${pitchpole_length}"/>
+      </geometry>
+      <material name="grey" />
+    </visual>
+    <collision>
+      <origin rpy="${-M_PI/2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder radius="${pitchpole_radius}" length="${pitchpole_length}"/>
+      </geometry>
+    </collision>
+    <xacro:cylinder_inertial radius="${pitchpole_radius}" length="${pitchpole_length}" mass="${pitchpole_mass}" />
+  </link>
+
+
+
+  <xacro:macro name="kinect_pole_transmission" params="name">
+    <transmission name="${name}_trans" type="pr2_mechanism_model/SimpleTransmission">
+      <actuator name="${name}_motor" />
+      <joint name="${name}_joint" />
+      <mechanicalReduction>1</mechanicalReduction>
+      <motorTorqueConstant>1</motorTorqueConstant>
+    </transmission>
+  </xacro:macro>
+
+  <xacro:kinect_pole_transmission name="kinect_stretch" />
+  <xacro:kinect_pole_transmission name="kinect_roll" />
+  <xacro:kinect_pole_transmission name="kinect_pitch" />
 </robot>

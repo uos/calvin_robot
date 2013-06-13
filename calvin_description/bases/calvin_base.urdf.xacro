@@ -45,10 +45,6 @@
     </inertial>
   </link>
 
-  <!--<gazebo reference="base_link">-->
-    <!--<material value="Gazebo/Grey" />-->
-  <!--</gazebo>-->
-
   <gazebo>
     <controller:gazebo_ros_kurt name="kurt_controller" plugin="libgazebo_ros_kurt.so">
       <alwaysOn>true</alwaysOn>
