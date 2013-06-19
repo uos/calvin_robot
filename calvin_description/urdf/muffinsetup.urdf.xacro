@@ -19,6 +19,9 @@
   <property name="kinect_r" value="0.0" />
   <property name="kinect_p" value="0.0" />
   <property name="kinect_y" value="-0.07" />
+  <property name="pitchpole_radius" value="0.012"/>
+  <property name="pitchpole_length" value="0.23"/>
+  <property name="pitchpole_mass" value="0.050"/>
 
   <link name="structure">
     <visual>
@@ -37,13 +40,7 @@
         <mesh filename="package://calvin_description/meshes/item-structure.stl"/>
       </geometry>
     </collision>
-    <inertial>
-      <mass value="1.0" />
-      <origin xyz="-0.005401183 0.0 0.141356018" />
-      <inertia ixx="0.022277280" ixy="-0.000000004" ixz="-0.001009999"
-        iyy="0.017783837" iyz="0.0"
-        izz="0.025523417" />
-    </inertial>
+    <xacro:box_inertial x="0.36" y="0.32" z="0.505" mass="2"/>
   </link>
 
   <joint name="top_to_structure" type="fixed">
@@ -69,20 +66,15 @@
         <mesh filename="package://calvin_description/meshes/item-pole.stl"/>
       </geometry>
     </collision>
-    <inertial>
-      <mass value="0.5" />
-      <origin xyz="-0.005401183 0.0 0.141356018" />
-      <inertia ixx="0.022277280" ixy="-0.000000004" ixz="-0.001009999"
-        iyy="0.017783837" iyz="0.0"
-        izz="0.025523417" />
-    </inertial>
+    <xacro:box_inertial x="0.02" y="0.02" z="1.4" mass="0.25"/>
   </link>
 
-  <joint name="structure_to_pole" type="fixed">
+  <joint name="structure_to_pole_joint" type="fixed">
     <parent link="structure" />
     <child link="pole" />
     <origin xyz="${-0.18 - 0.01} 0 0.2525" rpy="0 0 0" />
   </joint>
+
 
   <!-- **************************** -->
   <!-- *** Neuronics Katana Arm *** -->
@@ -108,57 +100,68 @@
   <!-- *** Kinect / Xtion RGBD Camera *** -->
   <!-- ********************************** -->
 
-  <joint name="kinect_stretch_joint" type="prismatic">
+  <link name="kinect_pitch_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.046 0.06 0.02" />
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.046 0.06 0.02" />
+      </geometry>
+    </collision>
+    <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
+  </link>
+
+  <joint name="kinect_pitch_joint" type="revolute">
     <parent link="pole" />
-    <child link="kurtana_stretch_link" />
-    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    <child link="kinect_pitch_link" />
+    <origin xyz="0.05 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+  </joint>
+
+  <link name="kinect_yaw_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.1 0.01" />
+      </geometry>
+      <material name="green" >
+        <color rgba="0 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+    <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.1"/>
+  </link>
+
+  <joint name="kinect_yaw_joint" type="revolute">
+    <parent link="kinect_pitch_link" />
+    <child link="kinect_yaw_link" />
+    <origin xyz="0.05 0 0" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
     <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
   </joint>
 
-  <joint name="kinect_pitch_joint" type="revolute">
-    <parent link="kurtana_stretch_link" />
-    <child link="kurtana_pitch_link" />
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
-  </joint>
-
-  <joint name="kinect_yaw_joint" type="revolute">
-    <parent link="kurtana_pitch_link" />
-    <child link="kurtana_yaw_link" />
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
-  </joint>
-
-  <include filename="$(find kurt_description)/parts/kinect.urdf.xacro" />
+  <include filename="$(find uos_common_urdf)/urdf/kinect.urdf.xacro" />
   <xacro:kinect camera="kinect" />
 
   <joint name="calvin_kinect_joint" type="fixed">
-    <parent link="kurtana_pitchpole_link" />
+    <parent link="kinect_yaw_link" />
     <child  link="kinect_link" />
-    <origin xyz="0.1 0 0.5" rpy="0 0.5 0"/>
+    <origin xyz="0.05 0 0" rpy="0 0.5 0"/>
   </joint>
-
-  <link name="kurtana_pitchpole_link">
-    <visual>
-      <origin rpy="${-M_PI/2} 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder radius="${pitchpole_radius}" length="${pitchpole_length}"/>
-      </geometry>
-      <material name="grey" />
-    </visual>
-    <collision>
-      <origin rpy="${-M_PI/2} 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder radius="${pitchpole_radius}" length="${pitchpole_length}"/>
-      </geometry>
-    </collision>
-    <xacro:cylinder_inertial radius="${pitchpole_radius}" length="${pitchpole_length}" mass="${pitchpole_mass}" />
-  </link>
-
-
 
   <xacro:macro name="kinect_pole_transmission" params="name">
     <transmission name="${name}_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -169,7 +172,6 @@
     </transmission>
   </xacro:macro>
 
-  <xacro:kinect_pole_transmission name="kinect_stretch" />
-  <xacro:kinect_pole_transmission name="kinect_roll" />
   <xacro:kinect_pole_transmission name="kinect_pitch" />
+  <xacro:kinect_pole_transmission name="kinect_yaw" />
 </robot>

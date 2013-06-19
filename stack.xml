@@ -1,8 +1,8 @@
 <stack>
-  <description brief="calvin_driver">calvin_driver</description>
-  <author>Maintained by Martin Günther</author>
-  <license>BSD</license>  
+  <description brief="calvin_robot">calvin_robot</description>
+  <author>Michael Stypa</author>
+  <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/calvin_driver</url>
+  <url>http://ros.org/wiki/calvin_robot</url>
   <depend stack="ros" />
 </stack>

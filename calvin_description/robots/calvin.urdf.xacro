@@ -2,11 +2,16 @@
 <robot
   xmlns:xacro="http://ros.org/wiki/xacro"
   name="calvin">
+  I
+  <xacro:property name="imu_stdev" value="0.00017" />
 
-  <include filename="$(find calvin_description)/bases/calvin_base.urdf.xacro" />
-  <include filename="$(find calvin_description)/tops/muffin_top.urdf.xacro" />
+  <include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
+  <include filename="$(find calvin_description)/urdf/muffinsetup.urdf.xacro" />
 
-  <include filename="$(find calvin_description)/urdf/gazebo.urdf.xacro" />
+  <!--<include filename="$(find calvin_description)/urdf/gazebo.urdf.xacro" />-->
+
+  <!-- inertial measurement unit for gazebo -->
+  <xacro:imu_gazebo link="base_link" imu_topic="imu" update_rate="100.0" stdev="${imu_stdev}" />
 
   <include filename="$(find sick_tim3xx)/urdf/sick_tim3xx.urdf.xacro" />
   <xacro:sick_tim3xx laser_link="laser" />
