@@ -2,6 +2,6 @@
 <launch>
   <include file="$(find calvin_description)/launch/upload_calvin.launch"/>
   <param name="/use_sim_time" value="true" />
-  <include file="$(find gazebo_worlds)/launch/empty_world.launch"/>
   <include file="$(find calvin_gazebo)/launch/robot.launch"/>
+  <include file="$(find gazebo_worlds)/launch/empty_world.launch"/>
 </launch>
