@@ -5,6 +5,8 @@
   # /imu_recalibrated -- output of imu_recalibration
   # /imu/data         -- IMU data published by phidgets imu; publishes in frame /imu
 
+  <node pkg="imu_recalibration" type="imu_recalibration.py" name="imu_recalibration_ekf" />
+
   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
     <param name="freq" value="100.0"/>
     <param name="sensor_timeout" value="1.0"/>
@@ -12,7 +14,6 @@
     <param name="odom_used" value="true"/>
     <param name="imu_used" value="true"/>
     <param name="vo_used" value="false"/>
-    <remap unless="$(arg use_phidgets_imu)" from="imu_data" to="imu_recalibrated"/>
-    <remap if="$(arg use_phidgets_imu)" from="imu_data" to="imu/data"/>
+    <remap from="imu_data" to="imu_recalibrated"/>
   </node>
 </launch>
