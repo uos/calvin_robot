@@ -5,8 +5,7 @@
   <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen"/>
   <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen"/>
 
-  <!-- The odometry estimator -->
-  <!--<include file="$(find kurt_base)/launch/ekf.launch" />-->
+  <include file="$(find calvin_gazebo)/launch/ekf.launch"/>
 
   <!-- fake localization (needed for ground truth pose publisher) -->
   <!--<node pkg="tf" type="static_transform_publisher" name="map_to_odom_combined" args="0.0 0.0 0.0 0.0 0.0 0.0 /map /odom_combined 40" />-->
