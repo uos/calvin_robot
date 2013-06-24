@@ -2,11 +2,12 @@
 <robot
   xmlns:xacro="http://ros.org/wiki/xacro"
   name="calvin">
-  I
+
+  <include filename="$(find uos_common_urdf)/urdf/imu.gazebo.urdf.xacro" /> 
   <xacro:property name="imu_stdev" value="0.00017" />
 
   <include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
-  <include filename="$(find calvin_description)/urdf/muffinsetup.urdf.xacro" />
+  <include filename="$(find calvin_description)/urdf/calvin.urdf.xacro" />
 
   <!--<include filename="$(find calvin_description)/urdf/gazebo.urdf.xacro" />-->
 
