@@ -2,8 +2,6 @@
 <launch>
   <!-- build calvin urdf with xacro and push it on the ros parameter server -->
   <include file="$(find calvin_description)/launch/upload_calvin.launch" />
-  <!-- publishes urdf joint states as messages(joint commander stuff?) -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-  <!-- publishes urdf joint states as messages(wheels, structures) -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <include file="$(find sick_tim3xx)/launch/sick_tim3xx.launch" />
+  <include file="$(find volksbot_driver)/launch/volksbot.launch" />
 </launch>

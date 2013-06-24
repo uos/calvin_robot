@@ -2,8 +2,10 @@
 <launch>
   <include file="$(find calvin_gazebo)/launch/spawn_calvin.launch" />
 
-  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen"/>
-  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen"/>
+  <!-- publishes urdf joint states as messages(joint commander stuff?) -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen"/>
+  <!-- publishes urdf joint states as messages(wheels, structures) -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" output="screen"/>
 
   <include file="$(find calvin_gazebo)/launch/ekf.launch"/>
 
