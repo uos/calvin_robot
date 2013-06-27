@@ -2,6 +2,8 @@
 <launch>
   <!-- build calvin urdf with xacro and push it on the ros parameter server -->
   <include file="$(find calvin_description)/launch/upload_calvin.launch" />
-  <include file="$(find sick_tim3xx)/launch/sick_tim3xx.launch" />
-  <include file="$(find volksbot_driver)/launch/volksbot.launch" />
+
+  <node name="volksbot" pkg="volksbot_driver" type="volksbot" respawn="false" output="screen"/>
+
+  <node name="sick_tim3xx" pkg="sick_tim3xx" type="sick_tim3xx" respawn="false" output="screen"/>
 </launch>
