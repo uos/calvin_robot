@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+  xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+  xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller">
 
   <property name="sensor_mount_length" value="0.02" />
   <property name="sensor_mount_width" value="0.139" />
@@ -75,6 +77,66 @@
     <origin xyz="${-0.18 - 0.01} 0 0.2525" rpy="0 0 0" />
   </joint>
 
+  <!-- ******************************** -->
+  <!-- *** gazebo ros camera plugin *** -->
+  <!-- ******************************** -->
+
+  <xacro:macro name="webcam" params="">
+    <gazebo reference="webcam">
+      <sensor:camera name="webcam">
+        <imageFormat>L8</imageFormat>
+        <imageSize>640 480</imageSize>
+        <hfov>57</hfov>
+        <nearClip>0.01</nearClip>
+        <farClip>5</farClip>
+        <updateRate>1.0</updateRate>
+        <baseline>0.2</baseline>
+        <controller:gazebo_ros_camera name="webcam_controller" plugin="libgazebo_ros_camera.so">
+          <robotNamespace>webcam</robotNamespace>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <cameraName>webcam</cameraName>
+          <frameName>/world</frameName>
+          <updateRate>1</updateRate>
+          <CxPrime>10</CxPrime>
+          <Cx>10</Cx>
+          <Cy>10</Cy>
+          <focalLength>10</focalLength>
+          <hackBaseline>10</hackBaseline>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+        </controller:gazebo_ros_camera>
+      </sensor:camera>
+      <material value="Gazebo/Red" />
+    </gazebo>
+    <link name="webcam_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.1" />
+        </geometry>
+        <material name="red">
+          <color rgba="1 0 0 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.1 0.1 0.1" />
+        </geometry>
+      </collision>
+      <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
+    </link>
+    <joint name="webcam_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="pole" />
+      <child link="webcam_link" />
+    </joint>
+  </xacro:macro>
+  <xacro:webcam/>
 
   <!-- **************************** -->
   <!-- *** Neuronics Katana Arm *** -->
@@ -174,4 +236,6 @@
 
   <xacro:kinect_pole_transmission name="kinect_pitch" />
   <xacro:kinect_pole_transmission name="kinect_yaw" />
+
+
 </robot>

@@ -5,5 +5,21 @@
 
   <node name="volksbot" pkg="volksbot_driver" type="volksbot" respawn="false" output="screen"/>
 
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <node name="joint_commander" pkg="calvin_joint_commander" type="joint_commander" />
+
   <node name="sick_tim3xx" pkg="sick_tim3xx" type="sick_tim3xx" respawn="false" output="screen"/>
+
+  <node pkg="usb_cam" type="usb_cam_node" name="vgacam">
+    <param name="image" value="/usb_cam/image_raw"/>
+  </node>
+
+  <include file="$(find phidgets_imu)/launch/imu.launch" />
+
+  <include file="$(find openni_launch)/launch/openni.launch">
+    <arg name="camera" value="xtion" />
+    <arg name="publish_tf" value="true" />
+    <arg name="depth_registration" value="true" />
+  </include>
 </launch>
