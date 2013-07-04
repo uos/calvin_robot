@@ -54,7 +54,7 @@
   <link name="pole">
     <visual>
       <geometry>
-        <!--<box size="0.02 0.02 1.4" />-->
+        <!--<box size="0.02 0.02 1.0" />-->
         <mesh filename="package://calvin_description/meshes/item-pole.stl"/>
       </geometry>
       <material name="grey" >
@@ -64,17 +64,17 @@
     <collision>
       <geometry>
         <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
-        <!--<box size="0.02 0.02 1.4" />-->
+        <!--<box size="0.02 0.02 1.0" />-->
         <mesh filename="package://calvin_description/meshes/item-pole.stl"/>
       </geometry>
     </collision>
-    <xacro:box_inertial x="0.02" y="0.02" z="1.4" mass="0.25"/>
+    <xacro:box_inertial x="0.02" y="0.02" z="1.0" mass="0.25"/>
   </link>
 
   <joint name="structure_to_pole_joint" type="fixed">
     <parent link="structure" />
     <child link="pole" />
-    <origin xyz="${-0.18 - 0.01} 0 0.2525" rpy="0 0 0" />
+    <origin xyz="${-0.18 - 0.01} 0 ${0.5 + 0.2525 + 0.005}" rpy="0 0 0" />
   </joint>
 
   <!-- ******************************** -->
@@ -166,53 +166,26 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.046 0.06 0.02" />
+        <box size="0.08 0.06 0.02" />
       </geometry>
-      <material name="red">
-        <color rgba="1 0 0 1" />
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1" />
       </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.046 0.06 0.02" />
+        <box size="0.08 0.06 0.02" />
       </geometry>
     </collision>
-    <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
+    <xacro:box_inertial x="0.08" y="0.06" z="0.02" mass="0.01"/>
   </link>
 
   <joint name="kinect_pitch_joint" type="revolute">
     <parent link="pole" />
     <child link="kinect_pitch_link" />
-    <origin xyz="0.05 0 0.5" rpy="0 0 0"/>
+    <origin xyz="0.025 0 0.46" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
-    <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
-  </joint>
-
-  <link name="kinect_yaw_link">
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.1 0.01" />
-      </geometry>
-      <material name="green" >
-        <color rgba="0 1 0 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <box size="0.1 0.1 0.1" />
-      </geometry>
-    </collision>
-    <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.1"/>
-  </link>
-
-  <joint name="kinect_yaw_joint" type="revolute">
-    <parent link="kinect_pitch_link" />
-    <child link="kinect_yaw_link" />
-    <origin xyz="0.05 0 0" rpy="0 0 0"/>
-    <axis xyz="0 0 1"/>
     <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
   </joint>
 
@@ -220,9 +193,9 @@
   <xacro:kinect camera="kinect" />
 
   <joint name="calvin_kinect_joint" type="fixed">
-    <parent link="kinect_yaw_link" />
+    <parent link="kinect_pitch_link" />
     <child  link="kinect_link" />
-    <origin xyz="0.05 0 0" rpy="0 0.5 0"/>
+    <origin xyz="0.03 0.03 0.02" rpy="0 0 0"/>
   </joint>
 
   <xacro:macro name="kinect_pole_transmission" params="name">
@@ -235,7 +208,4 @@
   </xacro:macro>
 
   <xacro:kinect_pole_transmission name="kinect_pitch" />
-  <xacro:kinect_pole_transmission name="kinect_yaw" />
-
-
 </robot>

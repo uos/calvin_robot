@@ -1,0 +1,13 @@
+<package>
+  <description brief="calvin_joint_commander"></description>
+  <author>Martin Günther</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/calvin_joint_commander</url>
+  <depend package="roscpp"/>
+  <depend package="dynamic_reconfigure"/>
+  <depend package="std_msgs"/>
+  <depend package="sensor_msgs"/>
+</package>
+
+
