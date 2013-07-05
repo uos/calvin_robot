@@ -1,0 +1,8 @@
+cfg/JointCommander.cfgc
+cfg/cpp/calvin_joint_commander/JointCommanderConfig.h
+docs/JointCommanderConfig-usage.dox
+docs/JointCommanderConfig.dox
+docs/JointCommanderConfig.wikidoc
+src/calvin_joint_commander/cfg/JointCommanderConfig.py
+src/calvin_joint_commander/cfg/__init__.py
+src/calvin_joint_commander/__init__.py
