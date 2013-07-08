@@ -14,12 +14,13 @@
   </node>
 
   <node name="sick_tim3xx" pkg="sick_tim3xx" type="sick_tim3xx" respawn="false" output="screen"/>
-  <!--
+
   <node pkg="usb_cam" type="usb_cam_node" name="vgacam">
+    <param name="video_device" value="/dev/video1"/>
     <param name="image" value="/usb_cam/image_raw"/>
     <param name="camera_frame_id" value="webcam_link"/>
   </node>
-  -->
+
   <include file="$(find phidgets_imu)/launch/imu.launch" />
   <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="0 0 0 0 1 0 0 /base_link /imu 10" />
 
