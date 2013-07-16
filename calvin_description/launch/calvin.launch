@@ -14,22 +14,27 @@
   </node>
 
   <node name="sick_tim3xx" pkg="sick_tim3xx" type="sick_tim3xx" respawn="false" output="screen"/>
-
+<!--  
   <node pkg="usb_cam" type="usb_cam_node" name="vgacam">
     <param name="video_device" value="/dev/video1"/>
     <param name="image" value="/usb_cam/image_raw"/>
     <param name="camera_frame_id" value="webcam_link"/>
+    <param name="pixel_format" value="yuyv"/>
   </node>
-
-  <include file="$(find phidgets_imu)/launch/imu.launch" />
-  <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="0 0 0 0 1 0 0 /base_link /imu 10" />
-
+-->
+<!--  <include file="$(find phidgets_imu)/launch/imu.launch" /> 
+  <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="0 0 0 0 1 0 0 /base_link /imu 1" />
+-->
   <include file="$(find openni_launch)/launch/openni.launch">
     <arg name="camera" value="kinect" />
     <arg name="publish_tf" value="true" />
     <arg name="depth_registration" value="true" />
   </include>
 
+  <include file="$(find calvin_gazebo)/launch/ekf.launch">
+    <arg name="use_phidgets_imu" value="true" />
+  </include>
+  
   <param name="katana_type" type="string" value="katana_450_6m90a" />
 
   <!-- which joints does this katana instance control? -->
