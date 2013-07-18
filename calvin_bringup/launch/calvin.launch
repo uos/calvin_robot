@@ -17,8 +17,10 @@
 
   <node pkg="usb_cam" type="usb_cam_node" name="vgacam">
     <param name="video_device" value="/dev/video1"/>
-    <param name="image" value="/usb_cam/image_raw"/>
     <param name="camera_frame_id" value="webcam_link"/>
+    <rosparam param="K">[677.947151, 0.0, 288.08553, 0.0, 680.275811, 220.536595, 0.0, 0.0, 1.0]</rosparam>
+    <rosparam param="D">[-0.448484, 0.259929, 0.008353, 0.003273, 0.0]</rosparam>
+    <rosparam param="P">[605.421509, 0.0, 282.642067, 0.0, 0.0, 639.667725, 220.342754, 0.0, 0.0, 0.0, 1.0, 0.0]</rosparam>
   </node>
 
   <include file="$(find phidgets_imu)/launch/imu.launch" />
