@@ -16,7 +16,6 @@
 
   <depend package="gazebo_plugins"/>
   <depend package="pr2_gazebo_plugins"/>
-  <depend package="calvin_gazebo_plugins"/>
 </package>
 
 
