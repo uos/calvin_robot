@@ -3,7 +3,7 @@
 
   <arg name="use_phidgets_imu" default="false" />
   <group if="$(arg use_phidgets_imu)">
-    <include file="$(find calvin_description)/launch/imu.launch" />
+    <include file="$(find calvin_bringup)/launch/imu.launch" />
 
     #TODO: include /imu link in the URDF instead
     <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)"

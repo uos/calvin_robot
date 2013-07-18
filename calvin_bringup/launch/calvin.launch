@@ -32,6 +32,10 @@
     <arg name="depth_registration" value="true" />
   </include>
 
+  <include file="$(find calvin_bringup)/launch/ekf.launch">
+    <arg name="use_phidgets_imu" value="true" />
+  </include>
+
   <param name="katana_type" type="string" value="katana_450_6m90a" />
 
   <!-- which joints does this katana instance control? -->
