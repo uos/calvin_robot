@@ -1,0 +1,18 @@
+<package>
+  <description brief="calvin_bringup">
+
+     calvin_bringup
+
+  </description>
+  <author>apotenza</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/calvin_bringup</url>
+  <depend package="calvin_description"/>
+  <depend package="volksbot_driver"/>
+  <depend package="uos_diffdrive_teleop"/>
+  <depend package="robot_state_publisher"/>
+
+</package>
+
+
