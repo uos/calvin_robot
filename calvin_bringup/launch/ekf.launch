@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <launch>
-  # IMU topics:
-  # /imu              -- raw IMU data published by Kurt base (also in Gazebo); input to imu_recalibration; publishes in frame /base_link
-  # /imu_recalibrated -- output of imu_recalibration
-  # /imu/data         -- IMU data published by phidgets imu; publishes in frame /imu
 
-  <node pkg="imu_recalibration" type="imu_recalibration.py" name="imu_recalibration_ekf" />
+  <arg name="use_phidgets_imu" default="false" />
+  <group if="$(arg use_phidgets_imu)">
+    <include file="$(find calvin_description)/launch/imu.launch" />
+
+    #TODO: include /imu link in the URDF instead
+    <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)"
+      args="0 0 0 0 1 0 0 /base_link /imu 10" />
+  </group>
 
   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
     <param name="freq" value="100.0"/>
@@ -14,6 +17,6 @@
     <param name="odom_used" value="true"/>
     <param name="imu_used" value="true"/>
     <param name="vo_used" value="false"/>
-    <remap from="imu_data" to="imu_recalibrated"/>
+    <remap if="$(arg use_phidgets_imu)" from="imu_data" to="imu/data"/>
   </node>
 </launch>

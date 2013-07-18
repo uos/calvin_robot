@@ -22,10 +22,10 @@
     <rosparam param="D">[-0.448484, 0.259929, 0.008353, 0.003273, 0.0]</rosparam>
     <rosparam param="P">[605.421509, 0.0, 282.642067, 0.0, 0.0, 639.667725, 220.342754, 0.0, 0.0, 0.0, 1.0, 0.0]</rosparam>
   </node>
-
-  <include file="$(find phidgets_imu)/launch/imu.launch" />
-  <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="0 0 0 0 1 0 0 /base_link /imu 10" />
-
+-->
+<!--  <include file="$(find phidgets_imu)/launch/imu.launch" /> 
+  <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="0 0 0 0 1 0 0 /base_link /imu 1" />
+-->
   <include file="$(find openni_launch)/launch/openni.launch">
     <arg name="camera" value="kinect" />
     <arg name="publish_tf" value="true" />
