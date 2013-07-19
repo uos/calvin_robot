@@ -53,4 +53,5 @@
     <remap from="grasp_query_name" to="/gripper_grasp_status" />
   </node>
 
+  <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch" />
 </launch>
