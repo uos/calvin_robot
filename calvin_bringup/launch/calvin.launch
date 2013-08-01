@@ -17,7 +17,7 @@
 
   <include file="$(find openni_launch)/launch/openni.launch">
     <arg name="camera" value="kinect" />
-    <arg name="publish_tf" value="true" />
+    <arg name="publish_tf" value="false" />
     <arg name="depth_registration" value="true" />
   </include>
 
