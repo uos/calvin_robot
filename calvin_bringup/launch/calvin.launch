@@ -15,20 +15,9 @@
 
   <node name="sick_tim3xx" pkg="sick_tim3xx" type="sick_tim3xx" respawn="false" output="screen"/>
 
-  <node pkg="usb_cam" type="usb_cam_node" name="vgacam">
-    <param name="video_device" value="/dev/video1"/>
-    <param name="camera_frame_id" value="webcam_link"/>
-    <rosparam param="K">[677.947151, 0.0, 288.08553, 0.0, 680.275811, 220.536595, 0.0, 0.0, 1.0]</rosparam>
-    <rosparam param="D">[-0.448484, 0.259929, 0.008353, 0.003273, 0.0]</rosparam>
-    <rosparam param="P">[605.421509, 0.0, 282.642067, 0.0, 0.0, 639.667725, 220.342754, 0.0, 0.0, 0.0, 1.0, 0.0]</rosparam>
-  </node>
--->
-<!--  <include file="$(find phidgets_imu)/launch/imu.launch" /> 
-  <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="0 0 0 0 1 0 0 /base_link /imu 1" />
--->
   <include file="$(find openni_launch)/launch/openni.launch">
     <arg name="camera" value="kinect" />
-    <arg name="publish_tf" value="true" />
+    <arg name="publish_tf" value="false" />
     <arg name="depth_registration" value="true" />
   </include>
 
