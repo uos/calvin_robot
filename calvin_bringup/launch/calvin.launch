@@ -25,7 +25,7 @@
     <arg name="use_phidgets_imu" value="true" />
   </include>
 
-  <node name="libuvc_camera" pkg="libuvc_camera" type="libuvc_camera">
+  <node name="camera" pkg="libuvc_camera" type="camera_node">
     <param name="vendor" type="str" value="" />
     <param name="product" type="str" value="" />
     <param name="serial" type="str" value="" />
