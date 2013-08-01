@@ -15,17 +15,6 @@
 
   <node name="sick_tim3xx" pkg="sick_tim3xx" type="sick_tim3xx" respawn="false" output="screen"/>
 
-  <node pkg="usb_cam" type="usb_cam_node" name="vgacam">
-    <param name="video_device" value="/dev/video1"/>
-    <param name="camera_frame_id" value="webcam_link"/>
-    <rosparam param="K">[677.947151, 0.0, 288.08553, 0.0, 680.275811, 220.536595, 0.0, 0.0, 1.0]</rosparam>
-    <rosparam param="D">[-0.448484, 0.259929, 0.008353, 0.003273, 0.0]</rosparam>
-    <rosparam param="P">[605.421509, 0.0, 282.642067, 0.0, 0.0, 639.667725, 220.342754, 0.0, 0.0, 0.0, 1.0, 0.0]</rosparam>
-  </node>
--->
-<!--  <include file="$(find phidgets_imu)/launch/imu.launch" /> 
-  <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)" args="0 0 0 0 1 0 0 /base_link /imu 1" />
--->
   <include file="$(find openni_launch)/launch/openni.launch">
     <arg name="camera" value="kinect" />
     <arg name="publish_tf" value="true" />
@@ -35,6 +24,45 @@
   <include file="$(find calvin_bringup)/launch/ekf.launch">
     <arg name="use_phidgets_imu" value="true" />
   </include>
+
+  <node name="libuvc_camera" pkg="libuvc_camera" type="libuvc_camera">
+    <param name="vendor" type="str" value="" />
+    <param name="product" type="str" value="" />
+    <param name="serial" type="str" value="" />
+    <param name="index" type="int" value="0" />
+    <param name="width" type="int" value="640" />
+    <param name="height" type="int" value="480" />
+    <param name="video_mode" type="str" value="uncompressed" />
+    <param name="frame_rate" type="double" value="15.0" />
+    <param name="timestamp_method" type="str" value="start" />
+    <param name="frame_id" type="str" value="webcam_link" />
+    <param name="camera_info_url" type="str" value="" />
+    <param name="scanning_mode" type="int" value="0" />
+    <param name="auto_exposure" type="int" value="1" />
+    <param name="auto_exposure_priority" type="int" value="0" />
+    <param name="exposure_absolute" type="double" value="0.0" />
+    <param name="iris_absolute" type="double" value="0.0" />
+    <param name="auto_focus" type="bool" value="False" />
+    <param name="focus_absolute" type="int" value="0" />
+    <param name="pan_absolute" type="int" value="0" />
+    <param name="tilt_absolute" type="int" value="0" />
+    <param name="roll_absolute" type="int" value="0" />
+    <param name="privacy" type="bool" value="False" />
+    <param name="backlight_compensation" type="int" value="0" />
+    <param name="brightness" type="int" value="0" />
+    <param name="contrast" type="int" value="0" />
+    <param name="gain" type="int" value="0" />
+    <param name="power_line_frequency" type="int" value="0" />
+    <param name="auto_hue" type="bool" value="False" />
+    <param name="hue" type="double" value="0.0" />
+    <param name="saturation" type="int" value="0" />
+    <param name="sharpness" type="int" value="0" />
+    <param name="gamma" type="double" value="1.0" />
+    <param name="auto_white_balance" type="bool" value="False" />
+    <param name="white_balance_temperature" type="int" value="0" />
+    <param name="white_balance_BU" type="double" value="0.0" />
+    <param name="white_balance_RV" type="double" value="0.0" />
+  </node>
 
   <param name="katana_type" type="string" value="katana_450_6m90a" />
 
