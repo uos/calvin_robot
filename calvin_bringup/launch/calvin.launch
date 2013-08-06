@@ -26,8 +26,8 @@
   </include>
 
   <node name="camera" pkg="libuvc_camera" type="camera_node" output="screen">
-    <param name="vendor" type="str" value="" />
-    <param name="product" type="str" value="" />
+    <param name="vendor" type="str" value="0x046d" />
+    <param name="product" type="str" value="0x082d" />
     <param name="serial" type="str" value="" />
     <param name="index" type="int" value="0" />
     <param name="width" type="int" value="640" />
