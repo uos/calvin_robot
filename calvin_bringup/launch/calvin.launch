@@ -5,9 +5,9 @@
 
   <node name="volksbot" pkg="volksbot_driver" type="volksbot" respawn="false" output="screen"/>
 
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" output="screen"/>
 
-  <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander">
+  <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
     <param name="publish_joint_states" type="bool" value="True" />
     <param name="kinect_pitch_joint" type="double" value="0.89" />
     <!--<remap from="joint_states" to="calvin_joint_states" />-->
@@ -25,9 +25,9 @@
     <arg name="use_phidgets_imu" value="true" />
   </include>
 
-  <node name="camera" pkg="libuvc_camera" type="camera_node">
-    <param name="vendor" type="str" value="" />
-    <param name="product" type="str" value="" />
+  <node name="camera" pkg="libuvc_camera" type="camera_node" output="screen">
+    <param name="vendor" type="str" value="0x046d" />
+    <param name="product" type="str" value="0x082d" />
     <param name="serial" type="str" value="" />
     <param name="index" type="int" value="0" />
     <param name="width" type="int" value="640" />
@@ -35,8 +35,8 @@
     <param name="video_mode" type="str" value="uncompressed" />
     <param name="frame_rate" type="double" value="15.0" />
     <param name="timestamp_method" type="str" value="start" />
-    <param name="frame_id" type="str" value="webcam_link" />
-    <param name="camera_info_url" type="str" value="" />
+    <param name="frame_id" type="str" value="webcam_optical_link" />
+    <param name="camera_info_url" type="str" value="package://calvin_description/camera.yaml" />
     <param name="scanning_mode" type="int" value="0" />
     <param name="auto_exposure" type="int" value="1" />
     <param name="auto_exposure_priority" type="int" value="0" />
@@ -72,7 +72,7 @@
   <!-- katana node -->
   <node pkg="katana" type="katana" name="katana" output="screen">
     <param name="config_file_path" type="string" value="$(find kni)/KNI_4.3.0/configfiles450/katana6M90A_G.cfg" />
-    <param name="ip" type="string" value="192.168.23.11" />
+    <param name="ip" type="string" value="192.168.23.11" /> <!-- Katana with LAN cable/RJ45 Port IP -->
     <!-- <param name="simulation" type="bool" value="true" /> -->
 
     <!-- let the katana node publish on katana_joint_states -->
