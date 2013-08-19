@@ -32,6 +32,16 @@
 
   <xacro:property name="item_width" value="0.02"/>
 
+  <xacro:property name="webcam_pitch_link_length" value="0.082"/>
+  <xacro:property name="webcam_pitch_link_width" value="0.095"/>
+  <xacro:property name="webcam_pitch_link_height" value="0.02"/>
+  <xacro:property name="webcam_z_offset" value="0.315"/>
+
+  <xacro:property name="kinect_pitch_link_length" value="0.08"/>
+  <xacro:property name="kinect_pitch_link_width" value="0.17"/>
+  <xacro:property name="kinect_pitch_link_height" value="0.02"/>
+  <xacro:property name="kinect_pitch_link_z_offset" value="0.46"/>
+
   <link name="structure">
     <visual>
       <geometry>
@@ -119,12 +129,49 @@
       </sensor:camera>
       <material value="Gazebo/Gray" />
     </gazebo>
+    <link name="webcam_pitch_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="${webcam_pitch_link_length/2 - item_width/2} 0 -${webcam_pitch_link_height}"/>
+        <geometry>
+          <box size="${webcam_pitch_link_length} ${webcam_pitch_link_width} ${webcam_pitch_link_height}" />
+        </geometry>
+        <material name="grey" >
+          <color rgba="0.5 0.5 0.5 1" />
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="${webcam_pitch_link_length} ${webcam_pitch_link_width} ${webcam_pitch_link_height}" />
+        </geometry>
+      </collision>
+      <xacro:box_inertial x="${webcam_pitch_link_length}" y="${webcam_pitch_link_width}" z="${webcam_pitch_link_height}" mass="0.01"/>
+    </link>
+    <joint name="webcam_pitch_joint" type="revolute">
+      <origin xyz="0 0 ${webcam_z_offset}" rpy="0 0 0" />
+      <parent link="pole" />
+      <child link="webcam_pitch_link" />
+      <axis xyz="0 1 0"/>
+      <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+    </joint>
     <link name="webcam_link">
+      <visual>
+        <geometry>
+          <box size="0.02 0.085 0.02" />
+        </geometry>
+        <material name="black" >
+          <color rgba="0 0 0 1" />
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="0.02 0.085 0.02" />
+        </geometry>
+      </collision>
       <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
     </link>
     <joint name="webcam_joint" type="fixed">
-      <origin xyz="0.07 0 0.315" rpy="0 0.1 0" />
-      <parent link="pole" />
+      <origin xyz="0.06 0 -0.04" rpy="0 0 0" />
+      <parent link="webcam_pitch_link" />
       <child link="webcam_link" />
     </joint>
     <link name="webcam_optical_link">
@@ -164,27 +211,27 @@
 
   <link name="kinect_pitch_link">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="${kinect_pitch_link_length/2 - item_width/2} 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.08 0.06 0.02" />
+        <box size="${kinect_pitch_link_length} ${kinect_pitch_link_width} ${kinect_pitch_link_height}" />
       </geometry>
       <material name="grey">
         <color rgba="0.5 0.5 0.5 1" />
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="${kinect_pitch_link_length/2 - item_width/2} 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.08 0.06 0.02" />
+        <box size="${kinect_pitch_link_length} ${kinect_pitch_link_width} ${kinect_pitch_link_height}" />
       </geometry>
     </collision>
-    <xacro:box_inertial x="0.08" y="0.06" z="0.02" mass="0.01"/>
+    <xacro:box_inertial x="${kinect_pitch_link_length}" y="${kinect_pitch_link_width}" z="${kinect_pitch_link_height}" mass="0.01"/>
   </link>
 
   <joint name="kinect_pitch_joint" type="revolute">
     <parent link="pole" />
     <child link="kinect_pitch_link" />
-    <origin xyz="0.025 0 0.46" rpy="0 0 0"/>
+    <origin xyz="0 0 ${kinect_pitch_link_z_offset}" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
   </joint>
@@ -208,22 +255,4 @@
   </xacro:macro>
 
   <xacro:kinect_pole_transmission name="kinect_pitch" />
-
-  <link name="test">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.55 0.32 ${1.72 * 2}" />
-      </geometry>
-      <material name="red" >
-        <color rgba="1 0 0 1" />
-      </material>
-    </visual>
-  </link>
-  <joint name="test_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0" />
-    <parent link="base_footprint"/>
-    <child link="test"/>
-    <axis xyz="0 0 0"/>
-  </joint>
 </robot>
