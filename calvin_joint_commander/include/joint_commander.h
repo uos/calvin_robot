@@ -47,8 +47,8 @@ public:
 private:
   // ROS
   ros::NodeHandle nh_;
-  ros::Publisher yaw_controller_pub_;
-  ros::Publisher pitch_controller_pub_;
+  ros::Publisher kinect_pitch_controller_pub_;
+  ros::Publisher webcam_pitch_controller_pub_;
   ros::Publisher joint_states_pub_;
 
   // Dynamic Reconfigure

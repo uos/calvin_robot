@@ -34,7 +34,8 @@ JointCommander::JointCommander()
   dynamic_reconfigure_server_.setCallback(f);
 
   //yaw_controller_pub_ = nh_.advertise<std_msgs::Float64>("kinect_yaw_joint_controller/command", 1);
-  pitch_controller_pub_ = nh_.advertise<std_msgs::Float64>("kinect_pitch_joint_controller/command", 1);
+  kinect_pitch_controller_pub_ = nh_.advertise<std_msgs::Float64>("kinect_pitch_joint_controller/command", 1);
+  webcam_pitch_controller_pub_ = nh_.advertise<std_msgs::Float64>("webcam_pitch_joint_controller/command", 1);
   joint_states_pub_ = nh_.advertise<sensor_msgs::JointState>("joint_states", 100);
 }
 
@@ -56,17 +57,19 @@ void JointCommander::loop_once()
     //control_msg.data = config_.kinect_yaw_joint;
     //yaw_controller_pub_.publish(control_msg);
     control_msg.data = config_.kinect_pitch_joint;
-    pitch_controller_pub_.publish(control_msg);
+    kinect_pitch_controller_pub_.publish(control_msg);
+    control_msg.data = config_.webcam_pitch_joint;
+    webcam_pitch_controller_pub_.publish(control_msg);
   }
 
   if (config_.publish_joint_states)
   {
     sensor_msgs::JointState joint_state_msg;
     joint_state_msg.header.stamp = ros::Time::now();
-    //joint_state_msg.name.push_back("kinect_yaw_joint");
     joint_state_msg.name.push_back("kinect_pitch_joint");
-    //joint_state_msg.position.push_back(config_.kinect_yaw_joint);
     joint_state_msg.position.push_back(config_.kinect_pitch_joint);
+    joint_state_msg.name.push_back("webcam_pitch_joint");
+    joint_state_msg.position.push_back(config_.webcam_pitch_joint);
     joint_states_pub_.publish(joint_state_msg);
   }
 }
