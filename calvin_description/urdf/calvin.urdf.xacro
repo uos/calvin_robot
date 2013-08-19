@@ -21,14 +21,21 @@
   <property name="kinect_r" value="0.0" />
   <property name="kinect_p" value="0.0" />
   <property name="kinect_y" value="-0.07" />
-  <property name="pitchpole_radius" value="0.012"/>
-  <property name="pitchpole_length" value="0.23"/>
-  <property name="pitchpole_mass" value="0.050"/>
+
+  <xacro:property name="pole_length" value="0.02"/>
+  <xacro:property name="pole_width" value="0.02"/>
+  <xacro:property name="pole_height" value="1"/>
+
+  <xacro:property name="structure_length" value="0.36"/>
+  <xacro:property name="structure_width" value="0.32"/>
+  <xacro:property name="structure_height" value="0.51"/>
+
+  <xacro:property name="item_width" value="0.02"/>
 
   <link name="structure">
     <visual>
       <geometry>
-        <!--<box size="0.36 0.32 0.505" />-->
+        <!--<box size="${structure_length} ${structure_width} ${structure_height}" />-->
         <mesh filename="package://calvin_description/meshes/item-structure.stl"/>
       </geometry>
       <material name="grey" >
@@ -38,23 +45,23 @@
     <collision>
       <geometry>
         <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
-        <!--<box size="0.36 0.32 0.505" />-->
+        <!--<box size="${structure_length} ${structure_width} ${structure_height}" />-->
         <mesh filename="package://calvin_description/meshes/item-structure.stl"/>
       </geometry>
     </collision>
-    <xacro:box_inertial x="0.36" y="0.32" z="0.505" mass="2"/>
+    <xacro:box_inertial x="${structure_length}" y="${structure_width}" z="${structure_height}" mass="2"/>
   </link>
 
   <joint name="top_to_structure" type="fixed">
     <parent link="base_link" />
     <child link="structure" />
-    <origin xyz="${0.095 - 0.02} 0 ${0.2525 + 0.0775}" rpy="0 0 0" />
+    <origin xyz="${base_link_length/2 - structure_length/2 - item_width} 0 ${structure_height/2 + base_link_height/2}" rpy="0 0 0" />
   </joint>
 
   <link name="pole">
     <visual>
       <geometry>
-        <!--<box size="0.02 0.02 1.0" />-->
+        <!--<box size="${pole_length} ${pole_width} ${pole_height}" />-->
         <mesh filename="package://calvin_description/meshes/item-pole.stl"/>
       </geometry>
       <material name="grey" >
@@ -64,17 +71,17 @@
     <collision>
       <geometry>
         <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
-        <!--<box size="0.02 0.02 1.0" />-->
+        <!--<box size="${pole_length} ${pole_width} ${pole_height}" />-->
         <mesh filename="package://calvin_description/meshes/item-pole.stl"/>
       </geometry>
     </collision>
-    <xacro:box_inertial x="0.02" y="0.02" z="1.0" mass="0.25"/>
+    <xacro:box_inertial x="${pole_length}" y="${pole_width}" z="${pole_height}" mass="0.25"/>
   </link>
 
   <joint name="structure_to_pole_joint" type="fixed">
     <parent link="structure" />
     <child link="pole" />
-    <origin xyz="${-0.18 - 0.01} 0 ${0.5 + 0.2525 + 0.005}" rpy="0 0 0" />
+    <origin xyz="${-structure_length/2 - pole_length/2} 0 ${pole_height/2 + structure_height/2}" rpy="0 0 0" />
   </joint>
 
   <!-- ******************************** -->
@@ -116,7 +123,7 @@
       <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
     </link>
     <joint name="webcam_joint" type="fixed">
-      <origin xyz="0.07 0 0.35" rpy="0 0.1 0" />
+      <origin xyz="0.07 0 0.315" rpy="0 0.1 0" />
       <parent link="pole" />
       <child link="webcam_link" />
     </joint>
@@ -201,4 +208,22 @@
   </xacro:macro>
 
   <xacro:kinect_pole_transmission name="kinect_pitch" />
+
+  <link name="test">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.55 0.32 ${1.72 * 2}" />
+      </geometry>
+      <material name="red" >
+        <color rgba="1 0 0 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="test_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="test"/>
+    <axis xyz="0 0 0"/>
+  </joint>
 </robot>
