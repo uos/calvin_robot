@@ -5,11 +5,6 @@
   <group if="$(arg use_phidgets_imu)">
     <include file="$(find calvin_bringup)/launch/imu.launch" />
 
-    #TODO: include /imu link in the URDF instead
-    <node pkg="tf" type="static_transform_publisher" name="$(anon static_transform_publisher)"
-      args="0 0 0 0 1 0 0 /base_link /imu 10" />
-  </group>
-
   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
     <param name="freq" value="100.0"/>
     <param name="sensor_timeout" value="1.0"/>
