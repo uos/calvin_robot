@@ -12,6 +12,8 @@
   <depend package="volksbot_driver"/>
   <depend package="uos_diffdrive_teleop"/>
   <depend package="robot_state_publisher"/>
+  <depend package="calvin_joint_commander"/>
+  <depend package="sick_tim3xx"/>
 
 </package>
 
