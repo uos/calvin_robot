@@ -4,6 +4,7 @@
   <arg name="use_phidgets_imu" default="false" />
   <group if="$(arg use_phidgets_imu)">
     <include file="$(find calvin_bringup)/launch/imu.launch" />
+  </group>
 
   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
     <param name="freq" value="100.0"/>
