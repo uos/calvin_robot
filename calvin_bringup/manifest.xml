@@ -15,7 +15,7 @@
   <depend package="calvin_joint_commander"/>
   <depend package="sick_tim3xx"/>
   <depend package="phidgets_imu"/>
-  <depend package="imu_tools"/>
+  <depend package="imu_filter_madgwick"/>
 
 </package>
 
