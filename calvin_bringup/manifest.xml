@@ -14,7 +14,7 @@
   <depend package="robot_state_publisher"/>
   <depend package="calvin_joint_commander"/>
   <depend package="sick_tim3xx"/>
-  <depend package="phidgets_drivers"/>
+  <depend package="phidgets_imu"/>
   <depend package="imu_tools"/>
 
 </package>
