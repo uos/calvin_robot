@@ -40,19 +40,7 @@
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
     args="pub /calibrated std_msgs/Bool true" />
 
-  <!-- TODO: spawn coke can -->
-  <include file="$(find katana_arm_gazebo)/launch/coke_can.launch">
-    <arg name="x" value="0.45" />
-    <arg name="y" value="-0.20" />
-    <arg name="z" value="0.75" />
-  </include>
-
-  <!-- TODO: spawn table -->
-  <param name="table_description"
-    command="$(find xacro)/xacro.py '$(find katana_arm_gazebo)/urdf/tall_table.urdf.xacro'" />
-  <node name="spawn_table" pkg="gazebo" type="spawn_model" args="-urdf -param table_description -model table_1 -x 0.8"
-    respawn="false" output="screen" />
-
+  <!-- Katana controller -->
   <group ns="katana_arm_controller">
     <node pkg="katana_joint_movement_adapter" type="joint_movement_adapter" name="joint_movement_adapter" output="screen">
       <param name="max_acc" value="1.190799" />
@@ -60,6 +48,7 @@
     </node>
   </group>
 
+  <!-- Calvin joint commander -->
   <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
     <param name="publish_joint_states" type="bool" value="True" />
     <param name="kinect_pitch_joint" type="double" value="0.96" />
