@@ -1,0 +1,58 @@
+<launch>
+  <arg name="kinect_frame_prefix" default="/kinect_rgb_optical_frame" />
+  <arg name="kinect_camera_name" default="kinect" />
+
+
+  <!-- drop frames to speed things up; the Kinect publishes at 30 Hz, which is way too much
+       for the collision map, so drop 9 out of 10 frames -->
+  <param name="/$(arg kinect_camera_name)/driver/data_skip" value="10" />
+
+  <!-- send additional description parameters -->
+  <include file="$(find calvin_arm_navigation)/launch/calvin_planning_environment.launch" />
+
+  <!-- self filter kinect point cloud -->
+  <node pkg="robot_self_filter_color" type="self_filter_color" respawn="true" name="self_filter" output="screen">
+
+    <!-- The topic for the input cloud -->
+    <remap from="cloud_in" to="/$(arg kinect_camera_name)/depth_registered/points" />
+
+    <!-- The topic for the output cloud -->
+    <remap from="cloud_out" to="/$(arg kinect_camera_name)/depth_registered/points_filtered" />
+
+    <!-- The frame of the sensor used to obtain the data to be
+       filtered; This parameter is optional. If it is not specified,
+       shadow points will be considered outside -->
+    <param name="sensor_frame" type="string" value="$(arg kinect_frame_prefix)" />
+
+    <param name="subsample_value" type="double" value=".01"/>
+
+    <rosparam command="load" file="$(find calvin_arm_navigation)/perception/config/self_filter.yaml" />
+  </node>
+
+  <!-- attached_object filter kinect points -->
+  <!-- <node pkg="planning_environment" type="filter_attached_objects" name="filter_attached_objects_kinect" output="screen">
+    <remap from="cloud_in" to="/$(arg kinect_camera_name)/depth_registered/points_filtered" />
+    <remap from="cloud_out" to="/$(arg kinect_camera_name)/depth_registered/points_filtered_attached" />
+    <param name="sensor_frame" type="string" value="$(arg kinect_frame_prefix)" />
+  </node> -->
+
+  <node pkg="collider" type="collider_node" name="collider_node" respawn="true" output="screen">
+     <param name="fixed_frame" type="string" value="base_footprint" />
+     <param name="resolution" type="double" value="0.025" />
+     <param name="max_range" type="double" value="1.5" />
+     <param name="publish_static_over_dynamic_map" value="true" />
+     <param name="sensor_model_hit" value= "0.8" />
+     <param name="sensor_model_miss" value= "0.31" />
+     <param name="sensor_model_min" value= "0.12" />
+     <param name="sensor_model_max" value= "0.95" />
+
+     <remap from="collision_map_out" to="collision_map_occ" />
+     <remap from="point_cloud_out" to="octomap_point_cloud" />
+
+     <rosparam command="load" file="$(find calvin_arm_navigation)/perception/config/collision_map_sources.yaml"/>
+
+     <!-- self filtering links -->
+     <rosparam command="load" file="$(find calvin_arm_navigation)/perception/config/self_filter.yaml" />
+  </node>
+
+</launch>

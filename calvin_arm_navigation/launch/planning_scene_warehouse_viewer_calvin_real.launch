@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="planning_environment" name="wall_clock_server" type="fake_time.py" />
+
+  <include file="$(find calvin_arm_navigation)/launch/planning_scene_warehouse_viewer_calvin_gazebo.launch" />
+</launch>

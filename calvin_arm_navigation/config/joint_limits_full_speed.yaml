@@ -9,38 +9,38 @@ joint_limits:
   katana_motor1_pan_joint:
     has_position_limits: true
     has_velocity_limits: true
-    max_velocity: 1.1
+    max_velocity: 2.208932
     has_acceleration_limits: true
-    max_acceleration: 2.5
+    max_acceleration: 4.908739
     angle_wraparound: false
   katana_motor2_lift_joint:
     has_position_limits: true
     has_velocity_limits: true
-    max_velocity: 0.6
+    max_velocity: 1.190799
     has_acceleration_limits: true
-    max_acceleration: 1.3
+    max_acceleration: 2.646220
     angle_wraparound: false
   katana_motor3_lift_joint:
     has_position_limits: true
     has_velocity_limits: true
-    max_velocity: 0.6
+    max_velocity: 1.190799
     has_acceleration_limits: true
     ## unexplicably, the acceleration limits seem to be exactly half of what acc_enc2rad(2) says
-    max_acceleration: 1.3
+    max_acceleration: 2.646220
     angle_wraparound: false
   katana_motor4_lift_joint:
     has_position_limits: true
     has_velocity_limits: true
-    max_velocity: 1.1
+    max_velocity: 2.208932
     has_acceleration_limits: true
-    max_acceleration: 2.5
+    max_acceleration: 4.908739
     angle_wraparound: false
   katana_motor5_wrist_roll_joint:
     has_position_limits: true
     has_velocity_limits: true
-    max_velocity: 1.1
+    max_velocity: 2.208932
     has_acceleration_limits: true
-    max_acceleration: 2.5
+    max_acceleration: 4.908739
     angle_wraparound: false
 
   # The finger joints are not needed by the trajectory filters, since
@@ -48,9 +48,9 @@ joint_limits:
   # here for completenesses sake.
   katana_r_finger_joint:
     has_acceleration_limits: true
-    max_acceleration: 0.8
+    max_acceleration: 1.597410
     angle_wraparound: false
   katana_l_finger_joint:
     has_acceleration_limits: true
-    max_acceleration: 0.8
+    max_acceleration: 1.597410
     angle_wraparound: false
