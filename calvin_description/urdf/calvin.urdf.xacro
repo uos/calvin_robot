@@ -263,4 +263,5 @@
   </xacro:macro>
 
   <xacro:kinect_pole_transmission name="kinect_pitch" />
+  <xacro:kinect_pole_transmission name="webcam_pitch" />
 </robot>
