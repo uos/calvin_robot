@@ -3,10 +3,4 @@
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="spawn_calvin_model" pkg="gazebo" type="spawn_model" 
     args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model calvin" respawn="false" output="screen"/>
-
-  <!--<node name="joint_commander" pkg="kurt_robotday_joint_commander" type="joint_commander">-->
-    <!--<param name="kinect_pitch_joint" type="double" value="0.4" />-->
-    <!--<param name="publish_joint_states" type="bool" value="False" />-->
-    <!--<param name="publish_controller_commands" type="bool" value="True" />-->
-  <!--</node>-->
 </launch>
