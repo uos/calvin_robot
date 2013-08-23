@@ -235,8 +235,8 @@
 /rosout_agg
 /scan
 /scan_filtered
-/sick_tim3xx/parameter_descriptions
-/sick_tim3xx/parameter_updates
+/sick_tim310s01/parameter_descriptions
+/sick_tim310s01/parameter_updates
 /tf
 /visualization_marker
 /visualization_marker_array
