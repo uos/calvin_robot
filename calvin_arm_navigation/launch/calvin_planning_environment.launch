@@ -1,0 +1,4 @@
+<launch>
+    <param name="robot_description" textfile="$(find calvin_description)/robots/calvin.urdf" />
+    <rosparam command="load" ns="robot_description_planning" file="$(find calvin_arm_navigation)/config/calvin_planning_description.yaml" />
+</launch>

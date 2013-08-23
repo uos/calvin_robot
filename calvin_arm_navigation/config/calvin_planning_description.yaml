@@ -1,0 +1,1005 @@
+multi_dof_joints:
+  - name: world_joint
+    type: Floating
+    parent_frame_id: base_footprint
+    child_frame_id: base_footprint
+groups:
+  - name: arm
+    base_link: katana_base_link
+    tip_link: katana_gripper_tool_frame
+default_collision_operations:
+  - object1: base_footprint
+    object2: base_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: laser_mount_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: laser_mount_link
+    object2: laser
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: left_front_wheel_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: left_middle_wheel_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: left_rear_wheel_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: right_front_wheel_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: right_middle_wheel_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: right_rear_wheel_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: imu
+    operation: disable  # Adjacent in collision
+  -
+    object1: base_link
+    object2: structure
+    operation: disable  # Adjacent in collision
+  -
+    object1: structure
+    object2: katana_internal_controlbox_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: katana_base_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_base_link
+    object2: katana_motor1_pan_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: katana_motor2_lift_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: katana_motor3_lift_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: katana_motor4_lift_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: katana_motor5_wrist_roll_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: katana_gripper_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_gripper_link
+    object2: katana_l_finger_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_gripper_link
+    object2: katana_r_finger_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: katana_gripper_tool_frame
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: katana_pattern
+    operation: disable  # Adjacent in collision
+  -
+    object1: structure
+    object2: pole
+    operation: disable  # Adjacent in collision
+  -
+    object1: pole
+    object2: kinect_pitch_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: kinect_pitch_link
+    object2: kinect_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: kinect_link
+    object2: kinect_depth_frame
+    operation: disable  # Adjacent in collision
+  -
+    object1: kinect_depth_frame
+    object2: kinect_depth_optical_frame
+    operation: disable  # Adjacent in collision
+  -
+    object1: kinect_link
+    object2: kinect_rgb_frame
+    operation: disable  # Adjacent in collision
+  -
+    object1: kinect_rgb_frame
+    object2: kinect_rgb_optical_frame
+    operation: disable  # Adjacent in collision
+  -
+    object1: pole
+    object2: webcam_pitch_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: webcam_pitch_link
+    object2: webcam_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: webcam_link
+    object2: webcam_optical_link
+    operation: disable  # Adjacent in collision
+  -
+    object1: katana_l_finger_link
+    object2: katana_r_finger_link
+    operation: disable  # Always in collision
+  -
+    object1: kinect_link
+    object2: pole
+    operation: disable  # Always in collision
+  -
+    object1: base_link
+    object2: katana_base_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_gripper_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_internal_controlbox_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_l_finger_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_motor1_pan_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_motor2_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_motor3_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_motor4_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_motor5_wrist_roll_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: katana_r_finger_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: base_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: katana_motor2_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: katana_motor3_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_base_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: katana_motor3_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: katana_motor4_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_gripper_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: katana_motor1_pan_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: katana_motor2_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: katana_motor3_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_internal_controlbox_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: katana_motor3_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: katana_motor4_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: katana_motor5_wrist_roll_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_l_finger_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: katana_motor3_lift_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor1_pan_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor2_lift_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: katana_motor5_wrist_roll_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: katana_r_finger_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor3_lift_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: katana_r_finger_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor4_lift_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: katana_r_finger_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_motor5_wrist_roll_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: kinect_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: kinect_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: katana_r_finger_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: laser
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: kinect_pitch_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: left_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: laser
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: left_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: left_front_wheel_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: left_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: left_middle_wheel_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: left_rear_wheel_link
+    object2: pole
+    operation: disable  # Never in collision
+  -
+    object1: left_rear_wheel_link
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_rear_wheel_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_rear_wheel_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: left_rear_wheel_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: left_rear_wheel_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: left_rear_wheel_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: pole
+    object2: right_front_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: pole
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: pole
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: right_front_wheel_link
+    object2: right_middle_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: right_front_wheel_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: right_front_wheel_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: right_front_wheel_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: right_front_wheel_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: right_middle_wheel_link
+    object2: right_rear_wheel_link
+    operation: disable  # Never in collision
+  -
+    object1: right_middle_wheel_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: right_middle_wheel_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: right_middle_wheel_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: right_rear_wheel_link
+    object2: structure
+    operation: disable  # Never in collision
+  -
+    object1: right_rear_wheel_link
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: right_rear_wheel_link
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision
+  -
+    object1: structure
+    object2: webcam_link
+    operation: disable  # Never in collision
+  -
+    object1: structure
+    object2: webcam_pitch_link
+    operation: disable  # Never in collision

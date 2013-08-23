@@ -1,0 +1,36 @@
+joint_limits:
+  katana_motor1_pan_joint:
+    has_position_limits: true
+    has_velocity_limits: true
+    max_velocity: 2.208932
+    has_acceleration_limits: true
+    max_acceleration: 1
+    angle_wraparound: false
+  katana_motor2_lift_joint:
+    has_position_limits: true
+    has_velocity_limits: true
+    max_velocity: 1.190799
+    has_acceleration_limits: true
+    max_acceleration: 1
+    angle_wraparound: false
+  katana_motor3_lift_joint:
+    has_position_limits: true
+    has_velocity_limits: true
+    max_velocity: 1.190799
+    has_acceleration_limits: true
+    max_acceleration: 1
+    angle_wraparound: false
+  katana_motor4_lift_joint:
+    has_position_limits: true
+    has_velocity_limits: true
+    max_velocity: 2.208932
+    has_acceleration_limits: true
+    max_acceleration: 1
+    angle_wraparound: false
+  katana_motor5_wrist_roll_joint:
+    has_position_limits: true
+    has_velocity_limits: true
+    max_velocity: 2.208932
+    has_acceleration_limits: true
+    max_acceleration: 1
+    angle_wraparound: false
