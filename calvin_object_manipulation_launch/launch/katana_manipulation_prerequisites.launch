@@ -1,0 +1,55 @@
+<launch>
+  <arg name="kinect_frame_prefix" default="/kinect_rgb_optical_frame" />
+  <arg name="kinect_camera_name" default="kinect" />
+  <arg name="log_to_warehouse" default="false" />
+
+  <include file="$(find calvin_arm_navigation)/launch/calvin_planning_environment.launch" />
+
+  <!-- load perception -->
+  <include file="$(find calvin_arm_navigation)/perception/launch/kinect_perception.launch">
+    <arg name="kinect_frame_prefix" value="$(arg kinect_frame_prefix)"/>
+    <arg name="kinect_camera_name" value="$(arg kinect_camera_name)"/>
+  </include>
+
+  <!-- load planning -->
+  <include file="$(find calvin_arm_navigation)/launch/ompl_planning.launch" />
+
+  <param name="warehouse_host" value="localhost"/>
+  <param name="warehouse_port" value="27017"/>
+  <node name="mongo" type="wrapper.py" pkg="mongodb">
+    <param name="overwrite" value="false"/>
+    <param name="database_path" value="arm_navigation_dbs/calvin_real"/>
+  </node>
+
+  <!-- load move_arm -->
+  <include file="$(find calvin_arm_navigation)/launch/move_arm.launch">
+    <arg name="log_to_warehouse" value="$(arg log_to_warehouse)"/>
+  </include>
+
+  <!-- load planning_environment -->
+  <include file="$(find planning_environment)/launch/environment_server.launch">
+    <arg name="use_monitor" value="true" />
+    <arg name="use_collision_map" value="true" />
+  </include>
+
+  <!-- load trajectory filtering -->
+  <include file="$(find calvin_arm_navigation)/launch/trajectory_filter_server.launch" />
+  <param name="trajectory_filter/object_padd" value="0.04"/>
+
+  <!-- load ik -->
+  <include file="$(find calvin_arm_navigation)/launch/constraint_aware_kinematics.launch" />
+  <param name="calvin_arm_kinematics/object_padd" value="0.04"/>
+
+  <!-- interpolated IK -->
+  <!-- DO NOT CHANGE THE NODE NAME. It has to be called interpolated_ik_motion_planner_server, otherwise the private parameters won't be read due to name mangling in the node. -->
+  <node name="interpolated_ik_motion_planner_server" pkg="interpolated_ik_motion_planner" 
+    type="interpolated_ik_motion_planner.py" respawn="false" output="screen">
+    <param name="robot_prefix" type="string" value="calvin"/>
+    <param name="consistent_angle" type="double" value="1.05"/>
+    <rosparam param="max_joint_vels">[0.1, 0.1, 0.1, 0.1, 0.1]</rosparam>
+    <rosparam param="max_joint_accs">[0.25, 0.25, 0.25, 0.25, 0.25]</rosparam>
+  </node>
+
+  <!-- joint trajectory normalization -->
+  <include file="$(find trajectory_filter_server)/launch/trajectory_unnormalize.launch"/>
+</launch>

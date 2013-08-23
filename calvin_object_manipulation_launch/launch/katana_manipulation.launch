@@ -1,0 +1,66 @@
+<launch>
+  <arg name="use_probabilistic_grasp_planner" default="false" />
+
+  <!-- hand descriptions -->
+  <rosparam command="load" file="$(find calvin_object_manipulation_launch)/config/katana_hand_descriptions.yaml"/>
+
+  <!-- arm configurations -->
+  <!-- <rosparam command="load" file="$(find pr2_object_manipulation_launch)/config/pr2_arm_configurations.yaml"/> -->
+
+  <!-- grasp planner -->
+  <node pkg="katana_simple_grasp_planner" type="grasp_planner" name="katana_simple_grasp_planner" />
+
+  <!--object manipulator-->
+
+  <node name="object_manipulator" pkg="object_manipulator"
+    type="object_manipulator_node" respawn="false" output="screen">
+    <!--
+      <remap from="arm/constraint_aware_ik" to="/katana_constraint_aware_kinematics/get_constraint_aware_ik" />
+      <remap from="arm/get_fk" to="/katana_constraint_aware_kinematics/get_fk" />
+      <remap from="arm/get_ik_solver_info" to="/katana_constraint_aware_kinematics/get_ik_solver_info" />
+    -->
+
+    <remap from="arm/constraint_aware_ik" to="/calvin_arm_kinematics/get_constraint_aware_ik" />
+    <remap from="arm/get_fk" to="/calvin_arm_kinematics/get_fk" />
+    <remap from="arm/get_ik_solver_info" to="/calvin_arm_kinematics/get_ik_solver_info" />
+
+    <remap from="arm/interpolated_ik" to="/interpolated_ik_motion_plan" />
+    <remap from="arm/interpolated_ik_set_params" to="/interpolated_ik_motion_plan_set_params" />
+
+    <remap from="arm/get_state_validity" to="/environment_server/get_state_validity" />
+
+    <remap from="arm/move_arm" to="/move_arm" />    
+
+    <remap from="arm/joint_trajectory" to="/katana_arm_controller/joint_trajectory_action" />
+
+    <remap from="arm/hand_posture_execution" to="/gripper_grasp_posture_controller" />
+
+    <remap from="arm/grasp_status" to="/gripper_grasp_status" />
+
+    <param name="arm_joint_controller" value="l_arm_controller" />
+
+    <param name="default_cluster_planner" value="/plan_point_cluster_grasp" />
+
+    <param name="kinematics_plugin_name" value="arm_kinematics_constraint_aware/KDLArmKinematicsPlugin" />
+
+    <!--  <param name="default_database_planner" value="/database_grasp_planning" />  -->
+
+    <!--  <param name="default_probabilistic_planner" value="/probabilistic_grasp_planning" /> -->
+    <param name="use_probabilistic_grasp_planner" value="$(arg use_probabilistic_grasp_planner)" />
+
+    <param name="randomize_grasps" value="false" />
+  </node>
+
+  <!-- fake list_controllers service -->
+  <node pkg="calvin_object_manipulation_launch" type="fake_list_controllers.py" name="fake_list_controllers_server" />
+
+  <!-- cluster bounding box finder--> 
+
+  <node name="cluster_bounding_box_finder" pkg="object_manipulator" cwd="node"
+    type="cluster_bounding_box_finder_server.py" output="screen" respawn="false" >
+    <param name="z_up_frame" value="/base_link" />
+  </node>
+
+  <!-- pad objects when filtering from collision map-->
+  <rosparam param="/robot_description_planning/default_object_padding">0.05</rosparam>
+</launch>

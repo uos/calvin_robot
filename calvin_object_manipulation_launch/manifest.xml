@@ -1,0 +1,16 @@
+<package>
+  <description brief="Config package for Calvin object_manipulator">
+
+     Config package for Calvin object_manipulator
+
+  </description>
+  <author>Martin Günther</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/calvin_object_manipulation_launch</url>
+
+  <depend package="object_manipulator"/>
+  <depend package="rospy"/>
+  <depend package="pr2_mechanism_msgs" />
+
+</package>
