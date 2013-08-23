@@ -24,5 +24,4 @@ self_see_links:
     padding: 0.02
   - name: katana_r_finger_link
     padding: 0.02
-
-# TODO: add all other links that the Kinect can see and which should be filtered out
+  - name: structure
