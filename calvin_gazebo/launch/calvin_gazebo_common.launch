@@ -14,7 +14,7 @@
   <include file="$(find calvin_gazebo)/launch/spawn_calvin.launch" />
 
   <!-- EKF -->
-  <include file="$(find calvin_bringup)/launch/ekf.launch"/>
+  <include file="$(find calvin_gazebo)/launch/ekf.launch"/>
 
   <!-- Default Controllers -->
   <rosparam command="load" file="$(find katana_arm_gazebo)/config/katana_arm_controller.yaml" />

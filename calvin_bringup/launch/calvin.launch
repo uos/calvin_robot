@@ -22,9 +22,7 @@
     <arg name="depth_registration" value="true" />
   </include>
 
-  <include file="$(find calvin_bringup)/launch/ekf.launch">
-    <arg name="use_phidgets_imu" value="true" />
-  </include>
+  <include file="$(find calvin_bringup)/launch/ekf.launch"/>
 
   <node name="camera" pkg="libuvc_camera" type="camera_node" output="screen">
     <param name="vendor" type="str" value="0x046d" />
