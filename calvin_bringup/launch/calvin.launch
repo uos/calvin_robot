@@ -24,7 +24,7 @@
 
   <include file="$(find calvin_bringup)/launch/ekf.launch"/>
 
-  <node name="camera" pkg="libuvc_camera" type="camera_node" output="screen">
+  <node name="camera" pkg="libuvc_camera" type="camera_node">
     <param name="vendor" type="str" value="0x046d" />
     <param name="product" type="str" value="0x082d" />
     <param name="serial" type="str" value="" />
