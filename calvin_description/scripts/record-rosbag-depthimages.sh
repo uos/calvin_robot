@@ -1,5 +1,5 @@
 #!/bin/bash -i
-rosbag record /tf /scan /joint_states /kinect/depth_registered/image /kinect/rgb/camera_info /kinect/depth_registered/camera_info /kinect/rgb/image_color /imu/data /odom /vgacam/camera_info /vgacam/image_raw
+rosbag record /tf /scan_filtered /joint_states /kinect/depth_registered/image /kinect/rgb/camera_info /kinect/depth_registered/camera_info /kinect/rgb/image_color /imu/data /odom /robot_pose_ekf/odom_combined /camera_info /image_raw /amcl_pose
 
 # Notes:
 # * raw rgb + depth images         -- ca.  2 MB/frame --> up to 15 Hz
