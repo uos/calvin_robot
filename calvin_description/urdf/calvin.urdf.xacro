@@ -3,24 +3,9 @@
   xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
   xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller">
 
-  <property name="sensor_mount_length" value="0.02" />
-  <property name="sensor_mount_width" value="0.139" />
-  <property name="sensor_mount_height" value="0.189" />
-  <property name="sensor_mount_mass" value="0.100" />
-  <property name="sensor_mount_x_offset" value="-0.16" />
-  <property name="kinect_fixture_length" value="0.02" />
-  <property name="kinect_fixture_width" value="0.02" />
-  <property name="kinect_fixture_height" value="0.265" />
-  <property name="kinect_fixture_mass" value="0.050" />
-  <property name="kinect_fixture_x_offset" value="0.00" />
-  <property name="kinect_fixture_joint_z_offset" value="-0.015" /> <!-- how much the joint center is displaced from the link center-->
-  <property name="laser_z_offset" value="-0.0407" />
-  <property name="kinect_x_offset" value="0.0" />
-  <property name="kinect_y_offset" value="0.05" />
-  <property name="kinect_z_offset" value="0.16" />
-  <property name="kinect_r" value="0.0" />
-  <property name="kinect_p" value="0.0" />
-  <property name="kinect_y" value="-0.07" />
+  <property name="kinect_x_offset" value="0.06" />
+  <property name="kinect_y_offset" value="0.03" />
+  <property name="kinect_z_offset" value="0.05" />
 
   <xacro:property name="pole_length" value="0.02"/>
   <xacro:property name="pole_width" value="0.02"/>
@@ -219,7 +204,7 @@
 
   <link name="kinect_pitch_link">
     <visual>
-      <origin rpy="${kinect_pitch_link_length/2 - item_width/2} 0 0" xyz="0 0 0"/>
+      <origin xyz="${kinect_pitch_link_length/2 - item_width/2} 0 0" rpy="0 0 0"/>
       <geometry>
         <box size="${kinect_pitch_link_length} ${kinect_pitch_link_width} ${kinect_pitch_link_height}" />
       </geometry>
@@ -228,7 +213,7 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="${kinect_pitch_link_length/2 - item_width/2} 0 0" xyz="0 0 0"/>
+      <origin xyz="${kinect_pitch_link_length/2 - item_width/2} 0 0" rpy="0 0 0"/>
       <geometry>
         <box size="${kinect_pitch_link_length} ${kinect_pitch_link_width} ${kinect_pitch_link_height}" />
       </geometry>
@@ -250,7 +235,7 @@
   <joint name="calvin_kinect_joint" type="fixed">
     <parent link="kinect_pitch_link" />
     <child  link="kinect_link" />
-    <origin xyz="0.03 0.03 0.02" rpy="0 0 0"/>
+    <origin xyz="${kinect_x_offset} ${kinect_y_offset} ${kinect_z_offset}" rpy="0 0 0"/>
   </joint>
 
   <xacro:macro name="kinect_pole_transmission" params="name">
