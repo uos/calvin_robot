@@ -1,11 +1,12 @@
 <?xml version="1.0" ?>
 <launch>
-  <node name="move_base_straight" pkg="move_base_straight" type="move_base_straight.py" output="screen" />
+  <node name="move_base_straight" pkg="move_base_straight" type="move_base_straight_v2.py" output="screen" />
     <param name="max_speed" value="0.45"/>
     <param name="min_speed" value="0.1"/>
     <param name="goal_threshold" value="0.15"/>
+    <param name="yaw_goal_tolerance" value="0.2"/>
     <param name="slowdown_range" value="0.3"/>
-    <param name="laser_frame" value="/laser_mount_link"/>
+    <param name="laser_frame" value="/laser"/>
     <param name="laser_scan_topic" value="/scan_filtered"/>
     <param name="goal_topic_name" value="/move_base_simple/goal"/>
     <param name="cmd_vel_topic" value="/cmd_vel"/>
