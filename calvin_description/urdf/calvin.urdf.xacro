@@ -163,7 +163,7 @@
       <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
     </link>
     <joint name="webcam_joint" type="fixed">
-      <origin xyz="0.06 0 -0.04" rpy="0 0 0" />
+      <origin xyz="0.06 0.01 -0.04" rpy="0 0 0" />
       <parent link="webcam_pitch_link" />
       <child link="webcam_link" />
     </joint>
