@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- load calvin.launch, amcl and move_base node -->
+  <include file="$(find calvin_2dnav)/launch/calvin_2dnav.launch" />
+ 
+  <!-- load move_base_straight for moving close to walls -->
+  <include file="$(find calvin_bringup)/launch/move_base_straight.launch" />
+  
+  <!-- load launch file for button and wall recognition -->
+  <node name="wall_estimator" pkg="wall_estimation" type="wall_estimator" output="screen" />
+  <include file="$(button_recognition)/launch/recognition_pipeline.launch" />
+
+  <!-- load push button server -->
+  <include file="$(find push_button)/launch/calvin_prerequisites.launch" />
+  <!-- load the statemachine used in milestone 1 -->
+  <node name="StateMachine" pkg="smach_integration" type="StateMachine.py" output="screen" />
+</launch>
