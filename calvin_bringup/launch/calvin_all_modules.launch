@@ -10,7 +10,7 @@
   <node name="wall_estimator" pkg="wall_estimation" type="wall_estimator" output="screen">
     <remap from="/scan" to="/scan_filtered" />
   </node>
-  <include file="$(button_recognition)/launch/recognition_pipeline.launch" />
+  <include file="$(find button_recognition)/launch/recognition_pipeline.launch" />
 
   <!-- load push button server -->
   <include file="$(find push_button)/launch/calvin_prerequisites.launch" />
