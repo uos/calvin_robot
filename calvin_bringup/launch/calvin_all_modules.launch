@@ -13,5 +13,5 @@
   <!-- load push button server -->
   <include file="$(find push_button)/launch/calvin_prerequisites.launch" />
   <!-- load the statemachine used in milestone 1 -->
-  <node name="StateMachine" pkg="smach_integration" type="StateMachine.py" output="screen" />
+  <!--node name="StateMachine" pkg="smach_integration" type="StateMachine.py" output="screen" /-->
 </launch>
