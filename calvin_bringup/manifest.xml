@@ -16,6 +16,10 @@
   <depend package="sick_tim3xx"/>
   <depend package="phidgets_imu"/>
   <depend package="imu_filter_madgwick"/>
+  <depend package="wall_estimation"/>
+  <depend package="button_recognition"/>
+  <depend package="door_checking"/>
+  <depend package="push_button"/>
 
 </package>
 
