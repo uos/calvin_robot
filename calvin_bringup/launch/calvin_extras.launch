@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find calvin_2dnav)/launch/calvin_2dnav.launch" />
+  <arg name="mapmetafile"/>
+
+  <include file="$(find calvin_2dnav)/launch/calvin_2dnav.launch">
+    <arg name="mapmetafile" value="$(arg mapmetafile)"/>
+  </include>
 
   <include file="$(find wall_estimation)/launch/wall_estimation.launch" />
 
   <include file="$(find button_recognition)/launch/recognition_pipeline.launch" />
   <rosparam command="load" file="$(find button_recognition)/data/lift_inside.yaml" />
-  
+
   <include file="$(find calvin_tabletop_manipulation_launch)/launch/katana_tabletop_manipulation.launch" />
   <include file="$(find push_button)/launch/push_button_server.launch" />
 </launch>
