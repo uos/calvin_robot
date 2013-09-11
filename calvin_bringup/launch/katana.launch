@@ -17,4 +17,4 @@
     <remap from="posture_action_name" to="/gripper_grasp_posture_controller" />
     <remap from="grasp_query_name" to="/gripper_grasp_status" />
   </node>
-<launch>
+</launch>
