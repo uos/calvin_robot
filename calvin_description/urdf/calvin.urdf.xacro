@@ -91,38 +91,45 @@
   <!-- *** gazebo ros camera plugin *** -->
   <!-- ******************************** -->
 
-  <xacro:macro name="webcam" params="">
-    <gazebo reference="webcam">
-      <sensor:camera name="webcam">
-        <imageFormat>L8</imageFormat>
+  <xacro:macro name="webcam" params="camera_name frame_prefix">
+    <gazebo reference="${frame_prefix}_link">
+      <sensor:camera name="${frame_prefix}_sensor">
+        <imageFormat>R8G8B8</imageFormat>
         <imageSize>640 480</imageSize>
-        <hfov>57</hfov>
-        <nearClip>0.01</nearClip>
-        <farClip>5</farClip>
-        <updateRate>1.0</updateRate>
-        <baseline>0.2</baseline>
-        <controller:gazebo_ros_camera name="webcam_controller" plugin="libgazebo_ros_camera.so">
-          <robotNamespace>webcam</robotNamespace>
+        <hfov>45</hfov>
+        <nearClip>0.1</nearClip>
+        <farClip>100</farClip>
+        <updateRate>20.0</updateRate>
+        <controller:gazebo_ros_prosilica name="${frame_prefix}_controller" plugin="libgazebo_ros_prosilica.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>20.0</updateRate>
+          <cameraName>${camera_name}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <cameraName>webcam</cameraName>
-          <frameName>/world</frameName>
-          <updateRate>1</updateRate>
-          <CxPrime>10</CxPrime>
-          <Cx>10</Cx>
-          <Cy>10</Cy>
-          <focalLength>10</focalLength>
-          <hackBaseline>10</hackBaseline>
-          <distortionK1>0</distortionK1>
-          <distortionK2>0</distortionK2>
-          <distortionK3>0</distortionK3>
-          <distortionT1>0</distortionT1>
-          <distortionT2>0</distortionT2>
-        </controller:gazebo_ros_camera>
+          <frameName>${frame_prefix}_optical_link</frameName>
+          <CxPrime>1224.5</CxPrime>
+          <Cx>1224.5</Cx>
+          <Cy>1025.5</Cy>
+          <focalLength>772.548512</focalLength> <!-- image_width / (2*tan(hfov_radian /2)) -->
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </controller:gazebo_ros_prosilica>
       </sensor:camera>
-      <material value="Gazebo/Gray" />
+      <material value="Gazebo/Black" />
     </gazebo>
-    <link name="webcam_pitch_link">
+
+    <joint name="${frame_prefix}_pitch_joint" type="revolute">
+      <origin xyz="0 0 ${webcam_z_offset}" rpy="0 0 0" />
+      <parent link="pole" />
+      <child link="${frame_prefix}_pitch_link" />
+      <axis xyz="0 1 0"/>
+      <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+    </joint>
+
+    <link name="${frame_prefix}_pitch_link">
       <visual>
         <origin rpy="0 0 0" xyz="${webcam_pitch_link_length/2 - item_width/2} 0 -${webcam_pitch_link_height}"/>
         <geometry>
@@ -139,14 +146,14 @@
       </collision>
       <xacro:box_inertial x="${webcam_pitch_link_length}" y="${webcam_pitch_link_width}" z="${webcam_pitch_link_height}" mass="0.01"/>
     </link>
-    <joint name="webcam_pitch_joint" type="revolute">
-      <origin xyz="0 0 ${webcam_z_offset}" rpy="0 0 0" />
-      <parent link="pole" />
-      <child link="webcam_pitch_link" />
-      <axis xyz="0 1 0"/>
-      <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+
+    <joint name="${frame_prefix}_joint" type="fixed">
+      <origin xyz="0.06 0.01 -0.04" rpy="0 0 0" />
+      <parent link="${frame_prefix}_pitch_link" />
+      <child link="${frame_prefix}_link" />
     </joint>
-    <link name="webcam_link">
+
+    <link name="${frame_prefix}_link">
       <visual>
         <geometry>
           <box size="0.02 0.085 0.02" />
@@ -162,21 +169,19 @@
       </collision>
       <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
     </link>
-    <joint name="webcam_joint" type="fixed">
-      <origin xyz="0.06 0.01 -0.04" rpy="0 0 0" />
-      <parent link="webcam_pitch_link" />
-      <child link="webcam_link" />
+
+    <joint name="${frame_prefix}_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="${frame_prefix}_link" />
+      <child link="${frame_prefix}_optical_link" />
     </joint>
-    <link name="webcam_optical_link">
+
+    <link name="${frame_prefix}_optical_link">
       <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
     </link>
-    <joint name="webcam_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="webcam_link" />
-      <child link="webcam_optical_link" />
-    </joint>
   </xacro:macro>
-  <xacro:webcam/>
+
+  <xacro:webcam camera_name="webcam" frame_prefix="webcam" />
 
   <!-- **************************** -->
   <!-- *** Neuronics Katana Arm *** -->
