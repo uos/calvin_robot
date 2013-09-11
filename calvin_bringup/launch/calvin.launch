@@ -7,81 +7,11 @@
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" output="screen"/>
 
-  <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
-    <param name="publish_joint_states" type="bool" value="True" />
-    <param name="kinect_pitch_joint" type="double" value="0.89" />
-    <param name="webcam_pitch_joint" type="double" value="0.39" />
-    <!--<remap from="joint_states" to="calvin_joint_states" />-->
-  </node>
-
-  <node name="sick_tim310s01" pkg="sick_tim3xx" type="sick_tim310s01" respawn="false" output="screen">
-    <param name="frame_id" type="str" value="/laser"/>
-  </node>
-
-  <include file="$(find openni_launch)/launch/openni.launch">
-    <arg name="camera" value="kinect" />
-    <arg name="publish_tf" value="false" />
-    <arg name="depth_registration" value="true" />
-  </include>
-
   <include file="$(find calvin_bringup)/launch/ekf.launch"/>
 
-  <node ns="vgacam" name="camera" pkg="libuvc_camera" type="camera_node">
-    <param name="vendor" type="str" value="0x046d" />
-    <param name="product" type="str" value="0x082d" />
-    <param name="serial" type="str" value="" />
-    <param name="index" type="int" value="0" />
-    <param name="width" type="int" value="640" />
-    <param name="height" type="int" value="480" />
-    <param name="video_mode" type="str" value="uncompressed" />
-    <param name="frame_rate" type="double" value="15.0" />
-    <param name="timestamp_method" type="str" value="start" />
-    <param name="frame_id" type="str" value="/webcam_optical_link" />
-    <param name="camera_info_url" type="str" value="package://calvin_description/camera.yaml" />
-    <param name="scanning_mode" type="int" value="0" />
-    <param name="auto_exposure" type="int" value="1" />
-    <param name="auto_exposure_priority" type="int" value="0" />
-    <param name="exposure_absolute" type="double" value="0.0" />
-    <param name="iris_absolute" type="double" value="0.0" />
-    <param name="auto_focus" type="bool" value="False" />
-    <param name="focus_absolute" type="int" value="0" />
-    <param name="pan_absolute" type="int" value="0" />
-    <param name="tilt_absolute" type="int" value="0" />
-    <param name="roll_absolute" type="int" value="0" />
-    <param name="privacy" type="bool" value="False" />
-    <param name="backlight_compensation" type="int" value="0" />
-    <param name="brightness" type="int" value="0" />
-    <param name="contrast" type="int" value="0" />
-    <param name="gain" type="int" value="0" />
-    <param name="power_line_frequency" type="int" value="0" />
-    <param name="auto_hue" type="bool" value="False" />
-    <param name="hue" type="double" value="0.0" />
-    <param name="saturation" type="int" value="0" />
-    <param name="sharpness" type="int" value="0" />
-    <param name="gamma" type="double" value="1.0" />
-    <param name="auto_white_balance" type="bool" value="False" />
-    <param name="white_balance_temperature" type="int" value="0" />
-    <param name="white_balance_BU" type="double" value="0.0" />
-    <param name="white_balance_RV" type="double" value="0.0" />
-  </node>
-
-  <param name="katana_type" type="string" value="katana_450_6m90a" />
-
-  <!-- which joints does this katana instance control? -->
-  <rosparam command="load" file="$(find katana)/config/katana_arm_controllers.yaml" />
-
-  <!-- katana node -->
-  <node pkg="katana" type="katana" name="katana" output="screen">
-    <param name="config_file_path" type="string" value="$(find kni)/KNI_4.3.0/configfiles450/katana6M90A_G.cfg" />
-    <param name="ip" type="string" value="192.168.23.11" /> <!-- Katana with LAN cable/RJ45 Port IP -->
-    <!-- <param name="simulation" type="bool" value="true" /> -->
-
-    <!-- let the katana node publish on katana_joint_states -->
-    <!--<remap from="joint_states" to="katana_joint_states" />-->
-    <!-- for katana_gripper_grasp_controller -->
-    <remap from="posture_action_name" to="/gripper_grasp_posture_controller" />
-    <remap from="grasp_query_name" to="/gripper_grasp_status" />
-  </node>
-
+  <include file="$(find calvin_bringup)/launch/laser.launch"/>
+  <include file="$(find calvin_bringup)/launch/vgacamera.launch"/>
+  <include file="$(find calvin_bringup)/launch/commanders.launch"/>
+  <include file="$(find calvin_bringup)/launch/katana.launch"/>
   <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch" />
 </launch>
