@@ -1,13 +1,13 @@
+<?xml version="1.0"?>
 <!-- Phidgets IMU launch file -->
-
 <launch>
 
-  #### Nodelet manager ######################################################
+  <!-- Nodelet manager -->
 
   <node pkg="nodelet" type="nodelet" name="imu_manager" 
     args="manager" output="screen" />
 
-  #### IMU Driver ###########################################################
+  <!-- IMU Driver -->
 
   <node pkg="nodelet" type="nodelet" name="PhidgetsImuNodelet" 
     args="load phidgets_imu/PhidgetsImuNodelet imu_manager" 
@@ -17,7 +17,7 @@
     <param name="period" value="4"/>
   </node>
 
-  #### IMU Orientation Filter ###############################################
+  <!-- IMU Orientation Filter -->
 
   <node pkg="nodelet" type="nodelet" name="ImuFilterNodelet" 
     args="load imu_filter_madgwick/ImuFilterNodelet imu_manager" 

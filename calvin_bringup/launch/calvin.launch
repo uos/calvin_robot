@@ -3,15 +3,24 @@
   <!-- build calvin urdf with xacro and push it on the ros parameter server -->
   <include file="$(find calvin_description)/launch/upload_calvin.launch" />
 
+  <!-- driver for roboter base -->
   <node name="volksbot" pkg="volksbot_driver" type="volksbot" respawn="false" output="screen"/>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" output="screen"/>
 
   <include file="$(find calvin_bringup)/launch/ekf.launch"/>
 
+  <!-- sick_tim310s01 -->
   <include file="$(find calvin_bringup)/launch/laser.launch"/>
+
+  <!-- logitech webcam -->
   <include file="$(find calvin_bringup)/launch/vgacamera.launch"/>
+
+  <!-- calvin joint commander -->
   <include file="$(find calvin_bringup)/launch/commanders.launch"/>
+
+  <!-- katana_450_6m90a -->
   <include file="$(find calvin_bringup)/launch/katana.launch"/>
+
   <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch" />
 </launch>
