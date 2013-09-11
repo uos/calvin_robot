@@ -1,0 +1,10 @@
+All gazebo world launch files implement the following parameters:
+
+<arg name="use_sim_time" default="true"/>
+<arg name="gui" default="true"/>
+
+So if you want to disable gazebo gui add the following:
+
+<include file="$(find gazebo_worlds)/launch/empty_world_throttled.launch">
+  <arg name="gui" value="false" />
+</include>

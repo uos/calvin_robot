@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="gui" default="true"/>
-
-  <!-- load world -->
-  <include file="$(find gazebo_worlds)/launch/empty_world_throttled.launch">
-    <arg name="gui" value="$(arg gui)" />
-  </include>
+  <include file="$(find gazebo_worlds)/launch/empty_world_throttled.launch" />
 
   <include file="$(find calvin_gazebo)/launch/calvin_gazebo_common.launch" />
 </launch>
