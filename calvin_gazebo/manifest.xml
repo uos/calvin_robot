@@ -12,6 +12,7 @@
   <depend package="gazebo_worlds" />
   <depend package="uos_gazebo_worlds" />
   <depend package="calvin_description" />
+  <depend package="calvin_joint_commander" />
 
 </package>
 

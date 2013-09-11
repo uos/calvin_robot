@@ -8,17 +8,4 @@
   </include>
 
   <include file="$(find calvin_gazebo)/launch/calvin_gazebo_common.launch" />
-
-  <!-- spawn coke can -->
-  <include file="$(find katana_arm_gazebo)/launch/coke_can.launch">
-    <arg name="x" value="0.45" />
-    <arg name="y" value="-0.20" />
-    <arg name="z" value="0.75" />
-  </include>
-
-  <!-- spawn table -->
-  <param name="table_description"
-    command="$(find xacro)/xacro.py '$(find katana_arm_gazebo)/urdf/tall_table.urdf.xacro'" />
-  <node name="spawn_table" pkg="gazebo" type="spawn_model" args="-urdf -param table_description -model table_1 -x 0.8"
-    respawn="false" output="screen" />
 </launch>
