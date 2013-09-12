@@ -23,4 +23,6 @@
   <include file="$(find calvin_bringup)/launch/katana.launch"/>
 
   <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch" />
+
+  <include file="$(find calvin_bringup)/launch/xtion.launch" />
 </launch>
