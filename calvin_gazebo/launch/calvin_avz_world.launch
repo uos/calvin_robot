@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find uos_gazebo_worlds)/launch/avz_collada_world.launch" />
+  <arg name="gui" default="true"/>
+
+  <include file="$(find uos_gazebo_worlds)/launch/avz_collada_world.launch">
+    <arg name="gui" value="$(arg gui)" />
+  </include>
 
   <include file="$(find calvin_gazebo)/launch/calvin_gazebo_common.launch" />
 </launch>
