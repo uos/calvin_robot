@@ -9,10 +9,19 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/calvin_gazebo</url>
 
-  <depend package="gazebo_worlds" />
-  <depend package="uos_gazebo_worlds" />
   <depend package="calvin_description" />
+  <depend package="calvin_gazebo" />
   <depend package="calvin_joint_commander" />
+  <depend package="gazebo" />
+  <depend package="gazebo_worlds" />
+  <depend package="katana" />
+  <depend package="katana_arm_gazebo" />
+  <depend package="katana_joint_movement_adapter" />
+  <depend package="pr2_controller_manager" />
+  <depend package="robot_pose_ekf" />
+  <depend package="robot_state_publisher" />
+  <depend package="rostopic" />
+  <depend package="uos_gazebo_worlds" />
 
 </package>
 

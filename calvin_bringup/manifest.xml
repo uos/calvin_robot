@@ -8,18 +8,22 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/calvin_bringup</url>
+  <depend package="calvin_2dnav"/>
+  <depend package="calvin_common"/>
   <depend package="calvin_description"/>
-  <depend package="volksbot_driver"/>
-  <depend package="uos_diffdrive_teleop"/>
-  <depend package="robot_state_publisher"/>
   <depend package="calvin_joint_commander"/>
-  <depend package="sick_tim3xx"/>
-  <depend package="phidgets_imu"/>
   <depend package="imu_filter_madgwick"/>
-  <depend package="wall_estimation"/>
-  <depend package="button_recognition"/>
-  <depend package="door_checking"/>
-  <depend package="push_button"/>
+  <depend package="katana"/>
+  <depend package="laser_filters"/>
+  <depend package="libuvc_camera"/>
+  <depend package="move_base_straight"/>
+  <depend package="nodelet"/>
+  <depend package="openni_launch"/>
+  <depend package="phidgets_imu"/>
+  <depend package="robot_pose_ekf"/>
+  <depend package="robot_state_publisher"/>
+  <depend package="sick_tim3xx"/>
+  <depend package="volksbot_driver"/>
 
 </package>
 
