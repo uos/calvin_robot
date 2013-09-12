@@ -10,7 +10,6 @@
   <url>http://ros.org/wiki/calvin_gazebo</url>
 
   <depend package="calvin_description" />
-  <depend package="calvin_gazebo" />
   <depend package="calvin_joint_commander" />
   <depend package="gazebo" />
   <depend package="gazebo_worlds" />
