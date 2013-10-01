@@ -13,4 +13,5 @@
 
   <include file="$(find calvin_tabletop_manipulation_launch)/launch/katana_tabletop_manipulation.launch" />
   <include file="$(find push_button)/launch/push_button_server.launch" />
+  <include file="$(find door_checking)/launch/door_checker.launch" />
 </launch>
