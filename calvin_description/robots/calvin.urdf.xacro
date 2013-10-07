@@ -5,10 +5,10 @@
   xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
   name="calvin">
 
-  <include filename="$(find uos_common_urdf)/urdf/imu.gazebo.urdf.xacro" /> 
+  <xacro:include filename="$(find uos_common_urdf)/urdf/imu.gazebo.urdf.xacro" />
   <xacro:property name="imu_stdev" value="0.00017" />
 
-  <include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
+  <xacro:include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
 
   <property name="kinect_x_offset" value="0.06" />
   <property name="kinect_y_offset" value="0.03" />
@@ -98,7 +98,7 @@
   <!-- *** Sick_LMS200 Laser Scanner *** -->
   <!-- ******************************** -->
   
-  <include filename="$(find uos_common_urdf)/urdf/sick_lms200.urdf.xacro" />
+  <xacro:include filename="$(find uos_common_urdf)/urdf/sick_lms200.urdf.xacro" />
   <xacro:sick_lms200 laser_link="sick_lms200" />
 
   <joint name="structure_to_sick_lms200_joint" type="fixed" >
@@ -207,7 +207,7 @@
   <!-- *** Neuronics Katana Arm *** -->
   <!-- **************************** -->
 
-  <include filename="$(find katana_description)/urdf/katana_450_6m90a_with_controlbox.urdf.xacro" />
+  <xacro:include filename="$(find katana_description)/urdf/katana_450_6m90a_with_controlbox.urdf.xacro" />
 
   <link name="katana_pattern"></link>
   <joint name="katana_pattern_joint" type="fixed">
@@ -254,7 +254,7 @@
     <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
   </joint>
 
-  <include filename="$(find uos_common_urdf)/urdf/kinect.urdf.xacro" />
+  <xacro:include filename="$(find uos_common_urdf)/urdf/kinect.urdf.xacro" />
   <xacro:kinect camera="kinect" />
 
   <joint name="calvin_kinect_joint" type="fixed">
@@ -278,7 +278,7 @@
   <!-- inertial measurement unit for gazebo -->
   <xacro:imu_gazebo link="imu" imu_topic="imu" update_rate="100.0" stdev="${imu_stdev}" />
 
-  <include filename="$(find sick_tim3xx)/urdf/sick_tim3xx.urdf.xacro" />
+  <xacro:include filename="$(find sick_tim3xx)/urdf/sick_tim3xx.urdf.xacro" />
   <xacro:sick_tim3xx laser_link="laser" />
 
   <joint name="laser_mount_joint" type="fixed">
