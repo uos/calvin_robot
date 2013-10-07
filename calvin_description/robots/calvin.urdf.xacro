@@ -217,7 +217,7 @@
   </joint>
 
   <property name="baseplate_height" value="0.006" />
-  <joint name="kurtana_baseplate_controlbox_joint" type="fixed">
+  <joint name="calvin_baseplate_controlbox_joint" type="fixed">
     <parent link="structure" />
     <child link="katana_internal_controlbox_link" />
     <origin xyz="0 0 ${baseplate_height*1.5 + 0.2525}" rpy="0 0 0" />
