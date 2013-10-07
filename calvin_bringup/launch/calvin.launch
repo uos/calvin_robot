@@ -6,7 +6,7 @@
   <!-- driver for roboter base -->
   <node name="volksbot" pkg="volksbot_driver" type="volksbot" respawn="false" output="screen"/>
 
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" output="screen"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
 
   <include file="$(find calvin_bringup)/launch/ekf.launch"/>
 
