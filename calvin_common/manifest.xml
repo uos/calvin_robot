@@ -7,7 +7,7 @@
 
   <depend package="button_recognition"/>
   <depend package="calvin_2dnav"/>
-  <depend package="calvin_tabletop_manipulation_launch"/>
+<!--  <depend package="calvin_tabletop_manipulation_launch"/> -->
   <depend package="push_button"/>
   <depend package="wall_estimation"/>
 
