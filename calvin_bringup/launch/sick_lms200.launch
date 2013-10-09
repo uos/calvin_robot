@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="sicktoolbox_wrapper" type="sicklms" name="sicklms" output="screen">
+    <remap from="scan" to="lms200" />
+    <param name="port" value="/dev/scanner" />
+    <param name="baud" value="500000" />
+    <param name="resolution" value="1.0" />
+    <param name="frame_id" value="/sick_lms200" />
+  </node>
+</launch>
