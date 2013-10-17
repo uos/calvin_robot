@@ -24,6 +24,7 @@
   <depend package="robot_state_publisher"/>
   <depend package="sick_tim3xx"/>
   <depend package="volksbot_driver"/>
+  <depend package="calvin_map_server"/>
 
 </package>
 
