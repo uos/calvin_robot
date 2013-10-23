@@ -1,0 +1,36 @@
+joint_limits:
+  katana_l_finger_joint:
+    has_velocity_limits: true
+    max_velocity: 0.718834
+    has_acceleration_limits: false
+    max_acceleration: 0
+  katana_motor3_lift_joint:
+    has_velocity_limits: true
+    max_velocity: 1.190799
+    has_acceleration_limits: false
+    max_acceleration: 0
+  katana_motor2_lift_joint:
+    has_velocity_limits: true
+    max_velocity: 1.190799
+    has_acceleration_limits: false
+    max_acceleration: 0
+  katana_motor4_lift_joint:
+    has_velocity_limits: true
+    max_velocity: 2.208932
+    has_acceleration_limits: false
+    max_acceleration: 0
+  katana_motor1_pan_joint:
+    has_velocity_limits: true
+    max_velocity: 2.208932
+    has_acceleration_limits: false
+    max_acceleration: 0
+  katana_motor5_wrist_roll_joint:
+    has_velocity_limits: true
+    max_velocity: 2.208932
+    has_acceleration_limits: false
+    max_acceleration: 0
+  katana_r_finger_joint:
+    has_velocity_limits: true
+    max_velocity: 0.718834
+    has_acceleration_limits: false
+    max_acceleration: 0

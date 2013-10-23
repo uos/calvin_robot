@@ -1,0 +1,306 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="calvin">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm">
+        <joint name="katana_motor1_pan_joint" />
+        <joint name="katana_motor2_lift_joint" />
+        <joint name="katana_motor3_lift_joint" />
+        <joint name="katana_motor4_lift_joint" />
+        <joint name="katana_motor5_wrist_roll_joint" />
+        <link name="katana_gripper_tool_frame" />
+    </group>
+    <group name="gripper">
+        <link name="katana_gripper_link" />
+        <link name="katana_r_finger_link" />
+        <link name="katana_l_finger_link" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="home" group="arm">
+        <joint name="katana_motor1_pan_joint" value="-2.96417" />
+        <joint name="katana_motor2_lift_joint" value="2.13549" />
+        <joint name="katana_motor3_lift_joint" value="-2.15565" />
+        <joint name="katana_motor4_lift_joint" value="-1.97195" />
+        <joint name="katana_motor5_wrist_roll_joint" value="-2.93188" />
+    </group_state>
+    <group_state name="arm_away" group="arm">
+        <joint name="katana_motor1_pan_joint" value="0" />
+        <joint name="katana_motor2_lift_joint" value="2.1354" />
+        <joint name="katana_motor3_lift_joint" value="-2.1556" />
+        <joint name="katana_motor4_lift_joint" value="-1.9719" />
+        <joint name="katana_motor5_wrist_roll_joint" value="0" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="end_effector" parent_link="katana_gripper_tool_frame" group="gripper" />
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_joint" type="planar" parent_frame="odom_combined" child_link="base_footprint" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base_link" link2="katana_base_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_gripper_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_internal_controlbox_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_l_finger_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_motor1_pan_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_motor2_lift_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_motor3_lift_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_motor4_lift_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_motor5_wrist_roll_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="katana_r_finger_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="laser" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="left_front_wheel_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="left_middle_wheel_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="left_rear_wheel_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="pole" reason="Never" />
+    <disable_collisions link1="base_link" link2="right_front_wheel_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="right_middle_wheel_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="right_rear_wheel_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="base_link" link2="structure" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="base_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="katana_internal_controlbox_link" reason="Adjacent" />
+    <disable_collisions link1="katana_base_link" link2="katana_motor1_pan_link" reason="Adjacent" />
+    <disable_collisions link1="katana_base_link" link2="katana_motor2_lift_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="katana_motor3_lift_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="pole" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="structure" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="katana_base_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="katana_l_finger_link" reason="Adjacent" />
+    <disable_collisions link1="katana_gripper_link" link2="katana_motor3_lift_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="katana_motor4_lift_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="katana_motor5_wrist_roll_link" reason="Adjacent" />
+    <disable_collisions link1="katana_gripper_link" link2="katana_r_finger_link" reason="Adjacent" />
+    <disable_collisions link1="katana_gripper_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_gripper_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="katana_motor1_pan_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="katana_motor2_lift_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="katana_motor3_lift_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="pole" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="structure" reason="Adjacent" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="katana_internal_controlbox_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="katana_motor3_lift_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="katana_motor4_lift_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="katana_motor5_wrist_roll_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="katana_r_finger_link" reason="Default" />
+    <disable_collisions link1="katana_l_finger_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_l_finger_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="katana_motor2_lift_link" reason="Adjacent" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="katana_motor3_lift_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="pole" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="structure" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="katana_motor1_pan_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="katana_motor3_lift_link" reason="Adjacent" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="structure" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="katana_motor2_lift_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="katana_motor4_lift_link" reason="Adjacent" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="katana_motor5_wrist_roll_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="katana_r_finger_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="structure" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="katana_motor3_lift_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="katana_motor5_wrist_roll_link" reason="Adjacent" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="katana_r_finger_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="katana_motor4_lift_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="katana_r_finger_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="katana_motor5_wrist_roll_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="kinect_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="kinect_pitch_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="laser" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="katana_r_finger_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="kinect_pitch_link" reason="Adjacent" />
+    <disable_collisions link1="kinect_link" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="pole" reason="Default" />
+    <disable_collisions link1="kinect_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="structure" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="kinect_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="pole" reason="Adjacent" />
+    <disable_collisions link1="kinect_pitch_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="structure" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="kinect_pitch_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="laser" link2="left_front_wheel_link" reason="Never" />
+    <disable_collisions link1="laser" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="laser" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="laser" link2="pole" reason="Never" />
+    <disable_collisions link1="laser" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="laser" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="laser" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="laser" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="laser" link2="structure" reason="Never" />
+    <disable_collisions link1="laser" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="laser" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="left_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="pole" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="structure" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="left_front_wheel_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="left_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="pole" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="structure" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="left_middle_wheel_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="pole" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="structure" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="left_rear_wheel_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="pole" link2="right_front_wheel_link" reason="Never" />
+    <disable_collisions link1="pole" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="pole" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="pole" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="pole" link2="structure" reason="Adjacent" />
+    <disable_collisions link1="pole" link2="webcam_pitch_link" reason="Adjacent" />
+    <disable_collisions link1="right_front_wheel_link" link2="right_middle_wheel_link" reason="Never" />
+    <disable_collisions link1="right_front_wheel_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="right_front_wheel_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="right_front_wheel_link" link2="structure" reason="Never" />
+    <disable_collisions link1="right_front_wheel_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="right_front_wheel_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="right_middle_wheel_link" link2="right_rear_wheel_link" reason="Never" />
+    <disable_collisions link1="right_middle_wheel_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="right_middle_wheel_link" link2="structure" reason="Never" />
+    <disable_collisions link1="right_middle_wheel_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="right_middle_wheel_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="right_rear_wheel_link" link2="sick_lms200" reason="Never" />
+    <disable_collisions link1="right_rear_wheel_link" link2="structure" reason="Never" />
+    <disable_collisions link1="right_rear_wheel_link" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="right_rear_wheel_link" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="sick_lms200" link2="structure" reason="Adjacent" />
+    <disable_collisions link1="sick_lms200" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="sick_lms200" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="structure" link2="webcam_link" reason="Never" />
+    <disable_collisions link1="structure" link2="webcam_pitch_link" reason="Never" />
+    <disable_collisions link1="webcam_link" link2="webcam_pitch_link" reason="Adjacent" />
+</robot>

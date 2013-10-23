@@ -1,0 +1,12 @@
+controller_list:
+  - name: fake_arm_controller
+    joints:
+      - katana_motor1_pan_joint
+      - katana_motor2_lift_joint
+      - katana_motor3_lift_joint
+      - katana_motor4_lift_joint
+      - katana_motor5_wrist_roll_joint
+  - name: fake_gripper_controller
+    joints:
+      - katana_l_finger_joint
+      - katana_r_finger_joint

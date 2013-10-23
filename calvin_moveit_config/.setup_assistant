@@ -1,0 +1,8 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: calvin_description
+    relative_path: robots/calvin.urdf
+  SRDF:
+    relative_path: config/calvin.srdf
+  CONFIG:
+    generated_timestamp: 1382546366
