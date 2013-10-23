@@ -14,7 +14,7 @@
   <include file="$(find calvin_bringup)/launch/laser.launch"/>
 
   <!-- sick_lms200 -->
-  <!--include file="$(find calvin_bringup)/launch/sick_lms200.launch"/-->
+  <include file="$(find calvin_bringup)/launch/sick_lms200.launch"/>
 
   <!-- logitech webcam -->
   <include file="$(find calvin_bringup)/launch/vgacamera.launch"/>

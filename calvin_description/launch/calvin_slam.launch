@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find calvin_description)/launch/calvin.launch" />
-  <include file="$(find calvin_navigation_global)/move_base.xml" />
+  <!--include file="$(find calvin_navigation_global)/move_base.xml" /-->
   <include file="$(find calvin_navigation_global)/slam_gmapping.xml" />
 </launch>
