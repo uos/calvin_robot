@@ -1,7 +1,0 @@
-cloud_sources:
-  - name: /kinect/depth_registered/points_filtered
-    # take every nth frame (1 is no discards)
-    frame_subsample: 1
-    # take every nth point from the frames you do process
-    point_subsample: 1 
-    sensor_frame: kinect_rgb_optical_frame

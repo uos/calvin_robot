@@ -1,4 +1,0 @@
-<launch>
-    <include file="$(find calvin_description)/launch/upload_calvin.launch" />
-    <rosparam command="load" ns="robot_description_planning" file="$(find calvin_arm_navigation)/config/calvin_planning_description.yaml" />
-</launch>
