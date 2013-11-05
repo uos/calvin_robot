@@ -1,8 +1,21 @@
 sensors:
-  - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
-    point_cloud_topic: /kinect/depth_registered/points
-    max_range: 5.0
-    frame_subsample: 1
-    point_subsample: 1
-    shape_padding: 0.1
-    shape_scale: 1.0
+  - sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
+    image_topic: /kinect/depth_registered/image_raw
+    far_clipping_plane_distance: 5.0
+    near_clipping_plane_distance: 0.25
+    padding_scale: 4.0
+    padding_offset: 0.03
+    filtered_cloud_topic: /kinect/depth_registered/filtered_cloud
+    queue_size: 5
+    skip_vertical_pixels: 1
+    skip_horizontal_pixels: 1
+    shadow_threshold: 0.2
+
+#sensors:
+#  - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+#    point_cloud_topic: /kinect/depth_registered/points
+#    max_range: 5.0
+#    frame_subsample: 1
+#    point_subsample: 1
+#    shape_padding: 0.1
+#    shape_scale: 1.0
