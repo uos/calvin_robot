@@ -1,8 +1,8 @@
-# controller_manager_ns: pr2_controller_manager
 controller_manager_ns: ""
 controller_list:
   - name: katana_arm_controller
-    ns: follow_joint_trajectory
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
     default: true
     joints:
       - katana_motor1_pan_joint
@@ -11,14 +11,10 @@ controller_list:
       - katana_motor4_lift_joint
       - katana_motor5_wrist_roll_joint
 
-#  - name: r_gripper_controller
-#    ns: gripper_action
-#    default: true
-#    joints:
-#      - r_gripper_joint
-#      - r_gripper_l_finger_joint
-#      - r_gripper_r_finger_joint
-#      - r_gripper_l_finger_tip_joint
-#      - r_gripper_r_finger_tip_joint
-#      - r_gripper_motor_screw_joint
-#      - r_gripper_motor_slider_joint
+  - name: gripper_grasp_posture_controller
+    action_ns: ""
+    type: GripperCommand
+    default: true
+    joints:
+      -  katana_l_finger_joint
+      -  katana_r_finger_joint
