@@ -38,7 +38,7 @@
 /katana_arm_controller/state
 /kinect/depth_registered/camera_info
 /kinect/depth_registered/disparity
-/kinect/depth_registered/image
+/kinect/depth_registered/image_raw
 /kinect/driver/parameter_descriptions
 /kinect/driver/parameter_updates
 /kinect/projector/camera_info
@@ -47,6 +47,8 @@
 /kinect/rgb/debayer/parameter_updates
 /kinect/rgb/image_color
 /kinect_pitch_joint_controller/command
+/lms200
+/lms200_scan_filtered
 /map
 /move_base_node/NavfnROS/plan
 /move_base_node/TrajectoryPlannerROS/global_plan
@@ -66,5 +68,6 @@
 /sick_tim310s01/parameter_descriptions
 /sick_tim310s01/parameter_updates
 /tf
+/tf_static
 /visualization_marker
 /visualization_marker_array
