@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
   <!-- Set the parameters for the warehouse and run the mongodb server. -->
 

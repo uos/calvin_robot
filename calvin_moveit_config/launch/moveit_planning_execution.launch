@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
   # The planning and execution components of MoveIt! configured to
   # publish the current configuration of the robot (simulated or real)
@@ -6,10 +7,10 @@
     <arg name="publish_monitored_planning_scene" value="true" />
   </include>
   # The visualization component of MoveIt!
-  <include file="$(find calvin_moveit_config)/launch/moveit_rviz.launch">
+  <!--include file="$(find calvin_moveit_config)/launch/moveit_rviz.launch">
     <arg name="config" value="true"/>
-  </include>
+  </include-->
 
   # Needed as long as robot_pose_ekf isn't running
-  <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" />
+  <!--node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" /-->
 </launch>
