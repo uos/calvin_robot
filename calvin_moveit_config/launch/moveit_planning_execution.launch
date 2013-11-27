@@ -5,6 +5,7 @@
   # and the current state of the world as seen by the planner
   <include file="$(find calvin_moveit_config)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
+    <arg name="info" value="true" />
   </include>
   # The visualization component of MoveIt!
   <!--include file="$(find calvin_moveit_config)/launch/moveit_rviz.launch">
