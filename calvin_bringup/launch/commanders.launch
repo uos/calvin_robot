@@ -4,6 +4,6 @@
     <param name="publish_joint_states" type="bool" value="True" />
     <param name="kinect_pitch_joint" type="double" value="0.89" />
     <param name="webcam_pitch_joint" type="double" value="0.39" />
-    <!--<remap from="joint_states" to="calvin_joint_states" />-->
+    <remap from="joint_states" to="calvin_joint_states"/>
   </node>
 </launch>
