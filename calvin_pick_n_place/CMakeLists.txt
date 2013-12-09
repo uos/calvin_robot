@@ -30,3 +30,4 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #target_link_libraries(example ${PROJECT_NAME})
 
 rosbuild_add_executable(pick_n_place src/pick_n_place.cpp)
+rosbuild_add_executable(picktest src/picktest.cpp)
