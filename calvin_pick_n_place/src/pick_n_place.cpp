@@ -10,6 +10,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include "opencv2/highgui/highgui.hpp"
 
+#include <shape_tools/solid_primitive_dims.h>
+
 #include <tf/transform_listener.h>
 
 static const std::string ROBOT_DESCRIPTION="robot_description";
@@ -269,6 +271,27 @@ int main(int argc, char **argv)
   const static unsigned int CLEAR = 3;
   unsigned int try_place = 0;
   unsigned int state = START;
+
+  moveit_msgs::CollisionObject co;
+  co.header.stamp = ros::Time::now();
+  co.header.frame_id = "base_footprint";
+
+  co.id = "object_zero";
+  co.operation = moveit_msgs::CollisionObject::ADD;
+  co.primitives.resize(1);
+  co.primitives[0].type = shape_msgs::SolidPrimitive::BOX;
+  co.primitives[0].dimensions.resize(shape_tools::SolidPrimitiveDimCount<shape_msgs::SolidPrimitive::BOX>::value);
+  co.primitives[0].dimensions[shape_msgs::SolidPrimitive::BOX_X] = 0.3;
+  co.primitives[0].dimensions[shape_msgs::SolidPrimitive::BOX_Y] = 0.1;
+  co.primitives[0].dimensions[shape_msgs::SolidPrimitive::BOX_Z] = 1.0;
+  co.primitive_poses.resize(1);
+  co.primitive_poses[0].position.x = 0.7;
+  co.primitive_poses[0].position.y = -0.4;
+  co.primitive_poses[0].position.z = 0.85;
+  co.primitive_poses[0].orientation.w = 1.0;
+  pg.collision_object_publisher_.publish(co);
+  //pg.visualize(co.primitive_poses);
+
 
   std::vector<std::string> objects;
   while(ros::ok())
