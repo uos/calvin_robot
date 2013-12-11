@@ -5,7 +5,7 @@
 
   <!-- driver for roboter base -->
   <node name="volksbot" pkg="volksbot_driver" type="volksbot" respawn="false" output="screen">
-    <remap from="joint_states" to="kurtana_joint_states"/>
+    <remap from="joint_states" to="calvin_joint_states"/>
   </node>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
