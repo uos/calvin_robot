@@ -5,8 +5,8 @@
     <param name="product" type="str" value="0x082d" />
     <param name="serial" type="str" value="" />
     <param name="index" type="int" value="0" />
-    <param name="width" type="int" value="640" />
-    <param name="height" type="int" value="480" />
+    <param name="width" type="int" value="1280" />
+    <param name="height" type="int" value="720" />
     <param name="video_mode" type="str" value="uncompressed" />
     <param name="frame_rate" type="double" value="15.0" />
     <param name="timestamp_method" type="str" value="start" />
