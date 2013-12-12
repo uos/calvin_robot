@@ -276,7 +276,7 @@
   <joint name="calvin_kinect_joint" type="fixed">
     <parent link="kinect_pitch_link" />
     <child  link="kinect_link" />
-    <origin xyz="${kinect_x_offset} ${kinect_y_offset} ${kinect_z_offset}" rpy="0 0 0"/>
+    <origin xyz="${kinect_x_offset} ${kinect_y_offset} ${kinect_z_offset}" rpy="${M_PI} 0 0"/>
   </joint>
 
   <xacro:macro name="kinect_pole_transmission" params="name">
