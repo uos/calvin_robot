@@ -10,9 +10,9 @@
 
   <xacro:include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
 
-  <property name="kinect_x_offset" value="0.06" />
-  <property name="kinect_y_offset" value="0.03" />
-  <property name="kinect_z_offset" value="0.05" />
+  <property name="kinect_x_offset" value="0.07" />
+  <property name="kinect_y_offset" value="-0.02" />
+  <property name="kinect_z_offset" value="0.01" />
 
   <xacro:property name="pole_length" value="0.02"/>
   <xacro:property name="pole_width" value="0.02"/>
