@@ -3,8 +3,8 @@ sensors:
     image_topic: /kinect/depth_registered/image_raw
     far_clipping_plane_distance: 5.0
     near_clipping_plane_distance: 0.25
-    padding_scale: 4.0
-    padding_offset: 0.03
+    padding_scale: 1.0
+    padding_offset: 0.1
     filtered_cloud_topic: /kinect/depth_registered/filtered_cloud
     queue_size: 5
     skip_vertical_pixels: 1
