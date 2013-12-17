@@ -18,6 +18,9 @@
   <xacro:property name="pole_width" value="0.02"/>
   <xacro:property name="pole_height" value="1"/>
 
+  <xacro:property name="cup_radius" value="0.045"/>
+  <xacro:property name="cup_height" value="0.02"/>
+
   <xacro:property name="structure_length" value="0.36"/>
   <xacro:property name="structure_width" value="0.32"/>
   <xacro:property name="structure_height" value="0.51"/>
@@ -92,6 +95,32 @@
     <parent link="structure" />
     <child link="pole" />
     <origin xyz="${-structure_length/2 - pole_length/2} 0 ${pole_height/2 + structure_height/2}" rpy="0 0 0" />
+  </joint>
+
+  <link name="cup">
+    <visual>
+      <geometry>
+        <!--<cylinder length="${cup_height}" radius="${cup_radius}" />-->
+        <mesh filename="package://calvin_description/meshes/cup.stl"/>
+      </geometry>
+      <material name="grey" >
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <!-- using STL for collision to fix http://answers.ros.org/question/2368/gazebo-model-wheels-slip-after-upgrade-to-electric -->
+        <!--<cylinder length="${cup_height}" radius="${cup_radius}" />-->
+        <mesh filename="package://calvin_description/meshes/cup.stl"/>
+      </geometry>
+    </collision>
+    <xacro:cylinder_inertial radius="${cup_radius}" length="${cup_height}" mass="0.05"/>
+  </link>
+
+  <joint name="structure_to_cup_joint" type="fixed">
+    <parent link="structure" />
+    <child link="cup" />
+    <origin xyz="${structure_length/2 - cup_radius} ${structure_width/2 - cup_radius} ${cup_height/2 + structure_height/2}" rpy="0 0 0" />
   </joint>
 
   <!-- ******************************** -->
