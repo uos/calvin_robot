@@ -44,6 +44,8 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   tf::Quaternion rotation;
   tf::Vector3 rotation_axis;
 
+  origin = t.getOrigin();
+
   rotation = t.getRotation();
   tf::quaternionTFToMsg(rotation, pose.pose.orientation);
 
