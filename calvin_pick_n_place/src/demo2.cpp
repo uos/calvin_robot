@@ -35,84 +35,32 @@ void remove_attached_collision_object() {
   pub_aco.publish(aco);
 }
 
-moveit_msgs::Grasp graspmult(moveit_msgs::Grasp a, moveit_msgs::Grasp b)
-{
-  moveit_msgs::Grasp x;
-  geometry_msgs::PoseStamped c;
-  c.header.frame_id = "base_footprint";
-  c.pose.position.x = a.grasp_pose.pose.position.x + b.grasp_pose.pose.position.x;
-  c.pose.position.y = a.grasp_pose.pose.position.y + b.grasp_pose.pose.position.y;
-  c.pose.position.z = a.grasp_pose.pose.position.z + b.grasp_pose.pose.position.z;
-  c.pose.orientation.x = a.grasp_pose.pose.orientation.x + b.grasp_pose.pose.orientation.x;
-  c.pose.orientation.y = a.grasp_pose.pose.orientation.y + b.grasp_pose.pose.orientation.y;
-  c.pose.orientation.z = a.grasp_pose.pose.orientation.z + b.grasp_pose.pose.orientation.z;
-  c.pose.orientation.w = 1;
-  x.grasp_pose = c;
-
-
-  x.pre_grasp_approach.direction.vector.z = 1.0;
-  x.pre_grasp_approach.direction.header.frame_id = "katana_gripper_tool_frame";
-  x.pre_grasp_approach.min_distance = 0.1;
-  x.pre_grasp_approach.desired_distance = 0.2;
-
-  x.post_grasp_retreat.direction.header.frame_id = "base_footprint";
-  x.post_grasp_retreat.direction.vector.z = 1.0;
-  x.post_grasp_retreat.min_distance = 0.2;
-  x.post_grasp_retreat.desired_distance = 0.3;
-
-  x.pre_grasp_posture.joint_names.resize(1, "katana_r_finger_joint");
-  x.pre_grasp_posture.points.resize(1);
-  x.pre_grasp_posture.points[0].positions.resize(1);
-  x.pre_grasp_posture.points[0].positions[0] = 1;
-
-  x.grasp_posture.joint_names.resize(1, "katana_r_finger_joint");
-  x.grasp_posture.points.resize(1);
-  x.grasp_posture.points[0].positions.resize(1);
-  x.grasp_posture.points[0].positions[0] = 0;
-
-  return x;
-}
-
 /**
  * x, y, z: center of grasp point (the point that should be between the finger tips of the gripper)
  */
-std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
+std::vector<tf::Transform> GraspPlanner::generate_grasps(double x, double y, double z)
 {
   static const double ANGLE_INC = M_PI / 16;
   static const double STRAIGHT_ANGLE_MIN = 0.0 + ANGLE_INC;  // + ANGLE_INC, because 0 is already covered by side grasps
   static const double ANGLE_MAX = M_PI / 2;
 
   // how far from the grasp center should the wrist be?
-  static const double STANDOFF = -0.12;
+  static const double STANDOFF = -0.01;
 
-  std::vector<moveit_msgs::Grasp> grasps;
+  std::vector<tf::Transform> grasps;
 
-  moveit_msgs::Grasp transform;
+  tf::Transform transform;
 
-  moveit_msgs::Grasp standoff_trans;
-  geometry_msgs::PoseStamped p0;
-  p0.header.frame_id = "base_footprint";
-  p0.pose.position.x = STANDOFF;
-  p0.pose.position.y = 0.0;
-  p0.pose.position.z = 0.0;
-  p0.pose.orientation.x = 0;
-  p0.pose.orientation.y = 0;
-  p0.pose.orientation.z = 0;
-  p0.pose.orientation.w = 1;
-  standoff_trans.grasp_pose = p0;
-
+  tf::Transform standoff_trans;
+  standoff_trans.setOrigin(tf::Vector3(STANDOFF, 0.0, 0.0));
+  standoff_trans.setRotation(tf::Quaternion(0.0, sqrt(2)/2, 0.0, sqrt(2)/2));
 
   // ----- side grasps
   //
   //  1. side grasp (xy-planes of `katana_motor5_wrist_roll_link` and of `katana_base_link` are parallel):
   //     - standard: `rpy = (0, 0, *)` (orientation of `katana_motor5_wrist_roll_link` in `katana_base_link` frame)
   //     - overhead: `rpy = (pi, 0, *)`
-  geometry_msgs::PoseStamped p1;
-  p1.header.frame_id = "base_footprint";
-  p1.pose.position.x = x;
-  p1.pose.position.y = y;
-  p1.pose.position.z = z;
-  transform.grasp_pose = p1;
+  transform.setOrigin(tf::Vector3(x, y, z));
 
   for (double roll = 0.0; roll <= M_PI; roll += M_PI)
   {
@@ -125,19 +73,13 @@ std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
     for (double yaw = ANGLE_INC; yaw <= ANGLE_MAX; yaw += ANGLE_INC)
     {
       // + atan2 to center the grasps around the vector from arm to object
-      p1.pose.orientation.x = roll;
-      p1.pose.orientation.y = pitch;
-      p1.pose.orientation.z = yaw + atan2(y, x);
-      p1.pose.orientation.w = 1;
-      grasps.push_back(graspmult(transform, standoff_trans));
+      transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, yaw + atan2(y, x)));
+      grasps.push_back(transform * standoff_trans);
 
       if (yaw != 0.0)
       {
-        p1.pose.orientation.x = roll;
-        p1.pose.orientation.y = pitch;
-        p1.pose.orientation.z = -yaw + atan2(y, x);
-        p1.pose.orientation.w = 1;
-        grasps.push_back(graspmult(transform, standoff_trans));
+        transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, -yaw + atan2(y, x)));
+        grasps.push_back(transform * standoff_trans);
       }
     }
   }
@@ -152,19 +94,12 @@ std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
     for (double pitch = STRAIGHT_ANGLE_MIN; pitch <= ANGLE_MAX; pitch += ANGLE_INC)
     {
       double yaw = atan2(y, x);
-      p1.pose.position.x = x;
-      p1.pose.position.y = y;
-      p1.pose.position.z = z;
-      p1.pose.orientation.x = roll;
-      p1.pose.orientation.y = pitch;
-      p1.pose.orientation.z = yaw;
-      p1.pose.orientation.w = 1;
+      transform.setOrigin(tf::Vector3(x, y, z));
+      transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, yaw));
 
-      grasps.push_back(graspmult(transform, standoff_trans));
+      grasps.push_back(transform * standoff_trans);
     }
   }
-
-  ROS_INFO("%zu grasps generated!", grasps.size());
 
   return grasps;
 }
@@ -179,7 +114,7 @@ int main(int argc, char **argv) {
   planning_scene_publisher = nh.advertise<moveit_msgs::PlanningScene>("planning_scene", 10);
 
   moveit::planning_interface::MoveGroup group("arm");
-  group.setPlanningTime(10.0);
+  group.setPlanningTime(45.0);
   ros::WallDuration(2.0).sleep();
 
   actionlib::SimpleActionClient<control_msgs::GripperCommandAction> gripper("gripper_grasp_posture_controller", true);
