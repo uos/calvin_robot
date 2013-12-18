@@ -44,8 +44,6 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   tf::Quaternion rotation;
   tf::Vector3 rotation_axis;
 
-  rotation_axis = rotation.getAxis();
-
   rotation = t.getRotation();
   tf::quaternionTFToMsg(rotation, pose.pose.orientation);
 
@@ -53,10 +51,10 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   pose.pose.position.x = origin.x;
   pose.pose.position.y = origin.y;
   pose.pose.position.z = origin.z;
-  //pose.pose.orientation.x = rotation_axis.x;
-  //pose.pose.orientation.y = rotation_axis.y;
-  //pose.pose.orientation.z = rotation_axis.z;
-  pose.pose.orientation.w = 1;
+  //pose.pose.orientation.x = 0;
+  //pose.pose.orientation.y = 0;
+  //pose.pose.orientation.z = 0;
+  //pose.pose.orientation.w = 1;
   grasp.grasp_pose = pose;
 
   return grasp;
@@ -106,7 +104,7 @@ std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
       if (yaw != 0.0)
       {
         transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, -yaw + atan2(y, x)));
-      grasps.push_back(tf_transform_to_grasp(transform * standoff_trans));
+        grasps.push_back(tf_transform_to_grasp(transform * standoff_trans));
       }
     }
   }
