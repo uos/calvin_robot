@@ -50,7 +50,7 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   rotation = t.getRotation();
   tf::quaternionTFToMsg(rotation, pose.pose.orientation);
 
-  pose.header.frame_id = "katana_gripper_tool_frame";
+  pose.header.frame_id = "base_footprint";
   pose.header.stamp = ros::Time::now();
   pose.pose.position.x = origin.m_floats[0];
   pose.pose.position.y = origin.m_floats[1];
@@ -72,9 +72,10 @@ void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
   for(std::vector<moveit_msgs::Grasp>::iterator it = grasps.begin(); it != grasps.end(); ++it) {
     visualization_msgs::Marker marker;
     marker.header.stamp = ros::Time::now();
-    marker.header.frame_id = "katana_gripper_tool_frame";
+    marker.header.frame_id = "base_footprint";
     marker.id = i;
     marker.type = 1;
+    marker.ns = "graspmarker";
     marker.pose = it->grasp_pose.pose;
     marker.scale.x = 1;
     marker.scale.y = 1;
