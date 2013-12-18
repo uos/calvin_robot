@@ -25,18 +25,19 @@ class PickPlaceGroup
   {
   }
 
-moveit_msgs::Grasp graspmult(moveit_msgs::Grasp a, moveit_msgs::Grasp b) {
-moveit_msgs::Grasp x;
-  geometry_msgs::PoseStamped c;
-  c.header.frame_id = "base_footprint";
-  c.pose.position.x = a.grasp_pose.pose.position.x + b.grasp_pose.pose.position.x;
-  c.pose.position.y = a.grasp_pose.pose.position.y + b.grasp_pose.pose.position.y;
-  c.pose.position.z = a.grasp_pose.pose.position.z + b.grasp_pose.pose.position.z;
-  c.pose.orientation.x = a.grasp_pose.pose.orientation.x + b.grasp_pose.pose.orientation.x;
-  c.pose.orientation.y = a.grasp_pose.pose.orientation.y + b.grasp_pose.pose.orientation.y;
-  c.pose.orientation.z = a.grasp_pose.pose.orientation.z + b.grasp_pose.pose.orientation.z;
-  c.pose.orientation.w = 1;
-x.grasp_pose = c;
+    moveit_msgs::Grasp graspmult(moveit_msgs::Grasp a, moveit_msgs::Grasp b)
+    {
+      moveit_msgs::Grasp x;
+      geometry_msgs::PoseStamped c;
+      c.header.frame_id = "base_footprint";
+      c.pose.position.x = a.grasp_pose.pose.position.x + b.grasp_pose.pose.position.x;
+      c.pose.position.y = a.grasp_pose.pose.position.y + b.grasp_pose.pose.position.y;
+      c.pose.position.z = a.grasp_pose.pose.position.z + b.grasp_pose.pose.position.z;
+      c.pose.orientation.x = a.grasp_pose.pose.orientation.x + b.grasp_pose.pose.orientation.x;
+      c.pose.orientation.y = a.grasp_pose.pose.orientation.y + b.grasp_pose.pose.orientation.y;
+      c.pose.orientation.z = a.grasp_pose.pose.orientation.z + b.grasp_pose.pose.orientation.z;
+      c.pose.orientation.w = 1;
+      x.grasp_pose = c;
 
 
       x.pre_grasp_approach.direction.vector.z = 1.0;
@@ -59,102 +60,102 @@ x.grasp_pose = c;
       x.grasp_posture.points[0].positions.resize(1);
       x.grasp_posture.points[0].positions[0] = 0;
 
-return x;
-}
+      return x;
+    }
 
-/**
- * x, y, z: center of grasp point (the point that should be between the finger tips of the gripper)
- */                                                                                
-std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
-{                                                                                  
-  static const double ANGLE_INC = M_PI / 16;                                       
-  static const double STRAIGHT_ANGLE_MIN = 0.0 + ANGLE_INC;  // + ANGLE_INC, because 0 is already covered by side grasps
-  static const double ANGLE_MAX = M_PI / 2;                                        
-                                                                                   
-  // how far from the grasp center should the wrist be?                            
-  static const double STANDOFF = -0.12;                                            
-                                                                                   
-  std::vector<moveit_msgs::Grasp> grasps;                                               
-                                                                                   
-  moveit_msgs::Grasp transform;                                                         
-                                                                                   
-  moveit_msgs::Grasp standoff_trans;                                                    
-  geometry_msgs::PoseStamped p0;
-  p0.header.frame_id = "base_footprint";
-  p0.pose.position.x = STANDOFF;
-  p0.pose.position.y = 0.0;
-  p0.pose.position.z = 0.0;
-  p0.pose.orientation.x = 0;
-  p0.pose.orientation.y = 0;
-  p0.pose.orientation.z = 0;
-  p0.pose.orientation.w = 1;
-  standoff_trans.grasp_pose = p0;
-                                                                                   
-                                                                                   
-  // ----- side grasps                                                             
-  //                                                                               
-  //  1. side grasp (xy-planes of `katana_motor5_wrist_roll_link` and of `katana_base_link` are parallel):
-  //     - standard: `rpy = (0, 0, *)` (orientation of `katana_motor5_wrist_roll_link` in `katana_base_link` frame)
-  //     - overhead: `rpy = (pi, 0, *)`                                            
-  geometry_msgs::PoseStamped p1;
-  p1.header.frame_id = "base_footprint";
-  p1.pose.position.x = x;
-  p1.pose.position.y = y;
-  p1.pose.position.z = z;
-  transform.grasp_pose = p1;
-                                                                                   
-  for (double roll = 0.0; roll <= M_PI; roll += M_PI)                              
-  {                                                                                
-    double pitch = 0.0;                                                            
-                                                                                   
-    // add yaw = 0 first, then +ANGLE_INC, -ANGLE_INC, 2*ANGLE_INC, ...            
-    // reason: grasps with yaw near 0 mean that the approach is from the           
-    // direction of the arm; it is usually easier to place the object back like 
-    // this                                                                        
-    for (double yaw = ANGLE_INC; yaw <= ANGLE_MAX; yaw += ANGLE_INC)               
-    {                                                                              
-      // + atan2 to center the grasps around the vector from arm to object         
-  p1.pose.orientation.x = roll;
-  p1.pose.orientation.y = pitch;
-  p1.pose.orientation.z = yaw + atan2(y, x);
-  p1.pose.orientation.w = 1;
-      grasps.push_back(graspmult(transform, standoff_trans));                                
-                                                                                   
-      if (yaw != 0.0)                                                              
-      {                                                                            
-  p1.pose.orientation.x = roll;
-  p1.pose.orientation.y = pitch;
-  p1.pose.orientation.z = -yaw + atan2(y, x);
-  p1.pose.orientation.w = 1;
-        grasps.push_back(graspmult(transform, standoff_trans));                              
-      }                                                                            
-    }                                                                              
-  }                                                                                
-                                                                                   
-  // ----- straight grasps                                                         
-  //                                                                               
-  //  2. straight grasp (xz-plane of `katana_motor5_wrist_roll_link` contains z axis of `katana_base_link`)
-  //     - standard: `rpy = (0, *, atan2(y_w, x_w))`   (x_w, y_w = position of `katana_motor5_wrist_roll_link` in `katana_base_link` frame)
-  //     - overhead: `rpy = (pi, *, atan2(y_w, x_w))`                              
-  for (double roll = 0.0; roll <= M_PI; roll += M_PI)                              
-  {                                                                                
-    for (double pitch = STRAIGHT_ANGLE_MIN; pitch <= ANGLE_MAX; pitch += ANGLE_INC)
-    {                                                                              
-      double yaw = atan2(y, x);                                                    
-  p1.pose.position.x = x;
-  p1.pose.position.y = y;
-  p1.pose.position.z = z;
-  p1.pose.orientation.x = roll;
-  p1.pose.orientation.y = pitch;
-  p1.pose.orientation.z = yaw;
-  p1.pose.orientation.w = 1;
-                                                                                   
-      grasps.push_back(graspmult(transform, standoff_trans));                                
-    }                                                                              
-  }                                                                                
-                                                                                   
-  return grasps;                                                                   
-}   
+    /**
+     * x, y, z: center of grasp point (the point that should be between the finger tips of the gripper)
+     */
+    std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
+    {
+      static const double ANGLE_INC = M_PI / 16;
+      static const double STRAIGHT_ANGLE_MIN = 0.0 + ANGLE_INC;  // + ANGLE_INC, because 0 is already covered by side grasps
+      static const double ANGLE_MAX = M_PI / 2;
+
+      // how far from the grasp center should the wrist be?
+      static const double STANDOFF = -0.12;
+
+      std::vector<moveit_msgs::Grasp> grasps;
+
+      moveit_msgs::Grasp transform;
+
+      moveit_msgs::Grasp standoff_trans;
+      geometry_msgs::PoseStamped p0;
+      p0.header.frame_id = "base_footprint";
+      p0.pose.position.x = STANDOFF;
+      p0.pose.position.y = 0.0;
+      p0.pose.position.z = 0.0;
+      p0.pose.orientation.x = 0;
+      p0.pose.orientation.y = 0;
+      p0.pose.orientation.z = 0;
+      p0.pose.orientation.w = 1;
+      standoff_trans.grasp_pose = p0;
+
+
+      // ----- side grasps
+      //
+      //  1. side grasp (xy-planes of `katana_motor5_wrist_roll_link` and of `katana_base_link` are parallel):
+      //     - standard: `rpy = (0, 0, *)` (orientation of `katana_motor5_wrist_roll_link` in `katana_base_link` frame)
+      //     - overhead: `rpy = (pi, 0, *)`
+      geometry_msgs::PoseStamped p1;
+      p1.header.frame_id = "base_footprint";
+      p1.pose.position.x = x;
+      p1.pose.position.y = y;
+      p1.pose.position.z = z;
+      transform.grasp_pose = p1;
+
+      for (double roll = 0.0; roll <= M_PI; roll += M_PI)
+      {
+        double pitch = 0.0;
+
+        // add yaw = 0 first, then +ANGLE_INC, -ANGLE_INC, 2*ANGLE_INC, ...
+        // reason: grasps with yaw near 0 mean that the approach is from the
+        // direction of the arm; it is usually easier to place the object back like
+        // this
+        for (double yaw = ANGLE_INC; yaw <= ANGLE_MAX; yaw += ANGLE_INC)
+        {
+          // + atan2 to center the grasps around the vector from arm to object
+          p1.pose.orientation.x = roll;
+          p1.pose.orientation.y = pitch;
+          p1.pose.orientation.z = yaw + atan2(y, x);
+          p1.pose.orientation.w = 1;
+          grasps.push_back(graspmult(transform, standoff_trans));
+
+          if (yaw != 0.0)
+          {
+            p1.pose.orientation.x = roll;
+            p1.pose.orientation.y = pitch;
+            p1.pose.orientation.z = -yaw + atan2(y, x);
+            p1.pose.orientation.w = 1;
+            grasps.push_back(graspmult(transform, standoff_trans));
+          }
+        }
+      }
+
+      // ----- straight grasps
+      //
+      //  2. straight grasp (xz-plane of `katana_motor5_wrist_roll_link` contains z axis of `katana_base_link`)
+      //     - standard: `rpy = (0, *, atan2(y_w, x_w))`   (x_w, y_w = position of `katana_motor5_wrist_roll_link` in `katana_base_link` frame)
+      //     - overhead: `rpy = (pi, *, atan2(y_w, x_w))`
+      for (double roll = 0.0; roll <= M_PI; roll += M_PI)
+      {
+        for (double pitch = STRAIGHT_ANGLE_MIN; pitch <= ANGLE_MAX; pitch += ANGLE_INC)
+        {
+          double yaw = atan2(y, x);
+          p1.pose.position.x = x;
+          p1.pose.position.y = y;
+          p1.pose.position.z = z;
+          p1.pose.orientation.x = roll;
+          p1.pose.orientation.y = pitch;
+          p1.pose.orientation.z = yaw;
+          p1.pose.orientation.w = 1;
+
+          grasps.push_back(graspmult(transform, standoff_trans));
+        }
+      }
+
+      return grasps;
+    }
 
     bool pick(const std::string &object)
     {
@@ -251,10 +252,10 @@ int main(int argc, char **argv)
   pose_store[2] = -1.0093;
   pose_store[3] = 0.6966;
   pose_store[4] = -2.7886;
-/*
-  group.setJointValueTarget(pose_zeros);
-  group.move();
-*/
+  /*
+     group.setJointValueTarget(pose_zeros);
+     group.move();
+     */
 
   const static unsigned int START = 0;
   const static unsigned int PICK = 1;
@@ -267,25 +268,25 @@ int main(int argc, char **argv)
   {
     if(state == START)
     {
-/**
-      objects = scene_interface.getKnownObjectNames(false);
-      if(objects.empty())
-      {
+      /**
+        objects = scene_interface.getKnownObjectNames(false);
+        if(objects.empty())
+        {
         ROS_INFO("Could not find any object in workspace");
         group.setJointValueTarget(pose_zeros);
         group.move();
         continue;
-      }
-      else
-      {
+        }
+        else
+        {
         state = PICK;
         continue;
-      }
-**/
-  pub_co.publish(co);
-objects.push_back("testbox");
-state = PICK;
-continue;
+        }
+       **/
+      pub_co.publish(co);
+      objects.push_back("testbox");
+      state = PICK;
+      continue;
     }
     else if (state == PICK)
     {
