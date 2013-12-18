@@ -60,8 +60,6 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   //pose.pose.orientation.w = 1;
   grasp.grasp_pose = pose;
 
-  publish_grasps_as_markerarray
-
   return grasp;
 }
 
@@ -143,6 +141,8 @@ std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
       grasps.push_back(tf_transform_to_grasp(transform * standoff_trans));
     }
   }
+
+  publish_grasps_as_markerarray(grasps);
 
   return grasps;
 }
