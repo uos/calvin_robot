@@ -6,10 +6,13 @@
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/planning_scene/planning_scene.h>
+#include <visualization_msgs/Marker.h>
+#include <visualization_msgs/MarkerArray.h>
 
 ros::Publisher pub_co;
 ros::Publisher pub_aco;
 ros::Publisher planning_scene_publisher;
+ros::Publisher grasps_marker;
 
 moveit_msgs::CollisionObject co;
 moveit_msgs::AttachedCollisionObject aco;
@@ -60,17 +63,18 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   return grasp;
 }
 
-/*
 void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
 {
   visualization_msgs::MarkerArray markers;
 
   for(std::vector<moveit_msgs::Grasp>::iterator it = grasps.begin(); it != grasps.end(); ++it) {
     visualization_msgs::Marker marker;
-
+    marker.pose = it->grasp_pose.pose;
+    markers.markers.push_back(marker);
   }
+
+  grasps_marker.publish(markers);
 }
-*/
 
 /**
  * x, y, z: center of grasp point (the point that should be between the finger tips of the gripper)
@@ -149,6 +153,7 @@ int main(int argc, char **argv) {
   pub_co = nh.advertise<moveit_msgs::CollisionObject>("collision_object", 10);
   pub_aco = nh.advertise<moveit_msgs::AttachedCollisionObject>("attached_collision_object", 10);
   planning_scene_publisher = nh.advertise<moveit_msgs::PlanningScene>("planning_scene", 10);
+  grasps_marker = nh.advertise<visualization_msgs::MarkerArray>("grasps_marker", 10);
 
   moveit::planning_interface::MoveGroup group("arm");
   group.setPlanningTime(45.0);
