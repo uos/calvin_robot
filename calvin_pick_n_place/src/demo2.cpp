@@ -60,6 +60,8 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   //pose.pose.orientation.w = 1;
   grasp.grasp_pose = pose;
 
+  publish_grasps_as_markerarray
+
   return grasp;
 }
 
