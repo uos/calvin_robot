@@ -35,10 +35,37 @@ void remove_attached_collision_object() {
   pub_aco.publish(aco);
 }
 
+moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
+{
+  moveit_msgs::Grasp grasp;
+  geometry_msgs::PoseStamped pose;
+
+  geometry_msgs::Vector3 origin;
+  tf::Quaternion rotation;
+  tf::Vector3 rotation_axis;
+
+  rotation_axis = rotation.getAxis();
+
+  rotation = t.getRotation();
+  tf::quaternionTFToMsg(rotation, pose.pose.orientation);
+
+  pose.header.frame_id = "base_footprint";
+  pose.pose.position.x = origin.x;
+  pose.pose.position.y = origin.y;
+  pose.pose.position.z = origin.z;
+  //pose.pose.orientation.x = rotation_axis.x;
+  //pose.pose.orientation.y = rotation_axis.y;
+  //pose.pose.orientation.z = rotation_axis.z;
+  pose.pose.orientation.w = 1;
+  grasp.grasp_pose = pose;
+
+  return grasp;
+}
+
 /**
  * x, y, z: center of grasp point (the point that should be between the finger tips of the gripper)
  */
-std::vector<tf::Transform> GraspPlanner::generate_grasps(double x, double y, double z)
+std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
 {
   static const double ANGLE_INC = M_PI / 16;
   static const double STRAIGHT_ANGLE_MIN = 0.0 + ANGLE_INC;  // + ANGLE_INC, because 0 is already covered by side grasps
@@ -47,7 +74,7 @@ std::vector<tf::Transform> GraspPlanner::generate_grasps(double x, double y, dou
   // how far from the grasp center should the wrist be?
   static const double STANDOFF = -0.01;
 
-  std::vector<tf::Transform> grasps;
+  std::vector<moveit_msgs::Grasp> grasps;
 
   tf::Transform transform;
 
@@ -74,12 +101,12 @@ std::vector<tf::Transform> GraspPlanner::generate_grasps(double x, double y, dou
     {
       // + atan2 to center the grasps around the vector from arm to object
       transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, yaw + atan2(y, x)));
-      grasps.push_back(transform * standoff_trans);
+      grasps.push_back(tf_transform_to_grasp(transform * standoff_trans));
 
       if (yaw != 0.0)
       {
         transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, -yaw + atan2(y, x)));
-        grasps.push_back(transform * standoff_trans);
+      grasps.push_back(tf_transform_to_grasp(transform * standoff_trans));
       }
     }
   }
@@ -97,7 +124,7 @@ std::vector<tf::Transform> GraspPlanner::generate_grasps(double x, double y, dou
       transform.setOrigin(tf::Vector3(x, y, z));
       transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, yaw));
 
-      grasps.push_back(transform * standoff_trans);
+      grasps.push_back(tf_transform_to_grasp(transform * standoff_trans));
     }
   }
 
