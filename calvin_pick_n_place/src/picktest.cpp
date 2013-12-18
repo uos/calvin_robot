@@ -199,8 +199,8 @@ class PickPlaceGroup
 
       //group.setSupportSurfaceName("table");
 
-      //return group_.pick(object, generate_grasps(0.45, 0.0, 0.85));
-      return group_.pick(object, grasps);
+      return group_.pick(object, generate_grasps(0.45, 0.0, 0.85));
+      //return group_.pick(object, grasps);
     }
 
     tf::TransformListener tf_;
