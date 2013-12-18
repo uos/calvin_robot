@@ -40,19 +40,17 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   moveit_msgs::Grasp grasp;
   geometry_msgs::PoseStamped pose;
 
-  geometry_msgs::Vector3 origin;
+  tf::Vector3& origin = t.getOrigin();
   tf::Quaternion rotation;
   tf::Vector3 rotation_axis;
-
-  origin = t.getOrigin();
 
   rotation = t.getRotation();
   tf::quaternionTFToMsg(rotation, pose.pose.orientation);
 
   pose.header.frame_id = "base_footprint";
-  pose.pose.position.x = origin.x;
-  pose.pose.position.y = origin.y;
-  pose.pose.position.z = origin.z;
+  pose.pose.position.x = origin.m_floats[0];
+  pose.pose.position.y = origin.m_floats[1];
+  pose.pose.position.z = origin.m_floats[2];
   //pose.pose.orientation.x = 0;
   //pose.pose.orientation.y = 0;
   //pose.pose.orientation.z = 0;
@@ -60,6 +58,16 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   grasp.grasp_pose = pose;
 
   return grasp;
+}
+
+void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
+{
+  visualization_msgs::MarkerArray markers;
+
+  for(std::vector<moveit_msgs::Grasp>::iterator it = grasps.begin(); it != grasps.end(); ++it) {
+    visualization_msgs::Marker marker;
+
+  }
 }
 
 /**
