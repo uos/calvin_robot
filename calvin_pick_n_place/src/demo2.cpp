@@ -60,6 +60,7 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   return grasp;
 }
 
+/*
 void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
 {
   visualization_msgs::MarkerArray markers;
@@ -69,6 +70,7 @@ void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
 
   }
 }
+*/
 
 /**
  * x, y, z: center of grasp point (the point that should be between the finger tips of the gripper)
