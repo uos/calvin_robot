@@ -69,6 +69,7 @@ void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
 
   for(std::vector<moveit_msgs::Grasp>::iterator it = grasps.begin(); it != grasps.end(); ++it) {
     visualization_msgs::Marker marker;
+    marker.header.frame_id = "base_footprint";
     marker.pose = it->grasp_pose.pose;
     markers.markers.push_back(marker);
   }
