@@ -90,11 +90,11 @@ planning_scene_msg.is_diff = true;
         <joint name="katana_motor5_wrist_roll_joint" />
 */
   std::vector<double> pose_approach(5,0.0);
-  pose_approach[0] = -2.727076956299257e-05;
-  pose_approach[1] = 0.4182292264006562;
-  pose_approach[2] = -1.579831110699088;
-  pose_approach[3] = 0.431614469864285;
-  pose_approach[4] = -0.02369829874973517;
+  pose_approach[0] = 0.005740496992887589;
+  pose_approach[1] = 0.485046287134435;
+  pose_approach[2] = -1.9345569321392093;
+  pose_approach[3] = 0.14383967405693898;
+  pose_approach[4] = -0.029220629586123703;
 
   std::vector<double> pose_pick(5,0.0);
   pose_pick[0] = -0.00628591238413545;
@@ -176,8 +176,6 @@ planning_scene_msg.is_diff = true;
   ros::WallDuration(5.0).sleep();
 
   gripper.sendGoal(grippermsg_open);
-
-  ros::WallDuration(2.0).sleep();
 
   remove_attached_collision_object();
 
