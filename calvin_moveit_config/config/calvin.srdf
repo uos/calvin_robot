@@ -38,11 +38,11 @@
         <joint name="katana_motor5_wrist_roll_joint" value="0" />
     </group_state>
     <group_state name="arm_far_away" group="arm">
-        <joint name="katana_motor1_pan_joint" value="-1.5313082524685249" />
-        <joint name="katana_motor2_lift_joint" value="0.1346867290689966" />
-        <joint name="katana_motor3_lift_joint" value="0.1302887110515889" />
-        <joint name="katana_motor4_lift_joint" value="-0.08638016258893799" />
-        <joint name="katana_motor5_wrist_roll_joint" value="-1.6730344418843768" />
+        <joint name="katana_motor1_pan_joint" value="-1.7012733237662538" />
+        <joint name="katana_motor2_lift_joint" value="-0.1344338680250754" />
+        <joint name="katana_motor3_lift_joint" value="-1.343523644420813" />
+        <joint name="katana_motor4_lift_joint" value="-1.9345202158335584" />
+        <joint name="katana_motor5_wrist_roll_joint" value="-0.028852474197031075" />
     </group_state>
     <group_state name="approach" group="arm">
         <joint name="katana_motor1_pan_joint" value="-2.727076956299257e-05" />
