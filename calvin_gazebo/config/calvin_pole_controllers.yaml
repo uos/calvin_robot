@@ -1,13 +1,18 @@
+
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
 kinect_pitch_joint_controller:
-  type: "robot_mechanism_controllers/JointPositionController"
-  joint: "kinect_pitch_joint"
+  type: effort_controllers/JointPositionController
+  joint: kinect_pitch_joint
   pid:
     p: 2.0
     i: 0.1
     d: 0.4
 webcam_pitch_joint_controller:
-  type: "robot_mechanism_controllers/JointPositionController"
-  joint: "webcam_pitch_joint"
+  type: effort_controllers/JointPositionController
+  joint: webcam_pitch_joint
   pid:
     p: 2.0
     i: 0.1

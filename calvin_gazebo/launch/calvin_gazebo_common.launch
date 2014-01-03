@@ -21,10 +21,6 @@
   <rosparam command="load" file="$(find katana_arm_gazebo)/config/katana_gripper_controller.yaml" />
   <rosparam command="load" file="$(find calvin_gazebo)/config/calvin_pole_controllers.yaml" />
 
-  <!-- Controller manager parameters -->
-  <param name="pr2_controller_manager/mechanism_statistics_publish_rate" value="1.0" />
-  <param name="pr2_controller_manager/joint_state_publish_rate" value="100.0" />
-
   <!-- Robot state publisher -->
   <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher">
     <param name="publish_frequency" type="double" value="50.0" />
@@ -33,8 +29,8 @@
 
   <!-- Controllers that come up loaded -->
   <node name="default_loaded_controllers_spawner"
-    pkg="pr2_controller_manager" type="spawner" output="screen"
-    args="--wait-for=/calibrated katana_arm_controller kinect_pitch_joint_controller webcam_pitch_joint_controller" />
+    pkg="controller_manager" type="spawner" output="screen" respawn="false"
+    args="katana_arm_controller kinect_pitch_joint_controller webcam_pitch_joint_controller joint_state_controller" />
 
   <!-- Fake calibration -->
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"

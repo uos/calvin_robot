@@ -2,7 +2,7 @@
 <launch>
   <arg name="gui" default="true"/>
 
-  <include file="$(find gazebo_worlds)/launch/empty_world_throttled.launch">
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="gui" value="$(arg gui)" />
   </include>
 
@@ -18,6 +18,6 @@
   <!-- spawn table -->
   <param name="table_description"
     command="$(find xacro)/xacro.py '$(find katana_arm_gazebo)/urdf/tall_table.urdf.xacro'" />
-  <node name="spawn_table" pkg="gazebo" type="spawn_model" args="-urdf -param table_description -model table_1 -x 0.8"
+  <node name="spawn_table" pkg="gazebo_ros" type="spawn_model" args="-urdf -param table_description -model table_1 -x 0.8"
     respawn="false" output="screen" />
 </launch>
