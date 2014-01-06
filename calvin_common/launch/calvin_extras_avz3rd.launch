@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-  <include file="$(find calvin_common)/launch/calvin_extras.launch">
-    <arg name="mapmetafile" value="$(find calvin_2dnav)/maps/avz3floor_complete.yaml"/>
-  </include>
-</launch>
