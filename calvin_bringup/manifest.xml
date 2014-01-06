@@ -8,7 +8,6 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/calvin_bringup</url>
-  <depend package="calvin_2dnav"/>
   <depend package="calvin_common"/>
   <depend package="calvin_description"/>
   <depend package="calvin_joint_commander"/>
