@@ -9,7 +9,6 @@ webcam_pitch_joint_controller:
   type: "robot_mechanism_controllers/JointPositionController"
   joint: "webcam_pitch_joint"
   pid:
-    p: 2.0
-    i: 0.1
-    d: 0.4
-
+    p: 0.02
+    i: 0.001
+    d: 0.001
