@@ -40,14 +40,6 @@
   <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
     args="pub /calibrated std_msgs/Bool true" />
 
-  <!-- Katana controller -->
-  <group ns="katana_arm_controller">
-    <node pkg="katana_joint_movement_adapter" type="joint_movement_adapter" name="joint_movement_adapter" output="screen">
-      <param name="max_acc" value="1.190799" />
-      <param name="max_vel" value="2.646220" />
-    </node>
-  </group>
-
   <!-- Calvin joint commander -->
   <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
     <param name="publish_joint_states" type="bool" value="True" />
