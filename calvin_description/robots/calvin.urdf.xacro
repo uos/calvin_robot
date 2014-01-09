@@ -232,7 +232,7 @@
           <box size="0.02 0.085 0.02" />
         </geometry>
       </collision>
-      <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
+      <xacro:box_inertial x="0.02" y="0.085" z="0.02" mass="0.01"/>
     </link>
 
     <joint name="${frame_prefix}_optical_joint" type="fixed">
@@ -241,9 +241,7 @@
       <child link="${frame_prefix}_optical_link" />
     </joint>
 
-    <link name="${frame_prefix}_optical_link">
-      <xacro:box_inertial x="0.1" y="0.1" z="0.1" mass="0.01"/>
-    </link>
+    <link name="${frame_prefix}_optical_link" />
   </xacro:macro>
 
   <xacro:webcam camera_name="webcam" frame_prefix="webcam" />
