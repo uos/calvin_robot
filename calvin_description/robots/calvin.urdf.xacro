@@ -9,6 +9,7 @@
   <xacro:property name="imu_stdev" value="0.00017" />
 
   <include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
+  <include filename="$(find uos_common_urdf)/common.xacro" />
 
   <property name="kinect_x_offset" value="0.06" />
   <property name="kinect_y_offset" value="0.03" />
@@ -160,11 +161,14 @@
         </material>
       </visual>
       <collision>
+        <origin rpy="0 0 0" xyz="${webcam_pitch_link_length/2 - item_width/2} 0 -${webcam_pitch_link_height}"/>
         <geometry>
           <box size="${webcam_pitch_link_length} ${webcam_pitch_link_width} ${webcam_pitch_link_height}" />
         </geometry>
       </collision>
-      <xacro:box_inertial x="${webcam_pitch_link_length}" y="${webcam_pitch_link_width}" z="${webcam_pitch_link_height}" mass="0.01"/>
+      <xacro:box_inertial_with_origin x="${webcam_pitch_link_length}" y="${webcam_pitch_link_width}" z="${webcam_pitch_link_height}" mass="0.01">
+        <origin rpy="0 0 0" xyz="${webcam_pitch_link_length/2 - item_width/2} 0 -${webcam_pitch_link_height}"/>
+      </xacro:box_inertial_with_origin>
     </link>
 
     <joint name="${frame_prefix}_joint" type="fixed">
@@ -241,7 +245,9 @@
         <box size="${kinect_pitch_link_length} ${kinect_pitch_link_width} ${kinect_pitch_link_height}" />
       </geometry>
     </collision>
-    <xacro:box_inertial x="${kinect_pitch_link_length}" y="${kinect_pitch_link_width}" z="${kinect_pitch_link_height}" mass="0.01"/>
+    <xacro:box_inertial_with_origin x="${kinect_pitch_link_length}" y="${kinect_pitch_link_width}" z="${kinect_pitch_link_height}" mass="0.01">
+      <origin xyz="${kinect_pitch_link_length/2 - item_width/2} 0 0" rpy="0 0 0"/>
+    </xacro:box_inertial_with_origin>
   </link>
 
   <joint name="kinect_pitch_joint" type="revolute">
