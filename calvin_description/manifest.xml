@@ -12,6 +12,7 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/calvin_description</url>
   <depend package="urdf"/>
+  <depend package="uos_common_urdf"/>
   <depend package="xacro"/>
 </package>
 
