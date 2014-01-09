@@ -49,8 +49,6 @@
     <param name="publish_controller_commands" type="bool" value="True" />
   </node>
 
-  <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter" output="screen">
-<!--    <remap from="scan_filtered" to="scan_median_filtered"/> -->
-    <rosparam command="load" file="$(find calvin_gazebo)/config/calvin_self_filter.yaml"/>
-  </node>
+  <!-- laser filter chain -->
+  <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch"/>
 </launch>
