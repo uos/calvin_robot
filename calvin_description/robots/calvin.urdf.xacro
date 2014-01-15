@@ -100,7 +100,7 @@
   <!-- ******************************** -->
   
   <include filename="$(find uos_common_urdf)/urdf/sick_lms200.urdf.xacro" />
-  <xacro:sick_lms200 laser_link="sick_lms200" />
+  <xacro:sick_lms200 laser_link="sick_lms200" gazebo_topic="lms200" />
 
   <joint name="structure_to_sick_lms200_joint" type="fixed" >
     <parent link="structure" />
