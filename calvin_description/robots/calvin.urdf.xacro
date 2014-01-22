@@ -105,7 +105,7 @@
   <joint name="structure_to_sick_lms200_joint" type="fixed" >
     <parent link="structure" />
     <child link="sick_lms200" />
-    <origin xyz="${-base_link_length/2 + structure_length/2 + item_width} 0 ${-structure_height/2 - base_link_height/2+0.18}" rpy="0 0 0" />
+    <origin xyz="${-base_link_length/2 + structure_length/2 + item_width - 0.015} 0 ${-structure_height/2 - base_link_height/2+0.18}" rpy="0 0 0" />
   </joint>
 
   <!-- ******************************** -->
@@ -286,7 +286,7 @@
   <xacro:sick_tim3xx laser_link="laser" />
 
   <joint name="laser_mount_joint" type="fixed">
-    <origin xyz="0.25 0 0.08" rpy="0 0 0" />
+    <origin xyz="0.25 0.0035 0.08" rpy="0 0 0" />
     <parent link="base_link"/>
     <child link="laser_mount_link" />
   </joint>
