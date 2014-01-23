@@ -40,14 +40,14 @@ void remove_attached_collision_object() {
 
 moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
 {
+  static int i = 0;
+
   moveit_msgs::Grasp grasp;
   geometry_msgs::PoseStamped pose;
 
   tf::Vector3& origin = t.getOrigin();
-  tf::Quaternion rotation;
-  tf::Vector3 rotation_axis;
+  tf::Quaternion rotation = t.getRotation();
 
-  rotation = t.getRotation();
   tf::quaternionTFToMsg(rotation, pose.pose.orientation);
 
   pose.header.frame_id = "base_footprint";
@@ -61,6 +61,8 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   //pose.pose.orientation.w = 1;
   grasp.grasp_pose = pose;
 
+  grasp.id = boost::lexical_cast<std::string>(i);
+
   grasp.pre_grasp_approach.direction.vector.z = 1.0;
   grasp.pre_grasp_approach.direction.header.frame_id = "katana_gripper_tool_frame";
   grasp.pre_grasp_approach.min_distance = 0.1;
@@ -68,19 +70,28 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
 
   grasp.post_grasp_retreat.direction.header.frame_id = "base_footprint";
   grasp.post_grasp_retreat.direction.vector.z = 1.0;
-  grasp.post_grasp_retreat.min_distance = 0.2;
-  grasp.post_grasp_retreat.desired_distance = 0.3;
+  grasp.post_grasp_retreat.min_distance = 0.05;
+  grasp.post_grasp_retreat.desired_distance = 0.1;
+
+  // TODO: fill in grasp.post_place_retreat (copy of post_grasp_retreat?)
 
   grasp.pre_grasp_posture.joint_names.resize(1, "katana_r_finger_joint");
   grasp.pre_grasp_posture.points.resize(1);
   grasp.pre_grasp_posture.points[0].positions.resize(1);
-  grasp.pre_grasp_posture.points[0].positions[0] = 1;
+  grasp.pre_grasp_posture.points[0].positions[0] = 0.3;
+  // TODO: add katana_l_finger_joint
 
   grasp.grasp_posture.joint_names.resize(1, "katana_r_finger_joint");
   grasp.grasp_posture.points.resize(1);
   grasp.grasp_posture.points[0].positions.resize(1);
-  grasp.grasp_posture.points[0].positions[0] = 0;
+  grasp.grasp_posture.points[0].positions[0] = -0.44;
+  // TODO: add katana_l_finger_joint
+  // TODO: why isn't the gripper fully closed (to -0.44)?
 
+  grasp.allowed_touch_objects.resize(1);
+  grasp.allowed_touch_objects[0] = "testbox";
+
+  i++;
   return grasp;
 }
 
@@ -97,9 +108,11 @@ void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
     marker.type = 1;
     marker.ns = "graspmarker";
     marker.pose = it->grasp_pose.pose;
-    marker.scale.x = 1;
-    marker.scale.y = 1;
-    marker.scale.z = 1;
+    marker.scale.x = 0.02;
+    marker.scale.y = 0.02;
+    marker.scale.z = 0.2;
+    marker.color.b = 1.0;
+    marker.color.a = 1.0;
     markers.markers.push_back(marker);
     i++;
   }
@@ -299,6 +312,8 @@ int main(int argc, char **argv) {
   ROS_INFO("Trying to pick");
 
   bool result = group.pick(co.id, generate_grasps(x, y, z));
+
+  // TODO: why doesn't pick() return?
 
   if (result) ROS_INFO("Pick was successful.");
   else ROS_WARN("Pick failed.");
