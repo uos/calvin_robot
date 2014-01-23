@@ -65,8 +65,8 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
 
   grasp.pre_grasp_approach.direction.vector.z = 1.0;
   grasp.pre_grasp_approach.direction.header.frame_id = "katana_gripper_tool_frame";
-  grasp.pre_grasp_approach.min_distance = 0.1;
-  grasp.pre_grasp_approach.desired_distance = 0.2;
+  grasp.pre_grasp_approach.min_distance = 0.05;
+  grasp.pre_grasp_approach.desired_distance = 0.1;
 
   grasp.post_grasp_retreat.direction.header.frame_id = "base_footprint";
   grasp.post_grasp_retreat.direction.vector.z = 1.0;
@@ -75,13 +75,13 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
 
   // TODO: fill in grasp.post_place_retreat (copy of post_grasp_retreat?)
 
-  grasp.pre_grasp_posture.joint_names.resize(1, "katana_r_finger_joint");
+  grasp.pre_grasp_posture.joint_names.resize(1, "katana_l_finger_joint");
   grasp.pre_grasp_posture.points.resize(1);
   grasp.pre_grasp_posture.points[0].positions.resize(1);
-  grasp.pre_grasp_posture.points[0].positions[0] = 0.3;
+  grasp.pre_grasp_posture.points[0].positions[0] = 0.1;
   // TODO: add katana_l_finger_joint
 
-  grasp.grasp_posture.joint_names.resize(1, "katana_r_finger_joint");
+  grasp.grasp_posture.joint_names.resize(1, "katana_l_finger_joint");
   grasp.grasp_posture.points.resize(1);
   grasp.grasp_posture.points[0].positions.resize(1);
   grasp.grasp_posture.points[0].positions[0] = -0.44;
