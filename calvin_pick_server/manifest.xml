@@ -20,6 +20,7 @@
   <depend package="moveit_ros_perception"/>
   <depend package="object_recognition_msgs"/>
   <depend package="opencv_candidate"/>
+  <depend package="rospy"/>
 </package>
 
 
