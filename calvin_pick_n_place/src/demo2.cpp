@@ -65,7 +65,6 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
 
   grasp.pre_grasp_approach.direction.vector.z = 1.0;
   grasp.pre_grasp_approach.direction.header.frame_id = "katana_gripper_tool_frame";
-<<<<<<< Updated upstream
   grasp.pre_grasp_approach.min_distance = 0.05;
   grasp.pre_grasp_approach.desired_distance = 0.1;
   grasp.pre_grasp_approach.direction.header.stamp = ros::Time::now();
@@ -75,17 +74,6 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   grasp.post_grasp_retreat.desired_distance = 0.1;
   grasp.post_grasp_retreat.direction.header.frame_id = "base_footprint";
   grasp.post_grasp_retreat.direction.header.stamp = ros::Time::now();
-=======
-  grasp.pre_grasp_approach.direction.header.stamp = ros::Time::now();
-  grasp.pre_grasp_approach.min_distance = 0.1;
-  grasp.pre_grasp_approach.desired_distance = 0.2;
-
-  grasp.post_grasp_retreat.direction.vector.z = 1.0;
-  grasp.post_grasp_retreat.direction.header.frame_id = "base_footprint";
-  grasp.post_grasp_retreat.direction.header.stamp = ros::Time::now();
-  grasp.post_grasp_retreat.min_distance = 0.2;
-  grasp.post_grasp_retreat.desired_distance = 0.3;
->>>>>>> Stashed changes
 
   // TODO: fill in grasp.post_place_retreat (copy of post_grasp_retreat?)
 
@@ -105,12 +93,7 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   grasp.allowed_touch_objects.resize(1);
   grasp.allowed_touch_objects[0] = "testbox";
 
-<<<<<<< Updated upstream
   i++;
-=======
-  //grasp.allow_touch_object = string[]
-
->>>>>>> Stashed changes
   return grasp;
 }
 
