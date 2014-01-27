@@ -1,0 +1,16 @@
+<package>
+  <description brief="calvin_msgs">
+
+     calvin_msgs
+
+  </description>
+  <author>Michael</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/calvin_msgs</url>
+
+  <depend package="actionlib"/>
+  <depend package="moveit_msgs"/>
+</package>
+
+
