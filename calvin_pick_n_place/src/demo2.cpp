@@ -1,13 +1,24 @@
 #include <ros/ros.h>
-#include <moveit/move_group_interface/move_group.h>
+
+#include <tf/tf.h>
 #include <actionlib/client/simple_action_client.h>
-#include <control_msgs/GripperCommandAction.h>
-#include <shape_tools/solid_primitive_dims.h>
-#include <moveit/robot_model_loader/robot_model_loader.h>
+
+#include <moveit/move_group_interface/move_group.h>
+#include <moveit/robot_model/robot_model.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/planning_scene/planning_scene.h>
+
+#include <control_msgs/GripperCommandAction.h>
+#include <control_msgs/GripperCommandGoal.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <moveit_msgs/AttachedCollisionObject.h>
+#include <moveit_msgs/CollisionObject.h>
+#include <moveit_msgs/Grasp.h>
+#include <moveit_msgs/PlanningScene.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
+
+#include <shape_tools/solid_primitive_dims.h>
 
 ros::Publisher pub_co;
 ros::Publisher pub_aco;
@@ -353,4 +364,5 @@ int main(int argc, char **argv) {
   ros::WallDuration(5.0).sleep();
 
   ROS_INFO("Done.");
+  return 0;
 }
