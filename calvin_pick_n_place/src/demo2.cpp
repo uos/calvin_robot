@@ -88,18 +88,17 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
 
   // TODO: fill in grasp.post_place_retreat (copy of post_grasp_retreat?)
 
-  grasp.pre_grasp_posture.joint_names.resize(1, "katana_l_finger_joint");
+  grasp.pre_grasp_posture.joint_names.push_back("katana_l_finger_joint");
+  grasp.pre_grasp_posture.joint_names.push_back("katana_r_finger_joint");
   grasp.pre_grasp_posture.points.resize(1);
-  grasp.pre_grasp_posture.points[0].positions.resize(1);
-  grasp.pre_grasp_posture.points[0].positions[0] = 0.3;
-  // TODO: add katana_l_finger_joint
+  grasp.pre_grasp_posture.points[0].positions.push_back(0.3);
+  grasp.pre_grasp_posture.points[0].positions.push_back(0.3);
 
-  grasp.grasp_posture.joint_names.resize(1, "katana_l_finger_joint");
+  grasp.grasp_posture.joint_names.push_back("katana_l_finger_joint");
+  grasp.grasp_posture.joint_names.push_back("katana_r_finger_joint");
   grasp.grasp_posture.points.resize(1);
-  grasp.grasp_posture.points[0].positions.resize(1);
-  grasp.grasp_posture.points[0].positions[0] = -0.44;
-  // TODO: add katana_l_finger_joint
-  // TODO: why isn't the gripper fully closed (to -0.44)?
+  grasp.grasp_posture.points[0].positions.push_back(-0.44);
+  grasp.grasp_posture.points[0].positions.push_back(-0.44);
 
   grasp.allowed_touch_objects.resize(1);
   grasp.allowed_touch_objects[0] = "testbox";
