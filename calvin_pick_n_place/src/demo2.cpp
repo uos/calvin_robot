@@ -91,7 +91,7 @@ moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
   grasp.pre_grasp_posture.joint_names.resize(1, "katana_l_finger_joint");
   grasp.pre_grasp_posture.points.resize(1);
   grasp.pre_grasp_posture.points[0].positions.resize(1);
-  grasp.pre_grasp_posture.points[0].positions[0] = 0.1;
+  grasp.pre_grasp_posture.points[0].positions[0] = 0.3;
   // TODO: add katana_l_finger_joint
 
   grasp.grasp_posture.joint_names.resize(1, "katana_l_finger_joint");
