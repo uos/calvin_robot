@@ -206,7 +206,8 @@ std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
 int main(int argc, char **argv) {
   ros::init (argc, argv, "calvin_pickdemo");
   ros::NodeHandle nh;
-  ros::WallDuration(2.0).sleep();
+  ros::AsyncSpinner spinner(1);
+  spinner.start();
 
   pub_co = nh.advertise<moveit_msgs::CollisionObject>("collision_object", 10);
   pub_aco = nh.advertise<moveit_msgs::AttachedCollisionObject>("attached_collision_object", 10);
@@ -215,7 +216,6 @@ int main(int argc, char **argv) {
 
   moveit::planning_interface::MoveGroup group("arm");
   group.setPlanningTime(45.0);
-  ros::WallDuration(2.0).sleep();
 
   actionlib::SimpleActionClient<control_msgs::GripperCommandAction> gripper("gripper_grasp_posture_controller", true);
   control_msgs::GripperCommandGoal grippermsg_open;
@@ -223,7 +223,6 @@ int main(int argc, char **argv) {
   grippermsg_open.command.position = 0.3;
   grippermsg_close.command.position = -0.44;
   gripper.waitForServer();
-  ros::WallDuration(2.0).sleep();
 
   double x = 0.5;
   double y = 0.0;
@@ -247,6 +246,7 @@ int main(int argc, char **argv) {
   aco.object = co;
   aco.link_name = "katana_gripper_tool_frame";
 
+  // --- BEGIN allow collisions with testbox
   robot_model_loader::RobotModelLoader robot_model_loader("robot_description", false);
   robot_model::RobotModelPtr kinematic_model = robot_model_loader.getModel();
   planning_scene::PlanningScene planning_scene(kinematic_model);
@@ -255,37 +255,12 @@ int main(int argc, char **argv) {
   acm.setEntry(co.id, true);
 
   moveit_msgs::PlanningScene planning_scene_msg;
-  planning_scene_msg.is_diff = true;
+  planning_scene_msg.is_diff = true;   // TODO: this line should probably go after the next
   planning_scene.getPlanningSceneMsg(planning_scene_msg);
   planning_scene_publisher.publish(planning_scene_msg);
-
-  /*
-     <joint name="katana_motor1_pan_joint" />
-     <joint name="katana_motor2_lift_joint" />
-     <joint name="katana_motor3_lift_joint" />
-     <joint name="katana_motor4_lift_joint" />
-     <joint name="katana_motor5_wrist_roll_joint" />
-     */
-  std::vector<double> pose_approach(5,0.0);
-  pose_approach[0] = -2.727076956299257e-05;
-  pose_approach[1] = 0.4182292264006562;
-  pose_approach[2] = -1.579831110699088;
-  pose_approach[3] = 0.431614469864285;
-  pose_approach[4] = -0.02369829874973517;
-
-  std::vector<double> pose_pick(5,0.0);
-  pose_pick[0] = -0.00628591238413545;
-  pose_pick[1] = 0.1435515668297156;
-  pose_pick[2] = -0.7481240933277338;
-  pose_pick[3] = 0.9881426997091962;
-  pose_pick[4] = -0.017439657135161823;
-
-  std::vector<double> pose_retreat(5,0.0);
-  pose_retreat[0] = -0.005917756995043266;
-  pose_retreat[1] = 0.3214437215951924;
-  pose_retreat[2] = -0.8062086273121478;
-  pose_retreat[3] = 1.1077932011642755;
-  pose_retreat[4] = -0.018053249450316056;
+  ros::WallDuration(1.0).sleep();
+  // FIXME: this currently just clears the planning scene
+  // --- END allow collisions with testbox
 
   std::vector<double> pose_storeapproach(5,0.0);
   pose_storeapproach[0] = 0.8376489578790283;
@@ -308,11 +283,9 @@ int main(int argc, char **argv) {
   pose_armaway[3] = -1.9719;
   pose_armaway[4] = 0;
 
-  ros::WallDuration(5.0).sleep();
-
   add_collision_object();
 
-  ros::WallDuration(5.0).sleep();
+  ros::WallDuration(1.0).sleep();
 
   //gripper.sendGoal(grippermsg_open);
 
@@ -323,45 +296,49 @@ int main(int argc, char **argv) {
 
   ROS_INFO("Trying to pick");
 
-  bool result = group.pick(co.id, generate_grasps(x, y, z));
+  // TODO: group.setSupportSurfaceName("table");     // needed to specify that attached object is allowed to touch table
+  bool success = group.pick(co.id, generate_grasps(x, y, z));
 
-  // TODO: why doesn't pick() return?
+  if (success)
+    ROS_INFO("Pick was successful.");
+  else
+  {
+    ROS_FATAL("Pick failed.");
+    return EXIT_FAILURE;
+  }
 
-  if (result) ROS_INFO("Pick was successful.");
-  else ROS_WARN("Pick failed.");
-
-  ros::WallDuration(5.0).sleep();
-
-  ROS_INFO("Trying to store");
-
+  ROS_INFO("Moving to store approach pose");
   group.setJointValueTarget(pose_storeapproach);
-  group.asyncMove();
+  success = group.move();
 
-  ros::WallDuration(5.0).sleep();
-
+  ROS_INFO("Moving to store pose");
   group.setJointValueTarget(pose_store);
-  group.asyncMove();
+  success &= group.move();
 
-  ros::WallDuration(5.0).sleep();
-
+  ROS_INFO("Opening gripper");
   gripper.sendGoal(grippermsg_open);
 
-  ros::WallDuration(2.0).sleep();
-
   remove_attached_collision_object();
+  ros::WallDuration(1.0).sleep();
 
-  ros::WallDuration(5.0).sleep();
-
+  ROS_INFO("Moving back to store approach pose");
+  // TODO: allow collisions with "testbox"
   group.setJointValueTarget(pose_storeapproach);
-  group.asyncMove();
+  success &= group.move();
 
-  ros::WallDuration(5.0).sleep();
-
+  ROS_INFO("Moving arm away");
   group.setJointValueTarget(pose_armaway);
-  group.asyncMove();
+  success &= group.move();
 
-  ros::WallDuration(5.0).sleep();
+  if (success)
+  {
+    ROS_INFO("Done.");
+    return EXIT_SUCCESS;
+  }
+  else
+  {
+    ROS_ERROR("One of the moves failed!");
+    return EXIT_FAILURE;
 
-  ROS_INFO("Done.");
-  return 0;
+  }
 }
