@@ -311,7 +311,9 @@ int main(int argc, char **argv) {
   success &= gripper_group.move();
   //gripper.sendGoal(grippermsg_open);
 
-  remove_attached_collision_object();
+  // remove_attached_collision_object();
+  group.detachObject();
+
   ros::WallDuration(1.0).sleep();
 
   ROS_INFO("Moving back to store approach pose");
