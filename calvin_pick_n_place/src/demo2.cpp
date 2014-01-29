@@ -1,15 +1,12 @@
 #include <ros/ros.h>
 
 #include <tf/tf.h>
-#include <actionlib/client/simple_action_client.h>
 
 #include <moveit/move_group_interface/move_group.h>
 #include <moveit/robot_model/robot_model.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
 #include <moveit/planning_scene/planning_scene.h>
 
-#include <control_msgs/GripperCommandAction.h>
-#include <control_msgs/GripperCommandGoal.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
@@ -217,13 +214,6 @@ int main(int argc, char **argv) {
   moveit::planning_interface::MoveGroup group("arm");
   group.setPlanningTime(45.0);
 
-  actionlib::SimpleActionClient<control_msgs::GripperCommandAction> gripper("gripper_grasp_posture_controller", true);
-  control_msgs::GripperCommandGoal grippermsg_open;
-  control_msgs::GripperCommandGoal grippermsg_close;
-  grippermsg_open.command.position = 0.3;
-  grippermsg_close.command.position = -0.44;
-  gripper.waitForServer();
-
   double x = 0.5;
   double y = 0.0;
   double z = 0.77;
@@ -316,7 +306,10 @@ int main(int argc, char **argv) {
   success &= group.move();
 
   ROS_INFO("Opening gripper");
-  gripper.sendGoal(grippermsg_open);
+  moveit::planning_interface::MoveGroup gripper_group("gripper");
+  gripper_group.setNamedTarget("open");
+  success &= gripper_group.move();
+  //gripper.sendGoal(grippermsg_open);
 
   remove_attached_collision_object();
   ros::WallDuration(1.0).sleep();
