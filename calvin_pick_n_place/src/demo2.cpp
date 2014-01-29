@@ -3,15 +3,11 @@
 #include <tf/tf.h>
 
 #include <moveit/move_group_interface/move_group.h>
-#include <moveit/robot_model/robot_model.h>
-#include <moveit/robot_model_loader/robot_model_loader.h>
-#include <moveit/planning_scene/planning_scene.h>
 
 #include <geometry_msgs/PoseStamped.h>
 #include <moveit_msgs/AttachedCollisionObject.h>
 #include <moveit_msgs/CollisionObject.h>
 #include <moveit_msgs/Grasp.h>
-#include <moveit_msgs/PlanningScene.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 
@@ -235,22 +231,6 @@ int main(int argc, char **argv) {
 
   aco.object = co;
   aco.link_name = "katana_gripper_tool_frame";
-
-  // --- BEGIN allow collisions with testbox
-  robot_model_loader::RobotModelLoader robot_model_loader("robot_description", false);
-  robot_model::RobotModelPtr kinematic_model = robot_model_loader.getModel();
-  planning_scene::PlanningScene planning_scene(kinematic_model);
-  collision_detection::AllowedCollisionMatrix acm = planning_scene.getAllowedCollisionMatrix();
-  //acm.setEntry(co.id, true);
-  acm.setEntry(co.id, true);
-
-  moveit_msgs::PlanningScene planning_scene_msg;
-  planning_scene_msg.is_diff = true;   // TODO: this line should probably go after the next
-  planning_scene.getPlanningSceneMsg(planning_scene_msg);
-  planning_scene_publisher.publish(planning_scene_msg);
-  ros::WallDuration(1.0).sleep();
-  // FIXME: this currently just clears the planning scene
-  // --- END allow collisions with testbox
 
   std::vector<double> pose_storeapproach(5,0.0);
   pose_storeapproach[0] = 0.8376489578790283;
