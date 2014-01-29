@@ -196,6 +196,52 @@ std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z)
   return grasps;
 }
 
+bool place(moveit::planning_interface::MoveGroup &group)
+{
+  static const double ANGLE_INC = M_PI / 16;
+
+  std::vector<moveit_msgs::PlaceLocation> loc;
+
+  for (double yaw = -M_PI; yaw < M_PI; yaw += ANGLE_INC)
+  {
+    geometry_msgs::PoseStamped p;
+    p.header.frame_id = "base_footprint";
+    p.pose.position.x = 0.21;
+    p.pose.position.y = 0.115;
+    p.pose.position.z = 0.78;
+    tf::quaternionTFToMsg(tf::createQuaternionFromRPY(0.0, 0.0, yaw), p.pose.orientation);
+
+    moveit_msgs::PlaceLocation g;
+    g.place_pose = p;
+
+    g.pre_place_approach.direction.vector.z = -1.0;
+    g.pre_place_approach.direction.header.frame_id = "base_link";
+    g.pre_place_approach.min_distance = 0.05;
+    g.pre_place_approach.desired_distance = 0.1;
+
+    g.post_place_retreat.direction.vector.z = 1.0;
+    g.post_place_retreat.direction.header.frame_id = "base_link";
+    g.post_place_retreat.min_distance = 0.05;
+    g.post_place_retreat.desired_distance = 0.1;
+
+    g.post_place_posture.joint_names.push_back("katana_l_finger_joint");
+    g.post_place_posture.joint_names.push_back("katana_r_finger_joint");
+    g.post_place_posture.points.resize(1);
+    g.post_place_posture.points[0].positions.push_back(0.3);
+    g.post_place_posture.points[0].positions.push_back(0.3);
+
+    // not sure whether we need this
+    g.allowed_touch_objects.resize(1);
+    g.allowed_touch_objects[0] = "testbox";
+
+    loc.push_back(g);
+  }
+
+  group.setSupportSurfaceName("cup");
+
+  return group.place("testbox", loc);
+}
+
 int main(int argc, char **argv) {
   ros::init (argc, argv, "calvin_pickdemo");
   ros::NodeHandle nh;
@@ -232,37 +278,9 @@ int main(int argc, char **argv) {
   aco.object = co;
   aco.link_name = "katana_gripper_tool_frame";
 
-  std::vector<double> pose_storeapproach(5,0.0);
-  pose_storeapproach[0] = 0.8376489578790283;
-  pose_storeapproach[1] = 0.25826521367364896;
-  pose_storeapproach[2] = -0.8052824502326694;
-  pose_storeapproach[3] = 1.0005372644753114;
-  pose_storeapproach[4] = -2.9736047130853387;
-
-  std::vector<double> pose_store(5,0.0);
-  pose_store[0] = 0.8394897348244914;
-  pose_store[1] = 0.0920825834130028;
-  pose_store[2] = -0.6937442676612324;
-  pose_store[3] = 0.9464184222787067;
-  pose_store[4] = -2.975322771567771;
-
-  std::vector<double> pose_armaway(5,0.0);
-  pose_armaway[0] = 0;
-  pose_armaway[1] = 2.1354;
-  pose_armaway[2] = -2.1556;
-  pose_armaway[3] = -1.9719;
-  pose_armaway[4] = 0;
-
   add_collision_object();
 
   ros::WallDuration(1.0).sleep();
-
-  //gripper.sendGoal(grippermsg_open);
-
-  //remove_collision_object();
-  //add_attached_collision_object();
-
-  //gripper.sendGoal(grippermsg_close);
 
   ROS_INFO("Trying to pick");
 
@@ -277,32 +295,17 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
   }
 
-  ROS_INFO("Moving to store approach pose");
-  group.setJointValueTarget(pose_storeapproach);
-  success = group.move();
-
-  ROS_INFO("Moving to store pose");
-  group.setJointValueTarget(pose_store);
-  success &= group.move();
-
-  ROS_INFO("Opening gripper");
-  moveit::planning_interface::MoveGroup gripper_group("gripper");
-  gripper_group.setNamedTarget("open");
-  success &= gripper_group.move();
-  //gripper.sendGoal(grippermsg_open);
-
-  // remove_attached_collision_object();
-  group.detachObject();
-
   ros::WallDuration(1.0).sleep();
 
-  ROS_INFO("Moving back to store approach pose");
-  // TODO: allow collisions with "testbox"
-  group.setJointValueTarget(pose_storeapproach);
-  success &= group.move();
+  ROS_INFO("Placing object in muffin holder");
+  success &= place(group);
 
-  ROS_INFO("Moving arm away");
-  group.setJointValueTarget(pose_armaway);
+//  // attach object to muffin holder link (TODO: update pose to current pose of object)
+//  aco.link_name = "cup";
+//  add_attached_collision_object();
+
+  ROS_INFO("Moving arm to arm_far_away pose");
+  group.setNamedTarget("arm_far_away");
   success &= group.move();
 
   if (success)
