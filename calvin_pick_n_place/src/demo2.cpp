@@ -15,7 +15,6 @@
 
 ros::Publisher pub_co;
 ros::Publisher pub_aco;
-ros::Publisher planning_scene_publisher;
 ros::Publisher grasps_marker;
 
 moveit_msgs::CollisionObject co;
@@ -250,7 +249,6 @@ int main(int argc, char **argv) {
 
   pub_co = nh.advertise<moveit_msgs::CollisionObject>("collision_object", 10);
   pub_aco = nh.advertise<moveit_msgs::AttachedCollisionObject>("attached_collision_object", 10);
-  planning_scene_publisher = nh.advertise<moveit_msgs::PlanningScene>("planning_scene", 10);
   grasps_marker = nh.advertise<visualization_msgs::MarkerArray>("grasps_marker", 10);
 
   moveit::planning_interface::MoveGroup group("arm");
