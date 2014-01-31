@@ -1,14 +1,14 @@
 #include <ros/ros.h>
 #include <moveit/move_group_interface/move_group.h>
 #include <actionlib/server/simple_action_server.h>
-#include <calvin_msgs/PickServerAction.h>
+#include <muffin_msgs/PickServerAction.h>
 #include <tf/tf.h>
 #include <moveit_msgs/Grasp.h>
 
 class PickServer {
   protected:
     ros::NodeHandle nh;
-    actionlib::SimpleActionServer<calvin_msgs::PickServerAction> *actionserver;
+    actionlib::SimpleActionServer<muffin_msgs::PickServerAction> *actionserver;
     moveit::planning_interface::MoveGroup *group;
 
     moveit_msgs::Grasp tf_transform_to_grasp(tf::Transform t)
@@ -138,14 +138,14 @@ class PickServer {
     PickServer(std::string name) {
       group = new moveit::planning_interface::MoveGroup("arm");
       //group.setPlanningTime(45.0);
-      actionserver = new actionlib::SimpleActionServer<calvin_msgs::PickServerAction>(nh, name, boost::bind(&PickServer::pick, this, _1), false);
+      actionserver = new actionlib::SimpleActionServer<muffin_msgs::PickServerAction>(nh, name, boost::bind(&PickServer::pick, this, _1), false);
       actionserver->start();
     }
     ~PickServer() {
       delete actionserver;
       delete group;
     }
-    void pick(const calvin_msgs::PickServerGoalConstPtr &goal) {
+    void pick(const muffin_msgs::PickServerGoalConstPtr &goal) {
       double x = goal->co.primitive_poses[0].position.x;
       double y = goal->co.primitive_poses[0].position.y;
       double z = goal->co.primitive_poses[0].position.z;

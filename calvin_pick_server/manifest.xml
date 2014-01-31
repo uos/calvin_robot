@@ -11,7 +11,7 @@
   <depend package="actionlib"/>
   <depend package="geometry_msgs"/>
   <depend package="moveit_msgs"/>
-  <depend package="calvin_msgs"/>
+  <depend package="muffin_msgs"/>
 
   <depend package="pluginlib"/>
   <depend package="moveit_core"/>

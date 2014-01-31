@@ -4,7 +4,7 @@ import roslib; roslib.load_manifest('calvin_pick_server')
 import rospy
 import actionlib
 import actionlib.msg
-from calvin_msgs.msg import PickServerAction
+from muffin_msgs.msg import PickServerAction
 from moveit_msgs.msg import CollisionObject
 from geometry_msgs.msg import Pose, Point
 from std_msgs.msg import Header
