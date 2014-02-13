@@ -143,7 +143,7 @@
 
   <xacro:macro name="webcam" params="camera_name frame_prefix">
     <gazebo reference="${frame_prefix}_link">
-      <sensor type="camera" name="${frame_prefix}_sensor">
+      <sensor type="depth" name="${frame_prefix}_sensor">
         <always_on>true</always_on>
         <update_rate>20.0</update_rate>
         <!-- <topic>image_raw</topic> -->
@@ -159,11 +159,22 @@
             <far>100</far>
           </clip>
         </camera>
-        <plugin name="${frame_prefix}_plugin" filename="libgazebo_ros_camera.so">
+        <plugin name="${frame_prefix}_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>1.0</updateRate>
           <cameraName>${camera_name}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/${camera_name}/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/${camera_name}/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/${camera_name}/depth_registered/points</pointCloudTopicName>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
           <frameName>${frame_prefix}_optical_link</frameName>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
         </plugin>
 
 <!-- This keeps segfaulting on hydro, use gazebo_ros_camera for now
@@ -193,6 +204,7 @@
       <child link="${frame_prefix}_pitch_link" />
       <axis xyz="0 1 0"/>
       <limit effort="1000.0" lower="${-M_PI/2}" upper="${M_PI/2}" velocity="2.0"/>
+      <dynamics damping="0.1"/>
     </joint>
 
     <link name="${frame_prefix}_pitch_link">
@@ -248,7 +260,7 @@
     <link name="${frame_prefix}_optical_link" />
   </xacro:macro>
 
-  <xacro:webcam camera_name="webcam" frame_prefix="webcam" />
+  <xacro:webcam camera_name="vgacam" frame_prefix="webcam" />
 
   <!-- **************************** -->
   <!-- *** Neuronics Katana Arm *** -->
