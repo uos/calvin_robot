@@ -20,6 +20,10 @@
   <depend package="robot_state_publisher" />
   <depend package="rostopic" />
   <depend package="uos_gazebo_worlds" />
+  <depend package="uos_common_urdf" />
+  <depend package="volksbot_driver" />
+  <depend package="katana_description" />
+  <depend package="sick_tim3xx" />
 
 </package>
 
