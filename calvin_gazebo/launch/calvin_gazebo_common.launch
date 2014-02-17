@@ -38,7 +38,6 @@
 
   <!-- Calvin joint commander -->
   <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
-    <param name="publish_joint_states" type="bool" value="True" />
     <param name="kinect_pitch_joint" type="double" value="0.96" />
     <param name="webcam_pitch_joint" type="double" value="0.34" />
     <param name="publish_joint_states" type="bool" value="False" />
