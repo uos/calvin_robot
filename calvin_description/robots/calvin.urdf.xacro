@@ -134,7 +134,7 @@
   <joint name="structure_to_sick_lms200_joint" type="fixed" >
     <parent link="structure" />
     <child link="sick_lms200" />
-    <origin xyz="${-base_link_length/2 + structure_length/2 + item_width - 0.015} 0 ${-structure_height/2 - base_link_height/2+0.18}" rpy="0 0 0" />
+    <origin xyz="${-base_link_length/2 + structure_length/2 + item_width - 0.015} 0 ${-0.46 + 0.297204}" rpy="0 -0.00809693 0" />
   </joint>
 
   <!-- ******************************** -->
