@@ -10,12 +10,8 @@
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
     <group name="arm">
-        <joint name="katana_motor1_pan_joint" />
-        <joint name="katana_motor2_lift_joint" />
-        <joint name="katana_motor3_lift_joint" />
-        <joint name="katana_motor4_lift_joint" />
-        <joint name="katana_motor5_wrist_roll_joint" />
-        <link name="katana_gripper_tool_frame" />
+        <!-- tip_link is also IK tip link -->
+        <chain base_link="katana_base_link" tip_link="katana_gripper_tool_frame" />
     </group>
     <group name="gripper">
         <link name="katana_gripper_link" />
