@@ -1,7 +1,3 @@
-/calvin_joint_commander/parameter_descriptions
-/calvin_joint_commander/parameter_updates
-/vgacam/camera/parameter_descriptions
-/vgacam/camera/parameter_updates
 /vgacam/camera_info
 /vgacam/image_raw
 /cmd_vel
@@ -15,8 +11,6 @@
 /imu/is_calibrated
 /imu/mag
 /imu_manager/bond
-/imu_manager/parameter_descriptions
-/imu_manager/parameter_updates
 /initialpose
 /joint_states
 /katana_arm_controller/command
@@ -37,15 +31,9 @@
 /katana_arm_controller/joint_trajectory_action/status
 /katana_arm_controller/state
 /kinect/depth_registered/camera_info
-/kinect/depth_registered/disparity
 /kinect/depth_registered/image_raw
-/kinect/driver/parameter_descriptions
-/kinect/driver/parameter_updates
-/kinect/projector/camera_info
 /kinect/rgb/camera_info
-/kinect/rgb/debayer/parameter_descriptions
-/kinect/rgb/debayer/parameter_updates
-/kinect/rgb/image_color
+/kinect/rgb/image_raw
 /kinect_pitch_joint_controller/command
 /lms200
 /lms200_scan_filtered
@@ -65,8 +53,6 @@
 /rosout_agg
 /scan
 /scan_filtered
-/sick_tim310s01/parameter_descriptions
-/sick_tim310s01/parameter_updates
 /tf
 /tf_static
 /visualization_marker
