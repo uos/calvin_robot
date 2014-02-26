@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <launch>
+  <!-- whether to use the pointcloud (on Gazebo) or depthimage (on real robot) octomap updater -->
+  <arg name="use_pointcloud" default="false"/>
+
   <!-- Params for the octomap monitor -->
   <param name="octomap_frame" type="string" value="odom_combined" />
   <param name="octomap_resolution" type="double" value="0.025" />
   <param name="max_range" type="double" value="5.0" />
 
   <!-- sensors used to update the map -->
-  <rosparam command="load" file="$(find calvin_moveit_config)/config/sensors_kinect.yaml" />
+  <rosparam     if="$(arg use_pointcloud)" command="load" file="$(find calvin_moveit_config)/config/sensors_kinect_pointcloud.yaml" />
+  <rosparam unless="$(arg use_pointcloud)" command="load" file="$(find calvin_moveit_config)/config/sensors_kinect_depthimage.yaml" />
 </launch>
