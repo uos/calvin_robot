@@ -1,3 +1,5 @@
+# This file configures the DepthImageOctomapUpdater. It's faster than the PointCloudOctomapUpdater, but it doesn't work in Gazebo (because the simulated depth image is broken).
+
 sensors:
   - sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
     image_topic: /kinect/depth_registered/image_raw
@@ -5,17 +7,9 @@ sensors:
     near_clipping_plane_distance: 0.25
     padding_scale: 1.0
     padding_offset: 0.1
-    filtered_cloud_topic: /kinect/depth_registered/filtered_cloud
     queue_size: 5
     skip_vertical_pixels: 1
     skip_horizontal_pixels: 1
     shadow_threshold: 0.2
-
-#sensors:
-#  - sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
-#    point_cloud_topic: /kinect/depth_registered/points
-#    max_range: 5.0
-#    frame_subsample: 1
-#    point_subsample: 1
-#    shape_padding: 0.1
-#    shape_scale: 1.0
+#   filtered_cloud_topic: filtered_cloud
+# this last topic is just to debug, having it adds processing time 
