@@ -7,13 +7,16 @@
   <!-- By default, we are not in debug mode -->
   <arg name="debug" default="false" />
 
+  <!-- whether to use the pointcloud (on Gazebo) or depthimage (on real robot) octomap updater -->
+  <arg name="use_pointcloud" default="false"/>
+
   <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
   <include file="$(find calvin_moveit_config)/launch/planning_context.launch">
     <arg name="load_robot_description" value="true"/>
   </include>
 
   <!-- If needed, broadcast static tf for robot root -->
-    <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" />
+  <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom_combined base_footprint 100" />
 
 
   <!-- We do not have a robot connected, so publish fake joint states -->
@@ -30,6 +33,7 @@
     <arg name="fake_execution" value="true"/>
     <arg name="info" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
+    <arg name="use_pointcloud" value="$(arg use_pointcloud)" /> 
   </include>
 
   <!-- Run Rviz and load the default config to see the state of the move_group node -->
