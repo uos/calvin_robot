@@ -37,12 +37,11 @@
     args="pub /calibrated std_msgs/Bool true" />
 
   <!-- Calvin joint commander -->
-  <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
-    <param name="kinect_pitch_joint" type="double" value="0.96" />
-    <param name="webcam_pitch_joint" type="double" value="0.34" />
-    <param name="publish_joint_states" type="bool" value="False" />
-    <param name="publish_controller_commands" type="bool" value="True" />
-  </node>
+  <include file="$(find calvin_joint_commander)/launch/calvin_joint_commander.launch" >
+    <arg name="publish_joint_states" value="False" />
+    <arg name="publish_controller_commands" value="True" />
+  </include>
+
 
   <!-- laser filter chain -->
   <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch"/>

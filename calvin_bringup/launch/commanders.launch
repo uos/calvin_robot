@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
-  <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
-    <param name="publish_joint_states" type="bool" value="True" />
-    <param name="kinect_pitch_joint" type="double" value="0.89" />
-    <param name="webcam_pitch_joint" type="double" value="0.39" />
-  </node>
+  <!-- Calvin joint commander -->
+  <include file="$(find calvin_joint_commander)/launch/calvin_joint_commander.launch" >
+    <arg name="publish_joint_states" value="True" />
+    <arg name="publish_controller_commands" value="False" />
+  </include>
 </launch>
