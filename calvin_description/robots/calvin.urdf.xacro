@@ -31,7 +31,7 @@
   <xacro:property name="webcam_pitch_link_length" value="0.082"/>
   <xacro:property name="webcam_pitch_link_width" value="0.095"/>
   <xacro:property name="webcam_pitch_link_height" value="0.02"/>
-  <xacro:property name="webcam_z_offset" value="0.315"/>
+  <xacro:property name="webcam_z_offset" value="0.412"/>
 
   <xacro:property name="kinect_pitch_link_length" value="0.08"/>
   <xacro:property name="kinect_pitch_link_width" value="0.17"/>
