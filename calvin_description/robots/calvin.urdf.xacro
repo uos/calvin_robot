@@ -338,7 +338,7 @@
   <xacro:kinect_pole_transmission name="webcam_pitch" />
 
   <!-- inertial measurement unit for gazebo -->
-  <xacro:imu_gazebo link="imu" imu_topic="imu" update_rate="100.0" stdev="${imu_stdev}" />
+  <xacro:imu_gazebo link="imu" imu_topic="imu/data" update_rate="100.0" stdev="${imu_stdev}" />
 
   <xacro:include filename="$(find sick_tim3xx)/urdf/sick_tim3xx.urdf.xacro" />
   <xacro:sick_tim3xx laser_link="laser" />
