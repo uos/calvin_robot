@@ -4,8 +4,8 @@
   <arg name="publish_controller_commands"/>
 
   <node name="calvin_joint_commander" pkg="calvin_joint_commander" type="joint_commander" output="screen">
-    <param name="kinect_pitch_joint" type="double" value="0.96" />
-    <param name="webcam_pitch_joint" type="double" value="0.34" />
+    <param name="kinect_pitch_joint" type="double" value="0.89" />
+    <param name="webcam_pitch_joint" type="double" value="0.57" />
     <param name="publish_joint_states" type="bool" value="$(arg publish_joint_states)" />
     <param name="publish_controller_commands" type="bool" value="$(arg publish_controller_commands)" />
   </node>
