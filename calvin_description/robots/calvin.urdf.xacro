@@ -11,7 +11,7 @@
   <xacro:include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
   <xacro:include filename="$(find uos_common_urdf)/common.xacro" />
 
-  <property name="kinect_x_offset" value="0.07" />
+  <property name="kinect_x_offset" value="0.09" />
   <property name="kinect_y_offset" value="-0.02" />
   <property name="kinect_z_offset" value="0.0" />
 
@@ -30,13 +30,13 @@
 
   <xacro:property name="webcam_pitch_link_length" value="0.082"/>
   <xacro:property name="webcam_pitch_link_width" value="0.095"/>
-  <xacro:property name="webcam_pitch_link_height" value="0.02"/>
+  <xacro:property name="webcam_pitch_link_height" value="0.04"/>
   <xacro:property name="webcam_z_offset" value="0.412"/>
 
   <xacro:property name="kinect_pitch_link_length" value="0.08"/>
   <xacro:property name="kinect_pitch_link_width" value="0.17"/>
-  <xacro:property name="kinect_pitch_link_height" value="0.02"/>
-  <xacro:property name="kinect_pitch_link_z_offset" value="0.46"/>
+  <xacro:property name="kinect_pitch_link_height" value="0.04"/>
+  <xacro:property name="kinect_pitch_link_z_offset" value="0.44"/>
 
   <link name="structure">
     <visual>
