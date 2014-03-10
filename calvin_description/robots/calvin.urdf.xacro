@@ -17,7 +17,7 @@
 
   <xacro:property name="pole_length" value="0.02"/>
   <xacro:property name="pole_width" value="0.02"/>
-  <xacro:property name="pole_height" value="1"/>
+  <xacro:property name="pole_height" value="1.405"/>
 
   <xacro:property name="cup_radius" value="0.045"/>
   <xacro:property name="cup_height" value="0.02"/>
@@ -31,12 +31,12 @@
   <xacro:property name="webcam_pitch_link_length" value="0.082"/>
   <xacro:property name="webcam_pitch_link_width" value="0.095"/>
   <xacro:property name="webcam_pitch_link_height" value="0.04"/>
-  <xacro:property name="webcam_z_offset" value="0.412"/>
+  <xacro:property name="webcam_z_offset" value="0.61"/>
 
   <xacro:property name="kinect_pitch_link_length" value="0.08"/>
   <xacro:property name="kinect_pitch_link_width" value="0.17"/>
   <xacro:property name="kinect_pitch_link_height" value="0.04"/>
-  <xacro:property name="kinect_pitch_link_z_offset" value="0.44"/>
+  <xacro:property name="kinect_pitch_link_z_offset" value="0.66"/>
 
   <link name="structure">
     <visual>
@@ -95,7 +95,7 @@
   <joint name="structure_to_pole_joint" type="fixed">
     <parent link="structure" />
     <child link="pole" />
-    <origin xyz="${-structure_length/2 - pole_length/2} 0 ${pole_height/2 + structure_height/2}" rpy="0 0 0" />
+    <origin xyz="${-structure_length/2 - pole_length/2} 0 ${structure_height/2 + 0.3}" rpy="0 0 0" />
   </joint>
 
   <link name="cup">
