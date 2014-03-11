@@ -11,7 +11,7 @@
   <xacro:include filename="$(find volksbot_driver)/urdf/volksbot.urdf.xacro" />
   <xacro:include filename="$(find uos_common_urdf)/common.xacro" />
 
-  <property name="kinect_x_offset" value="0.09" />
+  <property name="kinect_x_offset" value="0.1" />
   <property name="kinect_y_offset" value="-0.02" />
   <property name="kinect_z_offset" value="0.0" />
 
@@ -36,7 +36,7 @@
   <xacro:property name="kinect_pitch_link_length" value="0.08"/>
   <xacro:property name="kinect_pitch_link_width" value="0.17"/>
   <xacro:property name="kinect_pitch_link_height" value="0.04"/>
-  <xacro:property name="kinect_pitch_link_z_offset" value="0.66"/>
+  <xacro:property name="kinect_pitch_link_z_offset" value="0.65"/>
 
   <link name="structure">
     <visual>
