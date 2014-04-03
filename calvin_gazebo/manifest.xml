@@ -14,7 +14,6 @@
   <depend package="gazebo_ros" />
   <depend package="katana" />
   <depend package="katana_arm_gazebo" />
-  <depend package="katana_joint_movement_adapter" />
   <depend package="controller_manager" />
   <depend package="robot_pose_ekf" />
   <depend package="robot_state_publisher" />
