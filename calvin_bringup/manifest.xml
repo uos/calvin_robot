@@ -14,16 +14,12 @@
   <depend package="katana"/>
   <depend package="laser_filters"/>
   <depend package="libuvc_camera"/>
-  <depend package="move_base_straight"/>
-  <depend package="nodelet"/>
   <depend package="openni_launch"/>
   <depend package="phidgets_imu"/>
   <depend package="robot_pose_ekf"/>
   <depend package="robot_state_publisher"/>
   <depend package="sick_tim3xx"/>
   <depend package="volksbot_driver"/>
-  <depend package="calvin_map_server"/>
-  <depend package="door_checking"/>
 
 </package>
 
