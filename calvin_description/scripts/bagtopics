@@ -36,7 +36,6 @@
 /kinect/rgb/camera_info
 /kinect/rgb/image_raw
 /lms200
-/lms200_scan_filtered
 /map
 /map_metadata
 /move_base_node/current_goal
@@ -77,10 +76,7 @@
 /odom
 /particlecloud
 /robot_pose_ekf/odom_combined
-/rosout
-/rosout_agg
 /scan
-/scan_filtered
 /tf
 /tf_static
 /vgacam/camera_info
