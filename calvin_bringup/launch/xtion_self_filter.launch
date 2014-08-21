@@ -23,7 +23,7 @@
 
     <param name="subsample_value" type="double" value=".01"/>
 
-    <rosparam command="load" file="$(find calvin_bringup)/config/self_filter.yaml" />
+    <rosparam command="load" file="$(find calvin_bringup)/config/calvin_xtion_self_filter.yaml" />
   </node>
 
 </launch>
