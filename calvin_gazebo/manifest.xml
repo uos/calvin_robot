@@ -22,7 +22,7 @@
   <depend package="uos_common_urdf" />
   <depend package="volksbot_driver" />
   <depend package="katana_description" />
-  <depend package="sick_tim3xx" />
+  <depend package="sick_tim" />
 
 </package>
 

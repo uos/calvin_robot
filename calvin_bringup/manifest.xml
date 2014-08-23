@@ -18,7 +18,7 @@
   <depend package="phidgets_imu"/>
   <depend package="robot_pose_ekf"/>
   <depend package="robot_state_publisher"/>
-  <depend package="sick_tim3xx"/>
+  <depend package="sick_tim"/>
   <depend package="volksbot_driver"/>
 
 </package>
