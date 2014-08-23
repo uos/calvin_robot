@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <node name="sick_tim310s01" pkg="sick_tim3xx" type="sick_tim310s01" respawn="false" output="screen">
+  <node name="sick_tim310s01" pkg="sick_tim" type="sick_tim310s01" respawn="false" output="screen">
     <param name="frame_id" type="str" value="/laser"/>
   </node>
 </launch>

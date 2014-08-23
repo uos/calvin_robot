@@ -282,8 +282,8 @@
   <!-- inertial measurement unit for gazebo -->
   <xacro:imu_gazebo link="imu" imu_topic="imu" update_rate="100.0" stdev="${imu_stdev}" />
 
-  <include filename="$(find sick_tim3xx)/urdf/sick_tim3xx.urdf.xacro" />
-  <xacro:sick_tim3xx laser_link="laser" />
+  <include filename="$(find sick_tim)/urdf/sick_tim.urdf.xacro" />
+  <xacro:sick_tim310 name="laser" ros_topic="scan" />
 
   <joint name="laser_mount_joint" type="fixed">
     <origin xyz="0.25 0.0035 0.08" rpy="0 0 0" />
