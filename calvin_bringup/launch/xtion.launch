@@ -1,8 +1,12 @@
 <?xml version="1.0"?>
 <launch>
   <include file="$(find openni_launch)/launch/openni.launch">
-    <arg name="camera" value="kinect" />
+    <arg name="camera" value="head_mount_kinect" />
     <arg name="publish_tf" value="false" />
     <arg name="depth_registration" value="true" />
-  </include>
+    <arg name="rgb_camera_info_url" value="file://$(find calvin_bringup)/config/rgb.yaml" />
+    <arg name="depth_camera_info_url" value="file://$(find calvin_bringup)/config/depth.yaml" />
+ </include>
+  
+  <node name="$(anon dynparam)" pkg="dynamic_reconfigure" type="dynparam" args="set /head_mount_kinect/driver data_skip 1" />   #  = 15 Hz
 </launch>
