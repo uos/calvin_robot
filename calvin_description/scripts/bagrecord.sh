@@ -1,2 +1,2 @@
 #!/bin/sh
-rosbag record "$@" $(cat bagtopics)
+rosbag record "$@" $(cat $(dirname $0)/bagtopics)
