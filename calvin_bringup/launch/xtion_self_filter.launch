@@ -26,4 +26,17 @@
     <rosparam command="load" file="$(find calvin_bringup)/config/calvin_xtion_self_filter.yaml" />
   </node>
 
+<node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" respawn="true"/>
+
+  <!-- Run a passthrough filter to clean NaNs -->
+  <node pkg="nodelet" type="nodelet" name="passthrough" args="load pcl/PassThrough pcl_manager" output="screen" respawn="true">
+    <remap from="~input" to="/kinect/depth_registered/points_filtered" />
+    <remap from="~output" to="/kinect/depth_registered/points_filtered_cut_floor" />
+    <rosparam>
+      filter_field_name: z
+      filter_limit_min: 0.1
+      filter_limit_max: 1.5
+      filter_limit_negative: False
+    </rosparam>
+  </node>
 </launch>

@@ -28,4 +28,6 @@
   <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch" />
 
   <include file="$(find calvin_bringup)/launch/xtion.launch" />
+
+  <include file="$(find calvin_bringup)/launch/xtion_self_filter.launch" />
 </launch>
