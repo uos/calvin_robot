@@ -1,7 +1,7 @@
+<?xml version="1.0"?>
 <launch>
   <arg name="kinect_frame_prefix" default="/kinect_rgb_optical_frame" />
   <arg name="kinect_camera_name" default="kinect" />
-
 
   <!-- drop frames to speed things up; the Kinect publishes at 30 Hz, which is way too much
        for the collision map, so drop 9 out of 10 frames -->

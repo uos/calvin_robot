@@ -25,9 +25,10 @@
   <!-- katana_450_6m90a -->
   <include file="$(find calvin_bringup)/launch/katana.launch"/>
 
-  <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch" />
-
+  <!-- xtion -->
   <include file="$(find calvin_bringup)/launch/xtion.launch" />
 
-  <include file="$(find calvin_bringup)/launch/xtion_self_filter.launch" />
+   <!-- filter chains -->
+   <include file="$(find calvin_bringup)/launch/laser_filter_chain.launch" />
+   <include file="$(find calvin_bringup)/launch/xtion_filter_chain.launch" />
 </launch>

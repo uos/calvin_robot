@@ -42,7 +42,7 @@
     <arg name="publish_controller_commands" value="True" />
   </include>
 
-
-  <!-- laser filter chain -->
-  <include file="$(find calvin_bringup)/launch/calvin_filter_chain.launch"/>
+  <!-- filter chains -->
+  <include file="$(find calvin_bringup)/launch/laser_filter_chain.launch"/>
+  <include file="$(find calvin_bringup)/launch/xtion_filter_chain.launch"/>
 </launch>
