@@ -1,7 +1,7 @@
+<?xml version="1.0"?>
 <launch>
   <arg name="kinect_frame_prefix" default="/kinect_rgb_optical_frame" />
   <arg name="kinect_camera_name" default="kinect" />
-
 
   <!-- drop frames to speed things up; the Kinect publishes at 30 Hz, which is way too much
        for the collision map, so drop 9 out of 10 frames -->
@@ -33,9 +33,11 @@
     <remap from="~input" to="/kinect/depth_registered/points_filtered" />
     <remap from="~output" to="/kinect/depth_registered/points_filtered_cut_floor" />
     <rosparam>
+      input_frame: map
+      output_frame: map
       filter_field_name: z
-      filter_limit_min: 0.1
-      filter_limit_max: 1.5
+      filter_limit_min: 0.05
+      filter_limit_max: 2.0
       filter_limit_negative: False
     </rosparam>
   </node>
