@@ -33,8 +33,8 @@
     <remap from="~input" to="/kinect/depth_registered/points_filtered" />
     <remap from="~output" to="/kinect/depth_registered/points_filtered_cut_floor" />
     <rosparam>
-      input_frame: map
-      output_frame: map
+      input_frame: base_footprint
+      output_frame: base_footprint
       filter_field_name: z
       filter_limit_min: 0.05
       filter_limit_max: 2.0
