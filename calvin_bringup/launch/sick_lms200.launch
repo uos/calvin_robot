@@ -4,6 +4,7 @@
     <remap from="scan" to="lms200" />
     <param name="port" value="/dev/scanner" />
     <param name="baud" value="500000" />
+    <param name="angle" value="180" />
     <param name="resolution" value="1.0" />
     <param name="frame_id" value="/sick_lms200" />
   </node>
