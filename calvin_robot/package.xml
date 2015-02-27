@@ -1,0 +1,23 @@
+<package>
+  <name> calvin_robot </name>
+  <version>0.1.0</version>
+  <description>
+    Descriptions, utilities and bringup facilities for the Calvin robot.
+  </description>
+
+  <maintainer email="mgoerner@uni-osnabrueck.de"> Michael Görner</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/calvin_robot</url>
+
+  <run_depend>calvin_bringup</run_depend>
+  <run_depend>calvin_description</run_depend>
+  <run_depend>calvin_gazebo</run_depend>
+  <run_depend>calvin_joint_commander</run_depend>
+  <run_depend>calvin_moveit_config</run_depend>
+  <run_depend>calvin_pick_n_place</run_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <export>
+    <metapackage/>
+  </export>
+</package>
