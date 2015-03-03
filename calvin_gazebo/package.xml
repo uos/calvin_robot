@@ -1,0 +1,45 @@
+<package>
+  <name>calvin_gazebo</name>
+  <version>0.1.0</version>
+  <description>
+    This package contains launch files for starting up Calvin in the Gazebo simulator.
+  </description>
+
+  <author email="mstypa@uni-osnabrueck.de"> Michael Stypa</author>
+  <maintainer email="mgoerner@uni-osnabrueck.de"> Michael Görner</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/calvin_gazebo</url>
+
+  <build_depend>calvin_description</build_depend>
+  <build_depend>calvin_joint_commander</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  <build_depend>katana</build_depend>
+  <build_depend>katana_arm_gazebo</build_depend>
+  <build_depend>controller_manager</build_depend>
+  <build_depend>robot_pose_ekf</build_depend>
+  <build_depend>robot_state_publisher</build_depend>
+  <build_depend>rostopic</build_depend>
+  <build_depend>uos_gazebo_worlds</build_depend>
+  <build_depend>uos_common_urdf</build_depend>
+  <build_depend>volksbot_driver</build_depend>
+  <build_depend>katana_description</build_depend>
+  <build_depend>sick_tim</build_depend>
+
+  <run_depend>calvin_description</run_depend>
+  <run_depend>calvin_joint_commander</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>katana</run_depend>
+  <run_depend>katana_arm_gazebo</run_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>robot_pose_ekf</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rostopic</run_depend>
+  <run_depend>uos_gazebo_worlds</run_depend>
+  <run_depend>uos_common_urdf</run_depend>
+  <run_depend>volksbot_driver</run_depend>
+  <run_depend>katana_description</run_depend>
+  <run_depend>sick_tim</run_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
+

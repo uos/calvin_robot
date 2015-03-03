@@ -1,0 +1,42 @@
+<package>
+  <name>calvin_bringup</name>
+  <version>0.1.0</version>
+  <description>
+    ...
+  </description>
+
+  <author email="apotenza@uni-osnabrueck.de"> Andre Potenza</author>
+  <maintainer email="mgoerner@uni-osnabrueck.de"> Michael Görner</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/calvin_bringup</url>
+
+  <build_depend>calvin_description</build_depend>
+  <build_depend>calvin_joint_commander</build_depend>
+  <build_depend>imu_filter_madgwick</build_depend>
+  <build_depend>katana</build_depend>
+  <build_depend>laser_filters</build_depend>
+  <build_depend>libuvc_camera</build_depend>
+  <build_depend>openni_launch</build_depend>
+  <build_depend>phidgets_imu</build_depend>
+  <build_depend>robot_pose_ekf</build_depend>
+  <build_depend>robot_state_publisher</build_depend>
+  <build_depend>sick_tim</build_depend>
+  <build_depend>volksbot_driver</build_depend>
+
+  <run_depend>calvin_description</run_depend>
+  <run_depend>calvin_joint_commander</run_depend>
+  <run_depend>imu_filter_madgwick</run_depend>
+  <run_depend>katana</run_depend>
+  <run_depend>laser_filters</run_depend>
+  <run_depend>libuvc_camera</run_depend>
+  <run_depend>openni_launch</run_depend>
+  <run_depend>phidgets_imu</run_depend>
+  <run_depend>robot_pose_ekf</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>sick_tim</run_depend>
+  <run_depend>volksbot_driver</run_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
+
+

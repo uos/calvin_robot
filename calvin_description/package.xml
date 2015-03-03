@@ -1,0 +1,24 @@
+<package>
+  <name>calvin_description</name>
+  <version>0.1.0</version>
+  <description>
+     This package contains URDF descriptions of the calvin robot. The complete
+     robots are available in the directory "robots/". Each robot consists of
+     a base and a top (see those two directories). Usually, a top is made up
+     from several parts (see directory "parts/"), such as a laser scanner.
+  </description>
+
+  <author email="mstypa@uni-osnabrueck.de"> Michael Stypa</author>
+  <maintainer email="mgoerner@uni-osnabrueck.de"> Michael Görner</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/calvin_description</url>
+
+  <build_depend>urdf</build_depend>
+  <build_depend>xacro</build_depend>
+  <build_depend>uos_common_urdf</build_depend>
+  <run_depend>uos_common_urdf</run_depend>
+  <run_depend>xacro</run_depend>
+  <run_depend>urdf</run_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(calvin_description)
+
+find_package(catkin REQUIRED urdf xacro uos_common_urdf)
+
+catkin_package(
+  DEPENDS
+  CATKIN_DEPENDS urdf xacro uos_common_urdf
+  INCLUDE_DIRS
+  LIBRARIES
+)
+
+install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(DIRECTORY meshes DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(DIRECTORY robots DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+install(DIRECTORY scripts DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

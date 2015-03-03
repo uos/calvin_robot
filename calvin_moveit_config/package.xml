@@ -24,7 +24,6 @@
   <build_depend>calvin_description</build_depend>
   <run_depend>calvin_description</run_depend>
 
-
   <buildtool_depend>catkin</buildtool_depend>
   
 </package>
