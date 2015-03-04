@@ -1,0 +1,24 @@
+<package>
+  <name>calvin_joint_commander</name>
+  <version>0.1.0</version>
+  <description>
+    A joint commander for the not actively actuated parts of Calvin.
+  </description>
+
+  <author email="mguenthe@uni-osnabrueck.de"> Martin Günther</author>
+  <maintainer email="mgoerner@uni-osnabrueck.de"> Michael Görner</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/calvin_joint_commander</url>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
