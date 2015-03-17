@@ -1,0 +1,32 @@
+<package>
+  <name>calvin_pick_server</name>
+  <version>0.1.0</version>
+  <description>
+    Server for Muffin's PickServer action.
+  </description>
+
+  <author email="mstypa@uni-osnabrueck.de">Michael Stypa</author>
+  <maintainer email="mgoerner@uni-osnabrueck.de">Michael Goerner</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/calvin_pick_server</url>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>moveit_ros_planning_interface</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>shape_tools</build_depend>
+  <build_depend>muffin_msgs</build_depend>
+  <build_depend>shape_msgs</build_depend>
+  <build_depend>moveit_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>moveit_ros_planning_interface</run_depend>
+  <run_depend>actionlib</run_depend>
+  <run_depend>shape_tools</run_depend>
+  <run_depend>muffin_msgs</run_depend>
+  <run_depend>shape_msgs</run_depend>
+  <run_depend>moveit_msgs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

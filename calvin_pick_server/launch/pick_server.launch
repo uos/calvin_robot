@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="calvin_pick_server" pkg="calvin_pick_server" type="calvin_pick_server" output="screen"/>
+
+</launch>
