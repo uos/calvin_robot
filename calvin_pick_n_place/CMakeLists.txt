@@ -35,4 +35,4 @@ add_executable(${PROJECT_NAME} src/calvin_pick_n_place.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES}  ${Eigen_LIBRARIES})
 
 install(TARGETS ${PROJECT_NAME}
-    DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
