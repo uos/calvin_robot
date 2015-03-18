@@ -32,5 +32,6 @@ include_directories(${catkin_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME} src/pick_server.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
