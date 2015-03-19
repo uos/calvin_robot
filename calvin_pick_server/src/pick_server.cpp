@@ -186,6 +186,12 @@ class PickServer {
 
       static const double SQUEEZE_FACTOR = 0.55;
 
+      if(goal->co.primitive_poses.size() != 1 || goal->co.primitives.size() != 1){
+        ROS_ERROR("PickAndStore requires a CollisionObject with exactly one SolidPrimitive. Aborting.");
+        actionserver->setAborted();
+        return;
+      }
+
       double x = goal->co.primitive_poses[0].position.x;
       double y = goal->co.primitive_poses[0].position.y;
       double z = goal->co.primitive_poses[0].position.z;
