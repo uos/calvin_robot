@@ -15,7 +15,7 @@ def main():
     header=Header(1, rospy.Time.now(), '/base_footprint'),
     id='testbox',
     primitives=[SolidPrimitive(type=1, dimensions=[0.04, 0.055, 0.08])],
-    primitive_poses=[Pose(Point(0.5, 0.0, 0.77), Quaternion(0.0, 0.0, 0.0, 0.0))])
+    primitive_poses=[Pose(Point(0.5, 0.0, 0.77), Quaternion(0.0, 0.0, 0.0, 1.0))])
 
   try:
     move_group_client = actionlib.SimpleActionClient('/calvin_pick_server', PickAndStoreAction)
