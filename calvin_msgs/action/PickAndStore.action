@@ -1,0 +1,6 @@
+moveit_msgs/CollisionObject co
+
+# close gripper just enough to grasp primitive object co
+bool close_gripper_partially
+---
+---
