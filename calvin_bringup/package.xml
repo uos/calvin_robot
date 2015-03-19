@@ -10,19 +10,6 @@
   <license>BSD</license>
   <url>http://ros.org/wiki/calvin_bringup</url>
 
-  <build_depend>calvin_description</build_depend>
-  <build_depend>calvin_joint_commander</build_depend>
-  <build_depend>imu_filter_madgwick</build_depend>
-  <build_depend>katana</build_depend>
-  <build_depend>laser_filters</build_depend>
-  <build_depend>libuvc_camera</build_depend>
-  <build_depend>openni_launch</build_depend>
-  <build_depend>phidgets_imu</build_depend>
-  <build_depend>robot_pose_ekf</build_depend>
-  <build_depend>robot_state_publisher</build_depend>
-  <build_depend>sick_tim</build_depend>
-  <build_depend>volksbot_driver</build_depend>
-
   <run_depend>calvin_description</run_depend>
   <run_depend>calvin_joint_commander</run_depend>
   <run_depend>imu_filter_madgwick</run_depend>
