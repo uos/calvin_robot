@@ -10,4 +10,7 @@
     <remap from="scan_filtered" to="lms200_scan_filtered"/>
     <rosparam command="load" file="$(find calvin_bringup)/config/calvin_lms200_self_filter.yaml"/>
   </node>
+
+  <node pkg="topic_tools" type="relay" name="scan_filtered_relay" args="scan_filtered combined_scan_filtered"/>
+  <node pkg="topic_tools" type="relay" name="lms200_scan_filtered_relay" args="lms200_scan_filtered combined_scan_filtered"/>
 </launch>
