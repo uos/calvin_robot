@@ -11,4 +11,4 @@ Specifically, it provides:
 * a tool to publish states for the not actively actuated joints (package `calvin_moveit_config`),
 * a pick and place behavior (package `calvin_pick_n_place`)
 
-For more information, visit the [calvin_driver ROS wiki page](http://www.ros.org/wiki/calvin_driver).
+For more information, visit the [calvin_robot ROS wiki page](http://www.ros.org/wiki/calvin_robot).
