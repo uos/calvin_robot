@@ -3,7 +3,7 @@
 #include <actionlib/server/simple_action_server.h>
 #include <shape_msgs/SolidPrimitive.h>
 #include <shape_tools/shape_extents.h>
-#include <muffin_msgs/PickServerAction.h>
+#include <calvin_msgs/PickAndStoreAction.h>
 #include <tf/tf.h>
 #include <moveit_msgs/Grasp.h>
 #include <visualization_msgs/Marker.h>
@@ -14,7 +14,7 @@
 class PickServer {
   protected:
     ros::NodeHandle nh;
-    actionlib::SimpleActionServer<muffin_msgs::PickServerAction> *actionserver;
+    actionlib::SimpleActionServer<calvin_msgs::PickAndStoreAction> *actionserver;
     moveit::planning_interface::MoveGroup *group;
     ros::Publisher grasps_marker;
 
@@ -172,7 +172,7 @@ class PickServer {
     PickServer(std::string name) {
       group = new moveit::planning_interface::MoveGroup("arm");
       group->setPlanningTime(120.0);
-      actionserver = new actionlib::SimpleActionServer<muffin_msgs::PickServerAction>(nh, name, boost::bind(&PickServer::pick, this, _1), false);
+      actionserver = new actionlib::SimpleActionServer<calvin_msgs::PickAndStoreAction>(nh, name, boost::bind(&PickServer::pick, this, _1), false);
       grasps_marker = nh.advertise<visualization_msgs::MarkerArray>("grasps_marker", 10);
       actionserver->start();
     }
@@ -180,7 +180,7 @@ class PickServer {
       delete actionserver;
       delete group;
     }
-    void pick(const muffin_msgs::PickServerGoalConstPtr &goal) {
+    void pick(const calvin_msgs::PickAndStoreGoalConstPtr &goal) {
       // maximum width of grasp (can't grasp anything bigger than this)
       static const double MAX_GRASP_WIDTH = 0.10;
 

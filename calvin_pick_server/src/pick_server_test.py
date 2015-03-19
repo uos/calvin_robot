@@ -4,13 +4,13 @@ import roslib; roslib.load_manifest('calvin_pick_server')
 import rospy
 import actionlib
 import actionlib.msg
-from muffin_msgs.msg import PickServerAction
+from calvin_msgs.msg import PickAndStoreAction
 from moveit_msgs.msg import CollisionObject
 from geometry_msgs.msg import Pose, Point
 from std_msgs.msg import Header
 
 def main():
-  goal = PickServerAction()
+  goal = PickAndStoreAction()
   goal.co = CollisionObject(
     header=Header(1, rospy.Time.now(), '/base_footprint'),
     id='testbox',
@@ -18,7 +18,7 @@ def main():
     primitive_poses=[Pose(Point(0.5, 0.0, 0.77), Quaternion(0.0, 0.0, 0.0, 0.0))])
 
   try:
-    move_group_client = actionlib.SimpleActionClient('/calvin_pick_server', PickServerAction)
+    move_group_client = actionlib.SimpleActionClient('/calvin_pick_server', PickAndStoreAction)
     move_group_client.wait_for_server(rospy.Duration.from_sec(10.0))
     move_group_client.send_goal(goal)
     move_group_client.wait_for_result(rospy.Duration.from_sec(30.0))

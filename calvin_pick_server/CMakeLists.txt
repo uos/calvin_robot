@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
 	actionlib
 	shape_tools
 
-	muffin_msgs
+	calvin_msgs
 	shape_msgs
 	moveit_msgs
 	visualization_msgs
@@ -22,7 +22,7 @@ catkin_package(
 	actionlib
 	shape_tools
 
-	muffin_msgs
+	calvin_msgs
 	shape_msgs
 	moveit_msgs
 	visualization_msgs
