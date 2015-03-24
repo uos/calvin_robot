@@ -273,7 +273,7 @@ class PickServer {
 
 int main(int argc, char **argv) {
   ros::init (argc, argv, "calvin_pick_server");
-  PickServer pickserver(ros::this_node::getName());
+  PickServer pickserver("calvin_pick_and_store");
   ros::spin();
   return 0;
 }

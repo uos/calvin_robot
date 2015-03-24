@@ -25,7 +25,7 @@ if __name__ == '__main__':
   rospy.sleep(rospy.Duration.from_sec(5.0))
 
   try:
-    move_group_client = actionlib.SimpleActionClient('/calvin_pick_server', PickAndStoreAction)
+    move_group_client = actionlib.SimpleActionClient('/calvin_pick_and_store', PickAndStoreAction)
     move_group_client.wait_for_server(rospy.Duration.from_sec(10.0))
     move_group_client.send_goal( PickAndStoreGoal(co= co, close_gripper_partially= True) )
     move_group_client.wait_for_result(rospy.Duration.from_sec(30.0))
