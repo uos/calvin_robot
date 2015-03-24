@@ -172,7 +172,7 @@ class PickServer {
     PickServer(std::string name) {
       group = new moveit::planning_interface::MoveGroup("arm");
       group->setPlanningTime(120.0);
-      actionserver = new actionlib::SimpleActionServer<calvin_msgs::PickAndStoreAction>(nh, name, boost::bind(&PickServer::pick, this, _1), false);
+      actionserver = new actionlib::SimpleActionServer<calvin_msgs::PickAndStoreAction>(nh, ros::names::resolve(name), boost::bind(&PickServer::pick, this, _1), false);
       grasps_marker = nh.advertise<visualization_msgs::MarkerArray>("grasps_marker", 10);
       actionserver->start();
     }
