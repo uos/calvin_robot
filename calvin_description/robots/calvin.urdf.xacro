@@ -66,10 +66,10 @@
 
   <link name="imu" />
 
-  <joint name="structure_to_imu_joint" type="fixed">
-    <parent link="base_top" />
+  <joint name="base_link_to_imu_joint" type="fixed">
+    <parent link="base_link" />
     <child link="imu" />
-    <origin xyz="-0.165 0.135 0" rpy="${M_PI} 0 ${M_PI}" />
+    <origin xyz="${base_link_length/2 - .12} 0 -${base_link_height/2 - .01}" rpy="${M_PI} 0 ${M_PI/2}" />
   </joint>
 
   <link name="pole">
