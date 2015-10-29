@@ -364,4 +364,17 @@
     <child link="laser_center"/>
     <origin xyz="0 0 0.06" rpy="0 0 0"/>
   </joint>
+
+  <!-- ************************** -->
+  <!-- *** INRAS Radar Sensor *** -->
+  <!-- ************************** -->
+
+  <xacro:include filename="$(find uos_common_urdf)/urdf/inras_radar.urdf.xacro" />
+  <xacro:inras_radar radar_link="radar" />
+
+  <joint name="structure_to_radar_joint" type="fixed">
+    <origin xyz="${structure_length/2 + radar_length - radar_center_x_pos} ${radar_center_y_pos - radar_width/2 } ${structure_height/2 + 0.023 - radar_height + radar_center_z_pos}" rpy="0 0 0" />
+    <parent link="structure" />
+    <child link="radar" />
+  </joint>
 </robot>
