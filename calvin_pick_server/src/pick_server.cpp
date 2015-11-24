@@ -103,7 +103,7 @@ class PickServer {
      * x, y, z: center of grasp point (the point that should be between the finger tips of the gripper)
      * close gripper to width
      */
-    std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z, const double width)
+    std::vector<moveit_msgs::Grasp> generate_grasps(double x, double y, double z, const double width, bool no_straight_grasps)
     {
       static const double ANGLE_INC = M_PI / 16;
       static const double STRAIGHT_ANGLE_MIN = 0.0 + ANGLE_INC;  // + ANGLE_INC, because 0 is already covered by side grasps
@@ -149,20 +149,23 @@ class PickServer {
         }
       }
 
-      // ----- straight grasps
-      //
-      //  2. straight grasp (xz-plane of `katana_motor5_wrist_roll_link` contains z axis of `katana_base_link`)
-      //     - standard: `rpy = (0, *, atan2(y_w, x_w))`   (x_w, y_w = position of `katana_motor5_wrist_roll_link` in `katana_base_link` frame)
-      //     - overhead: `rpy = (pi, *, atan2(y_w, x_w))`
-      for (double roll = 0.0; roll <= M_PI; roll += M_PI)
+      if (!no_straight_grasps)
       {
-        for (double pitch = STRAIGHT_ANGLE_MIN; pitch <= ANGLE_MAX; pitch += ANGLE_INC)
+        // ----- straight grasps
+        //
+        //  2. straight grasp (xz-plane of `katana_motor5_wrist_roll_link` contains z axis of `katana_base_link`)
+        //     - standard: `rpy = (0, *, atan2(y_w, x_w))`   (x_w, y_w = position of `katana_motor5_wrist_roll_link` in `katana_base_link` frame)
+        //     - overhead: `rpy = (pi, *, atan2(y_w, x_w))`
+        for (double roll = 0.0; roll <= M_PI; roll += M_PI)
         {
-          double yaw = atan2(y, x);
-          transform.setOrigin(tf::Vector3(x, y, z));
-          transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, yaw));
+          for (double pitch = STRAIGHT_ANGLE_MIN; pitch <= ANGLE_MAX; pitch += ANGLE_INC)
+          {
+            double yaw = atan2(y, x);
+            transform.setOrigin(tf::Vector3(x, y, z));
+            transform.setRotation(tf::createQuaternionFromRPY(roll, pitch, yaw));
 
-          grasps.push_back(build_grasp(transform * standoff_trans, width));
+            grasps.push_back(build_grasp(transform * standoff_trans, width));
+          }
         }
       }
 
@@ -212,7 +215,7 @@ class PickServer {
 
       std::string id = goal->co.id;
       ROS_INFO("Trying to pick object %s at %f, %f, %f.", id.c_str(), x, y, z);
-      bool result = group->pick(id, generate_grasps(x, y, z, width));
+      bool result = group->pick(id, generate_grasps(x, y, z, width, goal->disable_straight_grasps));
       if(result) {
           ROS_INFO("Pick Action succeeded. Trying to Place.");
           bool result = place(id);

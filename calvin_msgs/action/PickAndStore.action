@@ -2,5 +2,8 @@ moveit_msgs/CollisionObject co
 
 # close gripper just enough to grasp primitive object co
 bool close_gripper_partially
+
+# don't consider straight grasps
+bool disable_straight_grasps
 ---
 ---
