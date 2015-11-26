@@ -4,6 +4,7 @@
   <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="tim3xx_laser_filter">
     <rosparam command="load" file="$(find calvin_bringup)/config/calvin_tim3xx_self_filter.yaml"/>
     <param name="tf_message_filter_target_frame" value="base_link"/>
+    <param name="tf_message_filter_tolerance" value="0.1"/>
   </node>
 
   <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="lms200_laser_filter">
@@ -11,6 +12,7 @@
     <remap from="scan_filtered" to="lms200_scan_filtered"/>
     <rosparam command="load" file="$(find calvin_bringup)/config/calvin_lms200_self_filter.yaml"/>
     <param name="tf_message_filter_target_frame" value="base_link"/>
+    <param name="tf_message_filter_tolerance" value="0.1"/>
   </node>
 
   <node pkg="topic_tools" type="relay" name="scan_filtered_relay" args="scan_filtered combined_scan_filtered"/>
