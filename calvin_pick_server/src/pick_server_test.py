@@ -16,10 +16,10 @@ if __name__ == '__main__':
   rospy.sleep(rospy.Duration.from_sec(1.5))
 
   co = CollisionObject(
-    header=Header(1, rospy.Time.now(), '/base_footprint'),
+    header=Header(1, rospy.Time.now(), 'katana_base_link'),
     id='testbox',
     primitives=[SolidPrimitive(type=1, dimensions=[0.04, 0.055, 0.08])],
-    primitive_poses=[Pose(Point(0.5, 0.0, 0.77), Quaternion(0.0, 0.0, 0.0, 1.0))])
+    primitive_poses=[Pose(Point(0.425, 0.0, -0.028), Quaternion(0.0, 0.0, 0.0, 1.0))])
 
   co_pub.publish( co )
   rospy.sleep(rospy.Duration.from_sec(5.0))
