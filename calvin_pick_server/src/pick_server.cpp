@@ -5,11 +5,14 @@
 #include <shape_tools/shape_extents.h>
 #include <calvin_msgs/PickAndStoreAction.h>
 #include <tf/tf.h>
+#include <tf/transform_listener.h>
 #include <moveit_msgs/Grasp.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 
 #include <cmath>
+
+const char* WORK_FRAME = "katana_base_link";
 
 class PickServer {
   protected:
@@ -17,6 +20,7 @@ class PickServer {
     actionlib::SimpleActionServer<calvin_msgs::PickAndStoreAction> *actionserver;
     moveit::planning_interface::MoveGroup *group;
     ros::Publisher grasps_marker;
+    tf::TransformListener tfl;
 
     void publish_grasps_as_markerarray(std::vector<moveit_msgs::Grasp> grasps)
     {
@@ -25,8 +29,7 @@ class PickServer {
 
       for(std::vector<moveit_msgs::Grasp>::iterator it = grasps.begin(); it != grasps.end(); ++it) {
         visualization_msgs::Marker marker;
-        marker.header.stamp = ros::Time::now();
-        marker.header.frame_id = "base_footprint";
+        marker.header = it->grasp_pose.header;
         marker.id = i;
         marker.type = 1;
         marker.ns = "graspmarker";
@@ -62,7 +65,7 @@ class PickServer {
 
       tf::quaternionTFToMsg(rotation, pose.pose.orientation);
 
-      pose.header.frame_id = "base_footprint";
+      pose.header.frame_id = WORK_FRAME;
       pose.header.stamp = ros::Time::now();
       pose.pose.position.x = origin.m_floats[0];
       pose.pose.position.y = origin.m_floats[1];
@@ -195,9 +198,24 @@ class PickServer {
         return;
       }
 
-      double x = goal->co.primitive_poses[0].position.x;
-      double y = goal->co.primitive_poses[0].position.y;
-      double z = goal->co.primitive_poses[0].position.z;
+      geometry_msgs::PoseStamped co_pose;
+      co_pose.header = goal->co.header;
+      co_pose.pose = goal->co.primitive_poses[0];
+      try {
+        if(!tfl.waitForTransform(WORK_FRAME, goal->co.header.frame_id, goal->co.header.stamp, ros::Duration(5.0))){
+          throw tf::TransformException("waiting for transform failed or timed out");
+        }
+        tfl.transformPose(WORK_FRAME, co_pose, co_pose);
+      }
+      catch (const tf::TransformException& e){
+        ROS_ERROR("PickAndStore could not transform object into '%s' frame", WORK_FRAME);
+        actionserver->setAborted();
+        return;
+      }
+
+      double x = co_pose.pose.position.x;
+      double y = co_pose.pose.position.y;
+      double z = co_pose.pose.position.z;
 
       double width = 0.0;
       if( goal->close_gripper_partially ){
@@ -241,21 +259,21 @@ class PickServer {
       for (double yaw = -M_PI; yaw < M_PI; yaw += ANGLE_INC)
       {
         geometry_msgs::PoseStamped p;
-        p.header.frame_id = "base_footprint";
-        p.pose.position.x = 0.21;
+        p.header.frame_id = WORK_FRAME;
+        p.pose.position.x = 0.135;
         p.pose.position.y = 0.115;
-        p.pose.position.z = 0.78;
+        p.pose.position.z = -0.018;
         tf::quaternionTFToMsg(tf::createQuaternionFromRPY(0.0, 0.0, yaw), p.pose.orientation);
 
         moveit_msgs::PlaceLocation g;
         g.place_pose = p;
 
         g.pre_place_approach.direction.vector.z = -1.0;
-        g.pre_place_approach.direction.header.frame_id = "base_link";
+        g.pre_place_approach.direction.header.frame_id = "base_footprint";
         g.pre_place_approach.min_distance = 0.03;
         g.pre_place_approach.desired_distance = 0.07;
         g.post_place_retreat.direction.vector.z = 1.0;
-        g.post_place_retreat.direction.header.frame_id = "base_link";
+        g.post_place_retreat.direction.header.frame_id = "base_footprint";
         g.post_place_retreat.min_distance = 0.03;
         g.post_place_retreat.desired_distance = 0.07;
 
@@ -273,6 +291,7 @@ class PickServer {
       return group->place(id, loc);
     }
 };
+
 
 int main(int argc, char **argv) {
   ros::init (argc, argv, "calvin_pick_server");
