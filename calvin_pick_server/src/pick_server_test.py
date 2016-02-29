@@ -37,7 +37,7 @@ if __name__ == '__main__':
     move_group_client = actionlib.SimpleActionClient('/calvin_pick_and_store', PickAndStoreAction)
     move_group_client.wait_for_server(rospy.Duration.from_sec(10.0))
     move_group_client.send_goal( PickAndStoreGoal(co= co, disable_straight_grasps= True) )
-    move_group_client.wait_for_result(rospy.Duration.from_sec(30.0))
+    move_group_client.wait_for_result(rospy.Duration.from_sec(0))
 
     if move_group_client.get_state() != 3:
       rospy.logwarn("move group client state is %s", move_group_client.get_state())
