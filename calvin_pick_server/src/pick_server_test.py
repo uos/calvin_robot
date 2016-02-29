@@ -10,6 +10,8 @@ from shape_msgs.msg import SolidPrimitive
 from std_msgs.msg import Header
 from std_srvs.srv import Empty
 
+from moveit_ros_planning_interface import _moveit_move_group_interface
+
 if __name__ == '__main__':
   rospy.init_node('pick_server_test')
 
@@ -44,3 +46,10 @@ if __name__ == '__main__':
 
   except actionlib.ActionException, e:
     rospy.logerr("move_group action failed: %s", e)
+
+  try:
+    mgi= _moveit_move_group_interface.MoveGroup("arm", "robot_description")
+    mgi.set_named_target("arm_away")
+    mgi.move()
+  except Exception, e:
+    rospy.logerr("moving back to home pose failed")
