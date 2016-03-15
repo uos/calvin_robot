@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <moveit/move_group_interface/move_group.h>
+#include <moveit/planning_scene_monitor/planning_scene_monitor.h>
 #include <actionlib/server/simple_action_server.h>
 #include <shape_msgs/SolidPrimitive.h>
 #include <shape_tools/shape_extents.h>
@@ -10,6 +11,8 @@
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 
+#include <std_srvs/Empty.h>
+
 #include <cmath>
 
 const char* WORK_FRAME = "katana_base_link";
@@ -19,6 +22,9 @@ class PickServer {
     ros::NodeHandle nh;
     actionlib::SimpleActionServer<calvin_msgs::PickAndStoreAction> *actionserver;
     moveit::planning_interface::MoveGroup *group;
+    planning_scene_monitor::PlanningSceneMonitorPtr monitor;
+    ros::ServiceClient clear_octomap;
+
     ros::Publisher grasps_marker;
     tf::TransformListener tfl;
 
@@ -178,6 +184,9 @@ class PickServer {
     PickServer(std::string name) {
       group = new moveit::planning_interface::MoveGroup("arm");
       group->setPlanningTime(120.0);
+      monitor.reset( new planning_scene_monitor::PlanningSceneMonitor("robot_description") );
+      clear_octomap = nh.serviceClient<std_srvs::Empty>("/clear_octomap");
+
       actionserver = new actionlib::SimpleActionServer<calvin_msgs::PickAndStoreAction>(nh, ros::names::resolve(name), boost::bind(&PickServer::pick, this, _1), false);
       grasps_marker = nh.advertise<visualization_msgs::MarkerArray>("grasps_marker", 10);
       actionserver->start();
@@ -234,6 +243,21 @@ class PickServer {
       std::string id = goal->co.id;
       ROS_INFO("Trying to pick object %s at %f, %f, %f.", id.c_str(), x, y, z);
       bool result = group->pick(id, generate_grasps(x, y, z, width, goal->disable_straight_grasps));
+
+      // if pick did not succeed, but object got attached, place it anyway
+
+      if(!result){
+        monitor->requestPlanningSceneState();
+        planning_scene_monitor::LockedPlanningSceneRO scene(monitor);
+        const robot_state::RobotState& state = scene->getCurrentState();
+        if(state.hasAttachedBody(id)){
+          ROS_WARN("move_group::pick reported failure, but apparently the object got picked. Placing anyway");
+          std_srvs::Empty srv;
+          clear_octomap.call(srv);
+          result = true;
+        }
+      }
+
       if(result) {
           ROS_INFO("Pick Action succeeded. Trying to Place.");
           bool result = place(id);
