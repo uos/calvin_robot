@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find muffin_worlds)/launch/muffin_collada_world.launch" />
+  <include file="$(find uos_gazebo_worlds)/launch/avz3rd_collada_world.launch" />
 
   <include file="$(find calvin_gazebo)/launch/calvin_gazebo_common.launch" />
 </launch>
